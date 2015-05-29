@@ -1,6 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,18 +9,19 @@ namespace Wuzlstats.ViewModels.Api
     public class PlayerRankingViewModel
     {
         private readonly Db _db;
+        private readonly AppSettings _settings;
 
-        public PlayerRankingViewModel(Db db)
+
+        public PlayerRankingViewModel(Db db, AppSettings settings)
         {
+            _settings = settings;
             _db = db;
         }
 
 
         public async Task<PlayerRankingViewModel> Fill(League league, int count)
         {
-            const int daysIntoPast = 90;
-
-            var date = DateTime.UtcNow.Date.AddDays(-daysIntoPast);
+            var date = DateTime.UtcNow.Date.AddDays(-_settings.PlayerRankingDays);
             var gamesQuery = _db.Games.Where(x => x.LeagueId == league.Id && x.Date >= date);
 
             // EF7 beta4 does not support navigation properties in queries yet
@@ -99,6 +98,7 @@ namespace Wuzlstats.ViewModels.Api
             return this;
         }
 
+        // ReSharper disable InconsistentNaming
         public IEnumerable<Player> players { get; set; }
 
         public class Player
@@ -112,5 +112,6 @@ namespace Wuzlstats.ViewModels.Api
             // ReSharper disable once PossibleLossOfFraction
             public double rank => losses == 0 ? wins : (wins == 0 ? 0.1 / losses : wins / losses);
         }
+        // ReSharper restore InconsistentNaming
     }
 }

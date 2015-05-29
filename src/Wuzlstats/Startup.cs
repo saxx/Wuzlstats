@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Builder;
+﻿using System;
+using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Framework.ConfigurationModel;
@@ -6,6 +7,7 @@ using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Wuzlstats.Models;
 using Microsoft.Data.Entity;
+using Microsoft.Framework.OptionsModel;
 
 
 namespace Wuzlstats
@@ -16,25 +18,30 @@ namespace Wuzlstats
         {
             Configuration = new Configuration()
                 .AddJsonFile("config.json")
-                .AddEnvironmentVariables();
+                .AddEnvironmentVariables("Wuzlstats");
         }
 
         public IConfiguration Configuration { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<AppSettings>(Configuration.GetSubKey("AppSettings"));
+            var settings = new AppSettings(Configuration);
+            services.AddSingleton(x => settings);
 
-            services.AddEntityFramework()
+            services
+                .AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<Db>(options => options.UseSqlServer(Configuration["AppSettings:DatabaseConnectionString"]));
+                .AddDbContext<Db>(options => options.UseSqlServer(settings.DatabaseConnectionString));
 
             services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory)
         {
-            app.ApplicationServices.GetService<Db>().Database.EnsureCreated();
+            app.ApplicationServices
+                .GetService<Db>()
+                .Database
+                .EnsureCreated();
 
             loggerfactory.AddConsole();
 

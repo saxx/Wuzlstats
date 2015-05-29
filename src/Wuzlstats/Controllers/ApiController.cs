@@ -12,9 +12,12 @@ namespace Wuzlstats.Controllers
     public class ApiController : Controller
     {
         private readonly Db _db;
+        private readonly AppSettings _settings;
 
-        public ApiController(Db db) 
+
+        public ApiController(Db db, AppSettings settings)
         {
+            _settings = settings;
             _db = db;
         }
 
@@ -50,7 +53,7 @@ namespace Wuzlstats.Controllers
                 throw new Exception("Invalid league.");
             }
 
-            return Json(await new PlayerRankingViewModel(_db).Fill(leagueEntity, count));
+            return Json(await new PlayerRankingViewModel(_db, _settings).Fill(leagueEntity, count));
         }
 
         [HttpGet("{league}/TeamRanking/{count}")]
@@ -66,7 +69,7 @@ namespace Wuzlstats.Controllers
                 throw new Exception("Invalid league.");
             }
 
-            return Json(await new TeamRankingViewModel(_db).Fill(leagueEntity, count));
+            return Json(await new TeamRankingViewModel(_db, _settings).Fill(leagueEntity, count));
         }
     }
 }

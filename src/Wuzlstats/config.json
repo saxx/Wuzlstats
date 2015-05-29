@@ -1,5 +1,3 @@
 {
-  "AppSettings": {
-    "DatabaseConnectionString": "Data Source=(localdb)\\ProjectsV12;Initial Catalog=Wuzlstats;Integrated Security=True;MultipleActiveResultSets=True;"
-  }
+  "DatabaseConnectionString": "Data Source=(localdb)\\ProjectsV12;Initial Catalog=Wuzlstats;Integrated Security=True;MultipleActiveResultSets=True;"
 }
