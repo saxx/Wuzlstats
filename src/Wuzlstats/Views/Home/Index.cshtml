@@ -1,0 +1,51 @@
+﻿@model Wuzlstats.ViewModels.Home.IndexViewModel
+
+<div class="row">
+    <div class="col-md-6">
+        <h1>@Model.Name league</h1>
+        <div class="well">
+            @Html.Partial("_Score")
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>The best players</h3>
+                <ul id="bestPlayerRanking"></ul>
+            </div>
+            <div class="col-sm-6">
+                <h3>The worst players</h3>
+                <ul id="worstPlayerRanking"></ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>The best teams</h3>
+                <ul id="bestTeamRanking"></ul>
+            </div>
+            <div class="col-sm-6">
+                <h3>The worst teams</h3>
+                <ul id="worstTeamRanking"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/js/app.config.js"></script>
+    <script src="~/js/app.score.js"></script>
+    <script src="~/js/app.playerRanking.js"></script>
+    <script src="~/js/app.teamRanking.js"></script>
+    <script>
+        app.config.init('@Url.Action("Index", "Player", new { id = "[id]" })');
+
+        app.initScore('@Url.Action("Score","Api", new { league = Model.Name })');
+        app.initPlayerRanking($('#bestPlayerRanking'), '@Url.Action("PlayerRanking", "Api", new { league = Model.Name, count = 5 })');
+        app.initPlayerRanking($('#worstPlayerRanking'), '@Url.Action("PlayerRanking", "Api", new { league = Model.Name, count = -5 })');
+        app.refreshPlayerRankings();
+
+        app.initTeamRanking($('#bestTeamRanking'), '@Url.Action("TeamRanking", "Api", new { league = Model.Name, count = 3 })');
+        app.initTeamRanking($('#worstTeamRanking'), '@Url.Action("TeamRanking", "Api", new { league = Model.Name, count = -3 })');
+        app.refreshTeamRankings();
+    </script>
+}

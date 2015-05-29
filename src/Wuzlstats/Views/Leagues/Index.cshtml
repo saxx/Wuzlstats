@@ -1,0 +1,35 @@
+﻿@model Wuzlstats.ViewModels.Leagues.IndexViewModel
+
+<h1>Leagues</h1>
+
+<p>
+    Every player and every game is assigned a league.
+</p>
+
+@if (Model.Leagues.Any())
+{
+    <table class="table">
+        <tr>
+            <th></th>
+            <th class="text-right">
+                <a asp-action="Create" class="btn btn-default">Create a new league</a>
+            </th>
+        </tr>
+
+        @foreach (var league in Model.Leagues)
+        {
+            <tr>
+                <td>
+                    @league.Name
+                </td>
+                <td class="text-right">
+                    <a href="@Url.Action("Index", "Home", new {league = league.Name})" class="btn btn-primary">Switch to this league</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">There are no leagues yet. You should <a asp-controller="Leagues" asp-action="Create" class="alert-link">create a new one</a>.</div>
+}

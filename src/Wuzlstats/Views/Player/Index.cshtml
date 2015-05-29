@@ -1,0 +1,33 @@
+﻿@model Wuzlstats.ViewModels.Player.IndexViewModel
+
+<div class="row">
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <h1>Details for player '@Model.Name'</h1>
+
+        <hr />
+
+        <form enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="exampleInputFile">Select a file to update the avatar:</label>
+                <input type="file" id="avatar" name="avatar">
+                <p class="help-block">Make sure the avatar is a square image. It will be resized to 150x150 pixels.</p>
+            </div>
+            <button type="submit" class="btn btn-default">Update player profile</button>
+        </form>
+
+        <hr />
+
+        <p class="alert alert-warning">
+            At some point I will put a lot of cool statistics about @Model.Name here.<br />
+            Interesting stuff like <i>the best team partner</i>,
+            <i>the longest winning streak</i>, <i>the arch enemy</i>, <i>the favorite color</i>, <i>the favorite position</i> and much, much more.
+        </p>
+    </div>
+    <div class="col-md-4 hidden-sm hidden-xs">
+        <img src="data:image/png;base64,@Model.Image" class="player-image" alt="Image for @Model.Name" />
+    </div>
+</div>
+
+
+
+

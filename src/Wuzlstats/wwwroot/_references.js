@@ -1,0 +1,9 @@
+﻿/// <autosync enabled="true" />
+/// <reference path="../gulpfile.js" />
+/// <reference path="js/app.playerRanking.js" />
+/// <reference path="js/app.score.js" />
+/// <reference path="js/app.teamranking.js" />
+/// <reference path="lib/jquery/jquery.js" />
+/// <reference path="lib/bootstrap/js/npm.js" />
+/// <reference path="lib/bootstrap/js/bootstrap.js" />
+/// <reference path="js/app - copy.score.js" />

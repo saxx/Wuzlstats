@@ -1,0 +1,135 @@
+﻿body {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.row + .score-box {
+    margin-top: 3em;
+}
+
+.score-box {
+    + .row {
+        margin-top: 3em;
+    }
+
+    .form-control {
+        &.team-blue {
+            background-color: #ddf;
+        }
+
+        &.team-red {
+            background-color: #fdd;
+        }
+
+        &.player:nth-of-type(2) {
+            margin-top: 0.5em;
+        }
+    }
+
+    .score {
+        font-size: 1.5em;
+        line-height: 2em;
+        font-weight: bold;
+        max-width: 2em;
+        text-align: center;
+        padding: 6px 0;
+
+        &:nth-of-type(1) {
+            float: left;
+        }
+
+        &:nth-of-type(2) {
+            float: right;
+        }
+    }
+
+    div:nth-child(2) {
+        text-align: center;
+
+        span {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    }
+
+    &.team-score-box div:nth-child(2) {
+        padding-top: 1em;
+    }
+}
+
+
+
+.ranking {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        margin: 0;
+        padding: 0;
+        height: 50px;
+    }
+
+    a {
+        border: 0;
+
+        &:nth-of-type(2) {
+            float: right;
+        }
+    }
+
+    .ranking-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #999;
+    }
+
+    .ranking-name {
+        font-weight: bold;
+        position: relative;
+        top: -38px;
+        margin-left: 50px;
+        margin-right: 50px;
+
+        &:nth-of-type(2) {
+            top: -58px;
+            text-align: right;
+        }
+    }
+
+    .ranking-score {
+        position: relative;
+        top: -40px;
+        margin-left: 50px;
+        margin-right: 50px;
+        color: #999;
+    }
+
+    &.team-ranking .ranking-score {
+        text-align: center;
+        top: -60px;
+    }
+
+    .ranking-wins {
+        padding-right: 10px;
+
+        .glyphicon {
+            padding-left: 5px;
+        }
+    }
+
+    .ranking-losses {
+        .glyphicon {
+            padding-left: 5px;
+        }
+    }
+}
+
+.player-image {
+    width: 150px;
+    height: 150px;
+    float: right;
+    border-radius: 50%;
+    border: 2px solid #999;
+}

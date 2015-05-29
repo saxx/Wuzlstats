@@ -1,0 +1,51 @@
+﻿<div class="row">
+    <div class="col-xs-12">
+        <div class="btn-group pull-right" data-toggle="buttons">
+            <label class="btn btn-default btn-sm active">
+                <input type="radio" name="options" id="twoPlayersButton" autocomplete="off" checked>1 vs. 1
+            </label>
+            <label class="btn btn-default btn-sm">
+                <input type="radio" name="options" id="fourPlayersButton" autocomplete="off">2 vs. 2
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="row score-box player-score-box" id="twoPlayersScore">
+    <div class="col-xs-4">
+        <input class="form-control player team-red" id="redPlayer" placeholder="Red player">
+    </div>
+    <div class="col-xs-4">
+        <input class="form-control score team-red" id="redPlayerScore">
+        <input class="form-control score team-blue pull-right" id="bluePlayerScore">
+        <span>:</span>
+    </div>
+    <div class="col-xs-4">
+        <input class="form-control player team-blue" id="bluePlayer" placeholder="Blue player">
+    </div>
+</div>
+
+<div class="row score-box team-score-box" id="fourPlayersScore" style="display: none;">
+    <div class="col-xs-4">
+        <input class="form-control player team-red" id="redTeamOffense" placeholder="Red offense player">
+        <input class="form-control player team-red" id="redTeamDefense" placeholder="Red defense player">
+    </div>
+    <div class="col-xs-4">
+        <input class="form-control score team-red" id="redTeamScore">
+        <input class="form-control score team-blue pull-right" id="blueTeamScore">
+        <span>:</span>
+    </div>
+    <div class="col-xs-4">
+        <input class="form-control player team-blue" id="blueTeamOffense" placeholder="Blue offense player">
+        <input class="form-control player team-blue" id="blueTeamDefense" placeholder="Blue defense player">
+    </div>
+</div>
+
+<div class="row text-center">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4">
+        <button class="btn btn-default btn-block btn-lg" id="submitScore">Submit score</button>
+    </div>
+    <div class="col-xs-4"></div>
+</div>
+
