@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNet.Builder;
+﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Framework.ConfigurationModel;
@@ -7,7 +6,6 @@ using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Wuzlstats.Models;
 using Microsoft.Data.Entity;
-using Microsoft.Framework.OptionsModel;
 
 
 namespace Wuzlstats
@@ -18,7 +16,7 @@ namespace Wuzlstats
         {
             Configuration = new Configuration()
                 .AddJsonFile("config.json")
-                .AddEnvironmentVariables("Wuzlstats");
+                .AddEnvironmentVariables("Wuzlstats.");
         }
 
         public IConfiguration Configuration { get; set; }
