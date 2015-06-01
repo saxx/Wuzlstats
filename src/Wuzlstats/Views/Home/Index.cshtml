@@ -37,6 +37,7 @@
     <script src="~/js/app.playerRanking.js"></script>
     <script src="~/js/app.teamRanking.js"></script>
     <script src="~/js/app.autoPageReload.js"></script>
+    <script src="~/js/app.htmlHelpers.js"></script>
     <script>
         app.config.init('@Url.Action("Index", "Player", new { id = "[id]" })');
 
@@ -49,6 +50,6 @@
         app.initTeamRanking($('#worstTeamRanking'), '@Url.Action("TeamRanking", "Api", new { league = Model.Name, count = -3 })');
         app.refreshTeamRankings();
 
-        app.autoPageReload(10000);
+        app.autoPageReload();
     </script>
 }

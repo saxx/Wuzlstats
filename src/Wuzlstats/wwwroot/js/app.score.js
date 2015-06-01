@@ -80,7 +80,9 @@
 
             if (viewModel) {
 
-                submitButton.attr('disabled', true);
+                var progressBar = $('<div />').html(app.getLoadingHtml());
+                submitButton.after(progressBar);
+                submitButton.hide();
 
                 $.ajax({
                     type: 'POST',
@@ -104,7 +106,8 @@
                     app.refreshPlayerRankings();
                     app.refreshTeamRankings();
                 }).always(function () {
-                    submitButton.attr('disabled', false);
+                    submitButton.show();
+                    progressBar.remove();
                 });
             }
         });

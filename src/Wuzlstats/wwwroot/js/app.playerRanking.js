@@ -13,7 +13,7 @@
             container = $(container)
                 .addClass('ranking')
                 .addClass('player-ranking')
-                .html('Loading the player ranking ...');
+                .html('<li>' + app.getLoadingHtml() + '</li>');
 
             var endpointUrl = container.data(_dataKey);
 

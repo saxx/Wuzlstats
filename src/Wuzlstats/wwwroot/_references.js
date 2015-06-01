@@ -7,4 +7,5 @@
 /// <reference path="lib/bootstrap/js/npm.js" />
 /// <reference path="lib/bootstrap/js/bootstrap.js" />
 /// <reference path="js/app.config.js" />
+/// <reference path="js/app.htmlhelpers.js" />
 /// <reference path="js/app.autoPageReload.js" />
