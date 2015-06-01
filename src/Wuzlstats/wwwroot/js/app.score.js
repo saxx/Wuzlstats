@@ -39,7 +39,8 @@
             app.displayScoreForFourPlayers();
         });
 
-        $('#submitScore').click(function() {
+        var submitButton = $('#submitScore');
+        submitButton.click(function() {
             var viewModel = null;
 
             if ($('#twoPlayersScore').is(':visible')) {
@@ -78,6 +79,9 @@
 
 
             if (viewModel) {
+
+                submitButton.attr('disabled', true);
+
                 $.ajax({
                     type: 'POST',
                     url: endpointUrl,
@@ -99,6 +103,8 @@
 
                     app.refreshPlayerRankings();
                     app.refreshTeamRankings();
+                }).always(function () {
+                    submitButton.attr('disabled', false);
                 });
             }
         });
