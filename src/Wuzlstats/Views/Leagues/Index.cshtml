@@ -10,7 +10,9 @@
 {
     <table class="table">
         <tr>
-            <th></th>
+            <th>League</th>
+            <th># of games (total)</th>
+            <th># of games (last @Model.DaysForStatistics days)</th>
             <th class="text-right">
                 <a asp-action="Create" class="btn btn-default">Create a new league</a>
             </th>
@@ -21,6 +23,12 @@
             <tr>
                 <td>
                     @league.Name
+                </td>
+                <td>
+                    @league.GamesCountTotal.ToString("N0")
+                </td>
+                <td>
+                    @league.GamesCountDays.ToString("N0")
                 </td>
                 <td class="text-right">
                     <a href="@Url.Action("Index", "Home", new {league = league.Name})" class="btn btn-primary">Switch to this league</a>

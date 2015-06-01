@@ -21,7 +21,7 @@ namespace Wuzlstats.ViewModels.Api
 
         public async Task<TeamRankingViewModel> Fill(League league, int count)
         {
-            var date = DateTime.UtcNow.Date.AddDays(-_settings.TeamRankingDays);
+            var date = DateTime.UtcNow.Date.AddDays(-_settings.DaysForStatistics);
             var gamesQuery = _db.Games.Where(x => x.LeagueId == league.Id && x.Date >= date);
 
             // EF7 beta4 does not support navigation properties in queries yet

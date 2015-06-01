@@ -9,15 +9,19 @@ namespace Wuzlstats.Controllers
     public class LeaguesController : Controller
     {
         private readonly Db _db;
+        private readonly AppSettings _settings;
 
-        public LeaguesController(Db db)
+
+        public LeaguesController(Db db, AppSettings settings)
         {
+            _settings = settings;
             _db = db;
         }
 
+
         public async Task<IActionResult> Index()
         {
-            var viewModel = await new IndexViewModel(_db).Fill();
+            var viewModel = await new IndexViewModel(_db, _settings).Fill();
             return View(viewModel);
         }
 
