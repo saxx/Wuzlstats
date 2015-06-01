@@ -6,4 +6,5 @@
 /// <reference path="lib/jquery/jquery.js" />
 /// <reference path="lib/bootstrap/js/npm.js" />
 /// <reference path="lib/bootstrap/js/bootstrap.js" />
-/// <reference path="js/app - copy.score.js" />
+/// <reference path="js/app.config.js" />
+/// <reference path="js/app.autoPageReload.js" />
