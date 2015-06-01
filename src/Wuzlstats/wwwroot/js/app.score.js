@@ -31,12 +31,42 @@
         $('#bluePlayer').val('');
     };
 
+    app.refreshPlayersDatalist = function (onlyIfOutdated) {
+        var datalist = $('#playersDatalist');
+
+        if (onlyIfOutdated) {
+            if (datalist.data('lastrefresh') && datalist.data('lastrefresh') > (new Date().getTime() - 30000)) {
+                return;
+            }
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: app.config.getPlayersApiEndpoint()
+            // ReSharper disable once UnusedParameter
+        }).fail(function (jqXhr, textStatus, errorThrown) {
+            alert('Loading players failed: ' + textStatus);
+        }).done(function (result) {
+            datalist.empty();
+
+            $.each(result, function(index, val) {
+                datalist.append($("<option></option>").html(val));
+            });
+
+            datalist.data('lastrefresh', new Date().getTime());
+        });
+    };
+
     app.initScore = function (endpointUrl) {
         $('#twoPlayersButton').change(function() {
             app.displayScoreForTwoPlayers();
         });
         $('#fourPlayersButton').change(function() {
             app.displayScoreForFourPlayers();
+        });
+
+        $('.player').focus(function() {
+            app.refreshPlayersDatalist(true);
         });
 
         var submitButton = $('#submitScore');
@@ -92,22 +122,15 @@
                 }).fail(function(jqXhr, textStatus, errorThrown) {
                     alert('Submit score failed: ' + textStatus);
                 }).done(function() {
-                    $('#redPlayerScore').val('');
-                    $('#bluePlayerScore').val('');
-                    $('#redPlayer').val('');
-                    $('#bluePlayer').val('');
-                    $('#redTeamScore').val('');
-                    $('#blueTeamScore').val('');
-                    $('#redTeamOffense').val('');
-                    $('#blueTeamOffense').val('');
-                    $('#redTeamDefense').val('');
-                    $('#blueTeamDefense').val('');
+                    $('.player').val('');
+                    $('.score').val('');
 
                     app.refreshPlayerRankings();
                     app.refreshTeamRankings();
                 }).always(function () {
                     submitButton.show();
                     progressBar.remove();
+                    app.refreshPlayersDatalist(false);
                 });
             }
         });

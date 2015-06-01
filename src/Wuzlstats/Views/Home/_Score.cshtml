@@ -13,7 +13,7 @@
 
 <div class="row score-box player-score-box" id="twoPlayersScore">
     <div class="col-xs-4">
-        <input class="form-control player team-red" id="redPlayer" placeholder="Red player">
+        <input class="form-control player team-red" id="redPlayer" placeholder="Red player" list="playersDatalist">
     </div>
     <div class="col-xs-4">
         <input class="form-control score team-red" id="redPlayerScore">
@@ -21,14 +21,14 @@
         <span>:</span>
     </div>
     <div class="col-xs-4">
-        <input class="form-control player team-blue" id="bluePlayer" placeholder="Blue player">
+        <input class="form-control player team-blue" id="bluePlayer" placeholder="Blue player" list="playersDatalist">
     </div>
 </div>
 
 <div class="row score-box team-score-box" id="fourPlayersScore" style="display: none;">
     <div class="col-xs-4">
-        <input class="form-control player team-red" id="redTeamOffense" placeholder="Red offense player">
-        <input class="form-control player team-red" id="redTeamDefense" placeholder="Red defense player">
+        <input class="form-control player team-red" id="redTeamOffense" placeholder="Red offense player" list="playersDatalist">
+        <input class="form-control player team-red" id="redTeamDefense" placeholder="Red defense player" list="playersDatalist">
     </div>
     <div class="col-xs-4">
         <input class="form-control score team-red" id="redTeamScore">
@@ -36,8 +36,8 @@
         <span>:</span>
     </div>
     <div class="col-xs-4">
-        <input class="form-control player team-blue" id="blueTeamOffense" placeholder="Blue offense player">
-        <input class="form-control player team-blue" id="blueTeamDefense" placeholder="Blue defense player">
+        <input class="form-control player team-blue" id="blueTeamOffense" placeholder="Blue offense player" list="playersDatalist">
+        <input class="form-control player team-blue" id="blueTeamDefense" placeholder="Blue defense player" list="playersDatalist">
     </div>
 </div>
 
@@ -49,3 +49,5 @@
     <div class="col-xs-4"></div>
 </div>
 
+<datalist id="playersDatalist">
+</datalist>

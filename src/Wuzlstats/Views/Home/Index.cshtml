@@ -39,7 +39,7 @@
     <script src="~/js/app.autoPageReload.js"></script>
     <script src="~/js/app.htmlHelpers.js"></script>
     <script>
-        app.config.init('@Url.Action("Index", "Player", new { id = "[id]" })');
+        app.config.init('@Url.Action("Index", "Player", new { id = "[id]" })', '@Url.Action("Players", "Api", new { league = Model.Name })');
 
         app.initScore('@Url.Action("Score","Api", new { league = Model.Name })');
         app.initPlayerRanking($('#bestPlayerRanking'), '@Url.Action("PlayerRanking", "Api", new { league = Model.Name, count = 5 })');

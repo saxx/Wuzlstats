@@ -22,42 +22,36 @@ namespace Wuzlstats.Controllers
         }
 
 
+        [HttpGet("{league}/Players")]
+        public async Task<IActionResult> Players(string league)
+        {
+            var leagueEntity = await CheckAndLoadLeague(league);
+            var playerNames = await _db.Players.Where(x => x.LeagueId == leagueEntity.Id).Select(x => x.Name).Distinct().ToListAsync();
+            return Json(playerNames.OrderBy(x => x));
+        }
+
+
         [HttpPost("{league}/Score")]
         public async Task<IActionResult> Score(string league, ScoreViewModel viewModel)
         {
-            if (league.IsNoE())
-            {
-                throw new Exception("Invalid league, must not be empty.");
-            }
-            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.Equals(league, StringComparison.CurrentCultureIgnoreCase));
-            if (leagueEntity == null)
-            {
-                throw new Exception("Invalid league.");
-            }
-
-            await viewModel.Save(leagueEntity, _db);
-
+            await viewModel.Save(await CheckAndLoadLeague(league), _db);
             return Json(viewModel);
         }
 
         [HttpGet("{league}/PlayerRanking/{count}")]
         public async Task<IActionResult> PlayerRanking(string league, int count)
         {
-            if (league.IsNoE())
-            {
-                throw new Exception("Invalid league, must not be empty.");
-            }
-            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.Equals(league, StringComparison.CurrentCultureIgnoreCase));
-            if (leagueEntity == null)
-            {
-                throw new Exception("Invalid league.");
-            }
-
-            return Json(await new PlayerRankingViewModel(_db, _settings).Fill(leagueEntity, count));
+            return Json(await new PlayerRankingViewModel(_db, _settings).Fill(await CheckAndLoadLeague(league), count));
         }
 
         [HttpGet("{league}/TeamRanking/{count}")]
         public async Task<IActionResult> TeamRanking(string league, int count)
+        {
+            return Json(await new TeamRankingViewModel(_db, _settings).Fill(await CheckAndLoadLeague(league), count));
+        }
+
+
+        private async Task<League> CheckAndLoadLeague(string league)
         {
             if (league.IsNoE())
             {
@@ -69,7 +63,7 @@ namespace Wuzlstats.Controllers
                 throw new Exception("Invalid league.");
             }
 
-            return Json(await new TeamRankingViewModel(_db, _settings).Fill(leagueEntity, count));
+            return leagueEntity;
         }
     }
 }

@@ -1,16 +1,23 @@
 ﻿(function (app, $) {
 
-    // ReSharper disable once InconsistentNaming
+    // ReSharper disable InconsistentNaming
     var _playerUrl;
+    var _playersApiEndpoint;
+    // ReSharper restore InconsistentNaming
 
     app.config = {
 
-        init: function (playerUrl) {
+        init: function (playerUrl, playersApiEndpoint) {
             _playerUrl = playerUrl;
+            _playersApiEndpoint = playersApiEndpoint;
         },
 
-        getPlayerUrl: function() {
+        getPlayerUrl: function () {
             return _playerUrl;
+        },
+
+        getPlayersApiEndpoint: function () {
+            return _playersApiEndpoint;
         }
     };
 }(window.app = window.app || {}, jQuery));
