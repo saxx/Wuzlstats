@@ -32,12 +32,6 @@
 </div>
 
 @section scripts {
-    <script src="~/js/app.config.js"></script>
-    <script src="~/js/app.score.js"></script>
-    <script src="~/js/app.playerRanking.js"></script>
-    <script src="~/js/app.teamRanking.js"></script>
-    <script src="~/js/app.autoPageReload.js"></script>
-    <script src="~/js/app.htmlHelpers.js"></script>
     <script>
         app.config.init('@Url.Action("Index", "Player", new { id = "[id]" })', '@Url.Action("Players", "Api", new { league = Model.Name })');
 

@@ -6,6 +6,7 @@
 /// <reference path="js/app.config.js" />
 /// <reference path="js/app.htmlhelpers.js" />
 /// <reference path="js/app.autoPageReload.js" />
+/// <reference path="js/minified/app.js" />
 /// <reference path="lib/jquery/jquery.js" />
 /// <reference path="lib/bootstrap/js/npm.js" />
 /// <reference path="lib/bootstrap/js/bootstrap.js" />
