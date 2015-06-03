@@ -10,3 +10,5 @@
 /// <reference path="lib/jquery/jquery.js" />
 /// <reference path="lib/bootstrap/js/npm.js" />
 /// <reference path="lib/bootstrap/js/bootstrap.js" />
+/// <reference path="lib/signalr/jquery.signalR.js" />
+/// <reference path="js/app.signalr.js" />

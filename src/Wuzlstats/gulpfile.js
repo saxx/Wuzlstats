@@ -30,10 +30,11 @@ gulp.task('uglify', function () {
         .pipe(gulp.dest('./wwwroot/js/minified'))
 });
 
-gulp.task("copy", ["clean"], function () {
+gulp.task("copy", ["clean", "uglify"], function () {
     var bower = {
         "bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
-        "jquery": "jquery/dist/jquery*.{js,map}"
+        "jquery": "jquery/dist/jquery*.{js,map}",
+        "signalr": "signalr/*.{js,map}"
     }
 
     for (var destinationDir in bower) {

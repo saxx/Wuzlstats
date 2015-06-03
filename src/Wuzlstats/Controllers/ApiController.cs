@@ -21,23 +21,6 @@ namespace Wuzlstats.Controllers
             _db = db;
         }
 
-
-        [HttpGet("{league}/Players")]
-        public async Task<IActionResult> Players(string league)
-        {
-            var leagueEntity = await CheckAndLoadLeague(league);
-            var playerNames = await _db.Players.Where(x => x.LeagueId == leagueEntity.Id).Select(x => x.Name).Distinct().ToListAsync();
-            return Json(playerNames.OrderBy(x => x));
-        }
-
-
-        [HttpPost("{league}/Score")]
-        public async Task<IActionResult> Score(string league, ScoreViewModel viewModel)
-        {
-            await viewModel.Save(await CheckAndLoadLeague(league), _db);
-            return Json(viewModel);
-        }
-
         [HttpGet("{league}/PlayerRanking/{count}")]
         public async Task<IActionResult> PlayerRanking(string league, int count)
         {

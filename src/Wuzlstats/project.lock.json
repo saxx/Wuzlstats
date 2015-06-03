@@ -10,6 +10,7 @@
       "Microsoft.AspNet.Server.WebListener >= 1.0.0-beta4",
       "Microsoft.AspNet.StaticFiles >= 1.0.0-beta4",
       "Microsoft.AspNet.Tooling.Razor >= 1.0.0-beta4",
+      "Microsoft.AspNet.SignalR.Server >= 3.0.0-beta4",
       "Microsoft.Framework.ConfigurationModel.Json >= 1.0.0-beta4",
       "Microsoft.Framework.CodeGenerators.Mvc >= 1.0.0-beta4",
       "Microsoft.Framework.Logging >= 1.0.0-beta4",
@@ -1470,6 +1471,77 @@
         "lib/dnx451/Microsoft.AspNet.Server.WebListener.xml",
         "lib/dnxcore50/Microsoft.AspNet.Server.WebListener.dll",
         "lib/dnxcore50/Microsoft.AspNet.Server.WebListener.xml"
+      ]
+    },
+    "Microsoft.AspNet.SignalR.Messaging/3.0.0-beta4": {
+      "serviceable": true,
+      "sha": "wyxWQzz6Ktd4xvdUTOIdCuZaeDpJtY0/aa2iAk/6WLg2nbgrbtWp6f4VZK8UoURxbaAgmgLJghIO2/St4PZw5w==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "Microsoft.Framework.Logging": "1.0.0-beta4",
+            "Microsoft.Framework.OptionsModel": "1.0.0-beta4"
+          },
+          "frameworkAssemblies": [
+            "mscorlib",
+            "System",
+            "System.Core",
+            "Microsoft.CSharp"
+          ],
+          "runtimeAssemblies": [
+            "lib/dnx451/Microsoft.AspNet.SignalR.Messaging.dll"
+          ],
+          "compileAssemblies": [
+            "lib/dnx451/Microsoft.AspNet.SignalR.Messaging.dll"
+          ]
+        }
+      },
+      "files": [
+        "Microsoft.AspNet.SignalR.Messaging.3.0.0-beta4.nupkg",
+        "Microsoft.AspNet.SignalR.Messaging.3.0.0-beta4.nupkg.sha512",
+        "Microsoft.AspNet.SignalR.Messaging.nuspec",
+        "lib/dnx451/Microsoft.AspNet.SignalR.Messaging.dll",
+        "lib/dnx451/Microsoft.AspNet.SignalR.Messaging.xml",
+        "lib/dnxcore50/Microsoft.AspNet.SignalR.Messaging.dll",
+        "lib/dnxcore50/Microsoft.AspNet.SignalR.Messaging.xml"
+      ]
+    },
+    "Microsoft.AspNet.SignalR.Server/3.0.0-beta4": {
+      "serviceable": true,
+      "sha": "GKI82SkW3mNebQsNkEyymKh7X/+OZvdMHIRwsCReDaS5WSqrpPMYB0AFyxQ0fdxUETiyXEWK4nljyG4bsZlBlg==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "Microsoft.AspNet.SignalR.Messaging": "3.0.0-beta4",
+            "Microsoft.AspNet.DataProtection": "1.0.0-beta4",
+            "Microsoft.AspNet.Hosting.Interfaces": "1.0.0-beta4",
+            "Microsoft.AspNet.Http.Extensions": "1.0.0-beta4",
+            "Microsoft.Framework.Logging": "1.0.0-beta4",
+            "Microsoft.Framework.Runtime.Interfaces": "1.0.0-beta4",
+            "Newtonsoft.Json": "6.0.6"
+          },
+          "frameworkAssemblies": [
+            "mscorlib",
+            "System",
+            "System.Core",
+            "Microsoft.CSharp"
+          ],
+          "runtimeAssemblies": [
+            "lib/dnx451/Microsoft.AspNet.SignalR.Server.dll"
+          ],
+          "compileAssemblies": [
+            "lib/dnx451/Microsoft.AspNet.SignalR.Server.dll"
+          ]
+        }
+      },
+      "files": [
+        "Microsoft.AspNet.SignalR.Server.3.0.0-beta4.nupkg",
+        "Microsoft.AspNet.SignalR.Server.3.0.0-beta4.nupkg.sha512",
+        "Microsoft.AspNet.SignalR.Server.nuspec",
+        "lib/dnx451/Microsoft.AspNet.SignalR.Server.dll",
+        "lib/dnx451/Microsoft.AspNet.SignalR.Server.xml",
+        "lib/dnxcore50/Microsoft.AspNet.SignalR.Server.dll",
+        "lib/dnxcore50/Microsoft.AspNet.SignalR.Server.xml"
       ]
     },
     "Microsoft.AspNet.StaticFiles/1.0.0-beta4": {

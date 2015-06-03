@@ -1,0 +1,52 @@
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
+using Wuzlstats.ExtensionMethods;
+using Wuzlstats.Models;
+
+
+namespace Wuzlstats.Hubs
+{
+    [HubName("apiHub")]
+    public partial class ApiHub : Hub
+    {
+        private readonly Db _db;
+        
+        public ApiHub(Db db)
+        {
+            _db = db;
+        }
+
+
+        public async Task JoinLeague(string league)
+        {
+            await Groups.Add(Context.ConnectionId, league);
+            await NotifyCallerToReloadPlayers(league);
+            NotifyCallerToReloadStatistics(league);
+        }
+
+
+        public Task LeaveLeague(string league)
+        {
+            return Groups.Remove(Context.ConnectionId, league);
+        }
+
+
+        private async Task<League> CheckAndLoadLeague(string league)
+        {
+            if (league.IsNoE())
+            {
+                throw new Exception("Invalid league, must not be empty.");
+            }
+            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.Equals(league, StringComparison.CurrentCultureIgnoreCase));
+            if (leagueEntity == null)
+            {
+                throw new Exception("Invalid league.");
+            }
+
+            return leagueEntity;
+        }
+    }
+}

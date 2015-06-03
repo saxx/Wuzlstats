@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Threading.Tasks;
-using Wuzlstats.Models;
 using System.Linq;
+using System.Threading.Tasks;
 using Wuzlstats.ExtensionMethods;
+using Wuzlstats.Models;
 
-namespace Wuzlstats.ViewModels.Api
+namespace Wuzlstats.ViewModels.Hubs
 {
-    public class ScoreViewModel
+    public class PostScoreViewModel
     {
         //TODO: All these methods should move to a dedicated service
-        public async Task<ScoreViewModel> Save(League league, Db db)
+        public async Task<PostScoreViewModel> Save(League league, Db db)
         {
             if (!BluePlayer.IsNoE() && !RedPlayer.IsNoE())
             {

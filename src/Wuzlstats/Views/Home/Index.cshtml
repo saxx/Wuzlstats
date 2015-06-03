@@ -33,17 +33,26 @@
 
 @section scripts {
     <script>
-        app.config.init('@Url.Action("Index", "Player", new { id = "[id]" })', '@Url.Action("Players", "Api", new { league = Model.Name })');
+        app.config.init('@Url.Action("Index", "Player", new { id = "[id]" })');
 
-        app.initScore('@Url.Action("Score","Api", new { league = Model.Name })');
+        app.initSignalR();
+        app.initScore('@Model.Name');
+
+        app.apiHub.client.reloadStatistics = function () {
+            console.log("Refreshing statistics ...");
+            app.refreshPlayerRankings();
+            app.refreshTeamRankings();
+        };
+
         app.initPlayerRanking($('#bestPlayerRanking'), '@Url.Action("PlayerRanking", "Api", new { league = Model.Name, count = 5 })');
         app.initPlayerRanking($('#worstPlayerRanking'), '@Url.Action("PlayerRanking", "Api", new { league = Model.Name, count = -5 })');
-        app.refreshPlayerRankings();
 
         app.initTeamRanking($('#bestTeamRanking'), '@Url.Action("TeamRanking", "Api", new { league = Model.Name, count = 3 })');
         app.initTeamRanking($('#worstTeamRanking'), '@Url.Action("TeamRanking", "Api", new { league = Model.Name, count = -3 })');
-        app.refreshTeamRankings();
 
         app.autoPageReload();
+
+        app.connectSignalR('@Model.Name');
+
     </script>
 }

@@ -6,12 +6,14 @@ using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Wuzlstats.Models;
 using Microsoft.Data.Entity;
+using Wuzlstats.ViewModels.PlayersHub;
 
 
 namespace Wuzlstats
 {
     public class Startup
     {
+        // ReSharper disable once UnusedParameter.Local
         public Startup(IHostingEnvironment env)
         {
             Configuration = new Configuration()
@@ -25,12 +27,20 @@ namespace Wuzlstats
         {
             var settings = new AppSettings(Configuration);
             services.AddSingleton(x => settings);
+            services.AddTransient<ReloadPlayersViewModel>();
 
             services
                 .AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<Db>(options => options.UseSqlServer(settings.DatabaseConnectionString));
+                .AddDbContext<Db>(options =>
+                {
+                    options.UseSqlServer(settings.DatabaseConnectionString);
+                });
 
+            services.AddSignalR(options =>
+            {
+                options.Hubs.EnableDetailedErrors = true;
+            });
             services.AddMvc();
         }
 
@@ -55,11 +65,11 @@ namespace Wuzlstats
 
             app.UseStaticFiles();
 
+            app.UseSignalR();
+
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

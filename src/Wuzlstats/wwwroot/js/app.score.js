@@ -31,44 +31,36 @@
         $('#bluePlayer').val('');
     };
 
-    app.refreshPlayersDatalist = function (onlyIfOutdated) {
+    function initPlayersDatalist() {
         var datalist = $('#playersDatalist');
 
-        if (onlyIfOutdated) {
-            if (datalist.data('lastrefresh') && datalist.data('lastrefresh') > (new Date().getTime() - 30000)) {
-                return;
-            }
-        }
-
-        $.ajax({
-            type: 'GET',
-            url: app.config.getPlayersApiEndpoint()
-            // ReSharper disable once UnusedParameter
-        }).fail(function (jqXhr, textStatus, errorThrown) {
-            alert('Loading players failed: ' + textStatus);
-        }).done(function (result) {
+        app.apiHub.client.reloadPlayers = function (result) {
+            console.log('Refreshing players datalist ...');
             datalist.empty();
 
-            $.each(result, function(index, val) {
+            $.each(result.players, function (index, val) {
                 datalist.append($("<option></option>").html(val));
             });
+        };
+    }
 
-            datalist.data('lastrefresh', new Date().getTime());
-        });
-    };
+    app.initScore = function (league) {
+        initPlayersDatalist(league);
 
-    app.initScore = function (endpointUrl) {
+        app.apiHub.client.scorePosted = function () {
+
+
+            app.apiHub.server.reloadPlayersForGroup(league);
+            console.log('Score posted.');
+        };
+
         $('#twoPlayersButton').change(function() {
             app.displayScoreForTwoPlayers();
         });
         $('#fourPlayersButton').change(function() {
             app.displayScoreForFourPlayers();
         });
-
-        $('.player').focus(function() {
-            app.refreshPlayersDatalist(true);
-        });
-
+        
         var submitButton = $('#submitScore');
         submitButton.click(function() {
             var viewModel = null;
@@ -107,30 +99,19 @@
                 }
             }
 
-
             if (viewModel) {
-
                 var progressBar = $('<div />').html(app.getLoadingHtml());
                 submitButton.after(progressBar);
                 submitButton.hide();
 
-                $.ajax({
-                    type: 'POST',
-                    url: endpointUrl,
-                    data: viewModel
-                // ReSharper disable once UnusedParameter
-                }).fail(function(jqXhr, textStatus, errorThrown) {
-                    alert('Submit score failed: ' + textStatus);
-                }).done(function() {
+                app.apiHub.server.postScore(league, viewModel).done(function () {
                     $('.player').val('');
                     $('.score').val('');
-
-                    app.refreshPlayerRankings();
-                    app.refreshTeamRankings();
-                }).always(function () {
+                }).always(function() {
                     submitButton.show();
                     progressBar.remove();
-                    app.refreshPlayersDatalist(false);
+                }).fail(function(errorMessage) {
+                    alert('Post score failed.\n\n' + errorMessage);
                 });
             }
         });
