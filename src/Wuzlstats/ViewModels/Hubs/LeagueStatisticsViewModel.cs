@@ -70,10 +70,10 @@ namespace Wuzlstats.ViewModels.Hubs
                 }
 
                 // team stats
-                if (positions.Any(x => x.Position == PlayerPositionTypes.BlueDefense)
-                    && positions.Any(x => x.Position == PlayerPositionTypes.BlueOffense)
-                    && positions.Any(x => x.Position == PlayerPositionTypes.RedDefense)
-                    && positions.Any(x => x.Position == PlayerPositionTypes.RedOffense))
+                if (positions.Count(x => x.Position == PlayerPositionTypes.BlueDefense) == 1
+                    && positions.Count(x => x.Position == PlayerPositionTypes.BlueOffense) == 1
+                    && positions.Count(x => x.Position == PlayerPositionTypes.RedDefense) == 1
+                    && positions.Count(x => x.Position == PlayerPositionTypes.RedOffense) == 1)
                 {
                     var redOffense = players.Single(x => x.id == positions.Single(y => y.Position == PlayerPositionTypes.RedOffense).Player.Id);
                     var redDefense = players.Single(x => x.id == positions.Single(y => y.Position == PlayerPositionTypes.RedDefense).Player.Id);
@@ -130,7 +130,7 @@ namespace Wuzlstats.ViewModels.Hubs
             public int losses { get; set; }
 
             // ReSharper disable once PossibleLossOfFraction
-            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1 / losses : wins / losses);
+            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1d / losses : (double)wins / losses);
 
 
             public bool Equals(Models.Player p)
@@ -158,7 +158,7 @@ namespace Wuzlstats.ViewModels.Hubs
             public int losses { get; set; }
 
             // ReSharper disable once PossibleLossOfFraction
-            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1 / losses : wins / losses);
+            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1d / losses : (double)wins / losses);
 
 
             public bool Equals(Player p1, Player p2)
