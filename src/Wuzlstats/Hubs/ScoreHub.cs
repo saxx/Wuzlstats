@@ -9,7 +9,7 @@ namespace Wuzlstats.Hubs
         {
             await viewModel.Save(await CheckAndLoadLeague(league), _db);
             await NotifyGroupToReloadPlayers(league);
-            NotifyGroupToReloadStatistics(league);
+            await NotifyGroupToReloadStatistics(league);
         }
     }
 }

@@ -13,5 +13,8 @@ namespace Wuzlstats.Models
 
         public virtual League League { get; set; }
         public virtual ICollection<PlayerPosition> Positions { get; set; }
+
+        public bool BlueWins => BlueScore > RedScore;
+        public bool RedWins => BlueScore < RedScore;
     }
 }

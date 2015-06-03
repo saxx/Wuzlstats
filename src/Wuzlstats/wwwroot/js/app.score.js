@@ -48,9 +48,6 @@
         initPlayersDatalist(league);
 
         app.apiHub.client.scorePosted = function () {
-
-
-            app.apiHub.server.reloadPlayersForGroup(league);
             console.log('Score posted.');
         };
 
@@ -100,8 +97,6 @@
             }
 
             if (viewModel) {
-                var progressBar = $('<div />').html(app.getLoadingHtml());
-                submitButton.after(progressBar);
                 submitButton.hide();
 
                 app.apiHub.server.postScore(league, viewModel).done(function () {
@@ -109,7 +104,6 @@
                     $('.score').val('');
                 }).always(function() {
                     submitButton.show();
-                    progressBar.remove();
                 }).fail(function(errorMessage) {
                     alert('Post score failed.\n\n' + errorMessage);
                 });

@@ -13,9 +13,12 @@ namespace Wuzlstats.Hubs
     public partial class ApiHub : Hub
     {
         private readonly Db _db;
-        
-        public ApiHub(Db db)
+        private readonly AppSettings _settings;
+
+
+        public ApiHub(Db db, AppSettings settings)
         {
+            _settings = settings;
             _db = db;
         }
 
@@ -24,7 +27,7 @@ namespace Wuzlstats.Hubs
         {
             await Groups.Add(Context.ConnectionId, league);
             await NotifyCallerToReloadPlayers(league);
-            NotifyCallerToReloadStatistics(league);
+            await NotifyCallerToReloadStatistics(league);
         }
 
 

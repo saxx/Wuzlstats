@@ -38,21 +38,17 @@
         app.initSignalR();
         app.initScore('@Model.Name');
 
-        app.apiHub.client.reloadStatistics = function () {
-            console.log("Refreshing statistics ...");
-            app.refreshPlayerRankings();
-            app.refreshTeamRankings();
+        app.apiHub.client.reloadStatistics = function (statistics) {
+            console.log("Rendering statistics ...");
+
+            app.renderPlayerRanking($('#bestPlayerRanking'), statistics.bestPlayers);
+            app.renderPlayerRanking($('#worstPlayerRanking'), statistics.worstPlayers);
+            app.renderTeamRanking($('#bestTeamRanking'), statistics.bestTeams);
+            app.renderTeamRanking($('#worstTeamRanking'), statistics.worstTeams);
         };
-
-        app.initPlayerRanking($('#bestPlayerRanking'), '@Url.Action("PlayerRanking", "Api", new { league = Model.Name, count = 5 })');
-        app.initPlayerRanking($('#worstPlayerRanking'), '@Url.Action("PlayerRanking", "Api", new { league = Model.Name, count = -5 })');
-
-        app.initTeamRanking($('#bestTeamRanking'), '@Url.Action("TeamRanking", "Api", new { league = Model.Name, count = 3 })');
-        app.initTeamRanking($('#worstTeamRanking'), '@Url.Action("TeamRanking", "Api", new { league = Model.Name, count = -3 })');
 
         app.autoPageReload();
 
         app.connectSignalR('@Model.Name');
-
     </script>
 }

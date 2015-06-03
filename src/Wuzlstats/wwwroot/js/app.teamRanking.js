@@ -1,79 +1,56 @@
 ﻿(function (app, $) {
+    app.renderTeamRanking = function (element, teams) {
+        element = $(element)
+            .addClass('ranking')
+            .addClass('team-ranking')
+            .html('');
 
-    // ReSharper disable once InconsistentNaming
-    var _dataKey = 'teamrankingendpointurl';
+        $.each(teams, function (index, team) {
+            var block = $('<li />');
 
-    app.initTeamRanking = function (element, endpointUrl) {
-        $(element).data(_dataKey, endpointUrl);
-        $(element).addClass('team-ranking');
-    }
+            block.append(
+                $('<a href="' + app.config.getPlayerUrl().replace('[id]', team.player1.id) + '"></a>').append(
+                    $('<img />')
+                    .attr('src', 'data:image/png;base64,' + team.player1.image)
+                    .addClass('ranking-image')
+                )
+            );
+            block.append(
+                $('<a href="' + app.config.getPlayerUrl().replace('[id]', team.player2.id) + '"></a>').append(
+                    $('<img />')
+                    .attr('src', 'data:image/png;base64,' + team.player2.image)
+                    .addClass('ranking-image')
+                )
+            );
 
-    app.refreshTeamRankings = function () {
-        $('.team-ranking').each(function (index, container) {
-            container = $(container)
-                .addClass('ranking')
-                .addClass('team-ranking')
-                .html('<li>' + app.getLoadingHtml() + '</li>');
+            block.append(
+                $('<div />')
+                .html(team.player1.name)
+                .addClass('ranking-name')
+            );
+            block.append(
+                $('<div />')
+                .html(team.player2.name)
+                .addClass('ranking-name')
+            );
 
-            var endpointUrl = container.data(_dataKey);
+            var scoreBlock = $('<div />')
+                .addClass('ranking-score');
+            scoreBlock.append(
+                $('<span />')
+                .html(team.wins)
+                .append('<span class="glyphicon glyphicon-thumbs-up" />')
+                .addClass('ranking-wins')
+            );
+            scoreBlock.append(
+                $('<span />')
+                .html(team.losses)
+                .append('<span class="glyphicon glyphicon-thumbs-down" />')
+                .addClass('ranking-losses')
+            );
+            block.append(scoreBlock);
 
-            $.getJSON(endpointUrl)
-            .fail(function (jqXhr, textStatus, errorThrown) {
-                alert('Team ranking failed to load: ' + errorThrown + ' - ' + textStatus);
-            }).done(function (result) {
-                container.html('');
-
-                
-
-                $.each(result.teams, function (index, team) {
-                    var block = $('<li />');
-
-                    block.append(
-                        $('<a href="' + app.config.getPlayerUrl().replace('[id]', team.id1) + '"></a>').append(
-                            $('<img />')
-                            .attr('src', 'data:image/png;base64,' + team.image1)
-                            .addClass('ranking-image')
-                        )
-                    );
-                    block.append(
-                        $('<a href="' + app.config.getPlayerUrl().replace('[id]', team.id2) + '"></a>').append(
-                            $('<img />')
-                            .attr('src', 'data:image/png;base64,' + team.image2)
-                            .addClass('ranking-image')
-                        )
-                    );
-
-                    block.append(
-                        $('<div />')
-                        .html(team.name1)
-                        .addClass('ranking-name')
-                    );
-                    block.append(
-                        $('<div />')
-                        .html(team.name2)
-                        .addClass('ranking-name')
-                    );
-
-                    var scoreBlock = $('<div />')
-                        .addClass('ranking-score');
-                    scoreBlock.append(
-                        $('<span />')
-                        .html(team.wins)
-                        .append('<span class="glyphicon glyphicon-thumbs-up" />')
-                        .addClass('ranking-wins')
-                    );
-                    scoreBlock.append(
-                        $('<span />')
-                        .html(team.losses)
-                        .append('<span class="glyphicon glyphicon-thumbs-down" />')
-                        .addClass('ranking-losses')
-                    );
-                    block.append(scoreBlock);
-
-                    container.append(block);
-                });
-            });
+            element.append(block);
         });
     };
-
 }(window.app = window.app || {}, jQuery));

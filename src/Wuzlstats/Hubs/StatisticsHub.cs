@@ -1,19 +1,21 @@
-﻿
+﻿using System.Threading.Tasks;
+using Wuzlstats.ViewModels.Hubs;
 
 namespace Wuzlstats.Hubs
 {
     public partial class ApiHub
     {
-
-        public void NotifyCallerToReloadStatistics(string league)
+        public async Task NotifyCallerToReloadStatistics(string league)
         {
-            Clients.Caller.reloadStatistics();
+            var viewModel = await new LeagueStatisticsViewModel(_db, _settings).Fill(await CheckAndLoadLeague(league));
+            await Clients.Caller.reloadStatistics(viewModel);
         }
 
 
-        public void NotifyGroupToReloadStatistics(string league)
+        public async Task NotifyGroupToReloadStatistics(string league)
         {
-            Clients.Group(league).reloadStatistics();
+            var viewModel = await new LeagueStatisticsViewModel(_db, _settings).Fill(await CheckAndLoadLeague(league));
+            Clients.Group(league).reloadStatistics(viewModel);
         }
     }
 }

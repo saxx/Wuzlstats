@@ -4,7 +4,6 @@
 /// <reference path="js/app.score.js" />
 /// <reference path="js/app.teamranking.js" />
 /// <reference path="js/app.config.js" />
-/// <reference path="js/app.htmlhelpers.js" />
 /// <reference path="js/app.autoPageReload.js" />
 /// <reference path="js/minified/app.js" />
 /// <reference path="lib/jquery/jquery.js" />
