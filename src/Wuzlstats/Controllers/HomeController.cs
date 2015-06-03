@@ -41,6 +41,8 @@ namespace Wuzlstats.Controllers
                 return RedirectToAction("Index", "Leagues");
             }
 
+            ViewBag.CurrentLeague = league.Name;
+
             return View(new IndexViewModel().Fill(league));
         }
 

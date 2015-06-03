@@ -3,7 +3,8 @@ var gulp = require("gulp"),
   sass = require("gulp-sass"),
   rimraf = require("rimraf"),
   fs = require("fs"),
-  uglify = require('gulp-uglifyjs');
+  uglify = require('gulp-uglifyjs'),
+  watch = require('gulp-watch');
 
 eval("var project = " + fs.readFileSync("./project.json"));
 
@@ -27,7 +28,11 @@ gulp.task('uglify', function () {
         .pipe(uglify('app.js', {
             outSourceMap: true
         }))
-        .pipe(gulp.dest('./wwwroot/js/minified'))
+        .pipe(gulp.dest('./wwwroot/js/minified'));
+});
+
+gulp.task('watch', function () {
+    gulp.watch(['./wwwroot/css/*.scss', './wwwroot/js/*.js'], ['sass', 'uglify']);
 });
 
 gulp.task("copy", ["clean", "uglify"], function () {

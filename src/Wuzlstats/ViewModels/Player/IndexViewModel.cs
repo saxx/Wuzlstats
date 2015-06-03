@@ -27,11 +27,15 @@ namespace Wuzlstats.ViewModels.Player
             Name = player.Name;
             Image = player.Image == null || player.Image.Length <= 0 ? EmptyAvatar.Base64 : Convert.ToBase64String(player.Image);
 
+            var league = await _db.Leagues.SingleOrDefaultAsync(x => x.Id == player.LeagueId);
+            League = league.Name;
+
             return this;
         }
         
         public int Id { get; set; }
         public string Name { get; set; }
+        public string League { get; set; }
         public string Image { get; set; }
     }
 }

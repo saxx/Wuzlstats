@@ -69,6 +69,12 @@
                 var bluePlayer = getValueOrFocus('#bluePlayer');
 
                 if (redPlayerScore && bluePlayerScore && redPlayer && bluePlayer) {
+
+                    if (redPlayer === bluePlayer) {
+                        alert('Very funny. Same players not allowed.');
+                        return;
+                    }
+
                     viewModel = {
                         redPlayerScore: redPlayerScore,
                         bluePlayerScore: bluePlayerScore,
@@ -85,6 +91,14 @@
                 var blueTeamDefense = getValueOrFocus('#blueTeamDefense');
 
                 if (redTeamScore && blueTeamScore && redTeamOffense && blueTeamOffense && redTeamDefense && blueTeamDefense) {
+
+                    if (redTeamOffense === redTeamDefense || redTeamOffense === blueTeamOffense || redTeamOffense === blueTeamDefense ||
+                        redTeamDefense === blueTeamOffense || redTeamDefense === blueTeamDefense ||
+                        blueTeamOffense === blueTeamDefense) {
+                        alert('Very funny. Same players not allowed.');
+                        return;
+                    }
+
                     viewModel = {
                         redTeamScore: redTeamScore,
                         blueTeamScore: blueTeamScore,

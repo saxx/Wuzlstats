@@ -22,7 +22,9 @@ namespace Wuzlstats.Controllers
 
         public async Task<IActionResult> Index(int id)
         {
-            return View(await new IndexViewModel(_db).Fill(id));
+            var viewModel = await new IndexViewModel(_db).Fill(id);
+            ViewBag.CurrentLeague = viewModel.League;
+            return View(viewModel);
         }
 
 

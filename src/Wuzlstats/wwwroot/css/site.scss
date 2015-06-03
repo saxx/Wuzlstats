@@ -1,15 +1,40 @@
-﻿body {
+﻿$smallScreenPixels: 768px;
+
+body {
     padding-bottom: 20px;
     padding-top: 20px;
 }
 
+header {
+    .pull-right {
+        padding: 15px 0 15px 0;
+    }
+}
+
+.navbar-header::after {
+    clear:none;
+}
+
+.well h3 {
+    padding: 0;
+    margin: 0;
+}
+
 .row + .score-box {
-    margin-top: 3em;
+    margin-top: 1.5em;
+
+    @media (min-width: $smallScreenPixels) {
+        margin-top: 3em;
+    }
 }
 
 .score-box {
     + .row {
-        margin-top: 3em;
+        margin-top: 1.5em;
+
+        @media (min-width: $smallScreenPixels) {
+            margin-top: 3em;
+        }
     }
 
     .form-control {
@@ -27,12 +52,16 @@
     }
 
     .score {
-        font-size: 1.5em;
-        line-height: 2em;
-        font-weight: bold;
-        max-width: 2em;
-        text-align: center;
         padding: 6px 0;
+        text-align: center;
+        width: 30px;
+        font-weight: bold;
+
+        @media (min-width: $smallScreenPixels) {
+            font-size: 1.5em;
+            line-height: 2em;
+            width: 55px;
+        }
 
         &:nth-of-type(1) {
             float: left;
@@ -43,12 +72,18 @@
         }
     }
 
+
+
     div:nth-child(2) {
         text-align: center;
+        padding: 0;
+        line-height: 2em;
+        font-weight: bold;
 
         span {
-            font-size: 1.5em;
-            font-weight: bold;
+            @media (min-width: $smallScreenPixels) {
+                font-size: 1.5em;
+            }
         }
     }
 
@@ -137,4 +172,8 @@
     float: right;
     border-radius: 50%;
     border: 2px solid #999;
+}
+
+footer {
+    margin-top: 100px;
 }
