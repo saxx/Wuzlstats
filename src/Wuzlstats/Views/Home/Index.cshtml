@@ -1,5 +1,9 @@
 ﻿@model Wuzlstats.ViewModels.Home.IndexViewModel
 
+<div class="alert alert-info" id="loadingAlert">
+    Establishing real-time connection to league. This may take a second or two, please be patient ...
+</div>
+
 <div class="row">
     <div class="col-md-6">
         <div class="well">
@@ -48,6 +52,8 @@
 
         app.autoPageReload();
 
-        app.connectSignalR('@Model.Name');
+        app.connectSignalR('@Model.Name', function() {
+            $('#loadingAlert').alert('close');
+        });
     </script>
 }

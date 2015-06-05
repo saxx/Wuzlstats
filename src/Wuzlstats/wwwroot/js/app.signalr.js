@@ -15,7 +15,7 @@
         };
     };
 
-    app.connectSignalR = function (league) {
+    app.connectSignalR = function (league, callback) {
         console.log('Connecting to SignalR ...');
 
         $.connection.hub.start().done(function () {
@@ -25,6 +25,10 @@
 
             app.apiHub.server.joinLeague(league).done(function () {
                 console.log('League ' + league + ' joined.');
+
+                if (callback) {
+                    callback();
+                }
             });
         });
     };
