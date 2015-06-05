@@ -20,25 +20,42 @@ namespace Wuzlstats.ViewModels.Hubs
 
         public async Task<LeagueStatisticsViewModel> Fill(League league)
         {
+            daysForStatistics = _settings.DaysForStatistics;
+
+            var gamesQuery = _db.Games.Where(x => x.LeagueId == league.Id);
             var date = DateTime.UtcNow.Date.AddDays(-_settings.DaysForStatistics);
-            var gamesQuery = _db.Games.Where(x => x.LeagueId == league.Id && x.Date >= date);
+            gamesQuery = gamesQuery.Where(x => x.Date >= date);
 
             // EF7 beta4 does not support navigation properties in queries yet
             // this complicates the code a lot, because we need joins :(
 
             var players = new List<Player>();
             var teams = new List<Team>();
+            var redPlayerIds = new List<int>();
+            var bluePlayerIds = new List<int>();
 
             foreach (var game in await gamesQuery.ToListAsync())
             {
+                games++;
+                if (game.BlueWins)
+                {
+                    blueWins++;
+                }
+                else if (game.RedWins)
+                {
+                    redWins++;
+                }
+                blueGoals += game.BlueScore;
+                redGoals += game.RedScore;
+
                 var positions = await (from position in _db.PlayerPositions
-                                           join player in _db.Players on position.PlayerId equals player.Id
-                                           where position.GameId == game.Id
-                                           select new
-                                           {
-                                               position.Position,
-                                               Player = player
-                                           }).ToListAsync();
+                                       join player in _db.Players on position.PlayerId equals player.Id
+                                       where position.GameId == game.Id
+                                       select new
+                                       {
+                                           position.Position,
+                                           Player = player
+                                       }).ToListAsync();
 
                 // player stats
                 foreach (var position in positions)
@@ -48,6 +65,15 @@ namespace Wuzlstats.ViewModels.Hubs
                     {
                         player = Player.Create(position.Player);
                         players.Add(player);
+                    }
+
+                    if (position.Position == PlayerPositionTypes.Blue || position.Position == PlayerPositionTypes.BlueDefense || position.Position == PlayerPositionTypes.BlueOffense)
+                    {
+                        bluePlayerIds.Add(position.Player.Id);
+                    }
+                    else if (position.Position == PlayerPositionTypes.Red || position.Position == PlayerPositionTypes.RedDefense || position.Position == PlayerPositionTypes.RedOffense)
+                    {
+                        redPlayerIds.Add(position.Player.Id);
                     }
 
                     // don't count ties
@@ -107,6 +133,8 @@ namespace Wuzlstats.ViewModels.Hubs
             }
 
 
+            redPlayers = redPlayerIds.Distinct().Count();
+            bluePlayers = bluePlayerIds.Distinct().Count();
             bestPlayers = players.OrderByDescending(x => x.rank).Take(5).ToList();
             worstPlayers = players.OrderBy(x => x.rank).Take(5).ToList();
             bestTeams = teams.OrderByDescending(x => x.rank).Take(3).ToList();
@@ -120,6 +148,15 @@ namespace Wuzlstats.ViewModels.Hubs
         public IEnumerable<Player> worstPlayers { get; set; }
         public IEnumerable<Team> bestTeams { get; set; }
         public IEnumerable<Team> worstTeams { get; set; }
+
+        public int games { get; set; }
+        public int daysForStatistics { get; set; }
+        public int blueGoals { get; set; }
+        public int redGoals { get; set; }
+        public int blueWins { get; set; }
+        public int redWins { get; set; }
+        public int bluePlayers { get; set; }
+        public int redPlayers { get; set; }
 
         public class Player
         {

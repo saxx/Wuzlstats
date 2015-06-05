@@ -11,3 +11,4 @@
 /// <reference path="lib/bootstrap/js/bootstrap.js" />
 /// <reference path="lib/signalr/jquery.signalR.js" />
 /// <reference path="js/app.signalr.js" />
+/// <reference path="js/app.leaguestatistics.js" />

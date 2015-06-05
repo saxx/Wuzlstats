@@ -5,6 +5,16 @@ body {
 header .pull-right {
   padding: 15px 0 15px 0; }
 
+span.team-blue {
+  background-color: #ddf;
+  padding: 1px 3px;
+  border-radius: 3px; }
+
+span.team-red {
+  background-color: #fdd;
+  padding: 1px 3px;
+  border-radius: 3px; }
+
 .navbar-header::after {
   clear: none; }
 

@@ -11,8 +11,23 @@ header {
     }
 }
 
+span {
+    &.team-blue {
+        background-color: #ddf;
+        padding: 1px 3px;
+        border-radius: 3px;
+    }
+
+    &.team-red {
+        background-color: #fdd;
+        padding: 1px 3px;
+        border-radius: 3px;
+    }
+}
+
+
 .navbar-header::after {
-    clear:none;
+    clear: none;
 }
 
 .well h3 {

@@ -9,6 +9,10 @@
         <div class="well">
             @Html.Partial("_Score")
         </div>
+        <div>
+            <h3 class="text-center">League trivia</h3>
+            <div id="leagueStatistics"></div>
+        </div>
     </div>
     <div class="col-md-6">
         <div class="row">
@@ -44,6 +48,7 @@
         app.apiHub.client.reloadStatistics = function (statistics) {
             console.log("Rendering statistics ...");
 
+            app.renderLeagueStatistics($('#leagueStatistics'), statistics);
             app.renderPlayerRanking($('#bestPlayerRanking'), statistics.bestPlayers);
             app.renderPlayerRanking($('#worstPlayerRanking'), statistics.worstPlayers);
             app.renderTeamRanking($('#bestTeamRanking'), statistics.bestTeams);
@@ -52,7 +57,7 @@
 
         app.autoPageReload();
 
-        app.connectSignalR('@Model.Name', function() {
+        app.connectSignalR('@Model.Name', function () {
             $('#loadingAlert').alert('close');
         });
     </script>
