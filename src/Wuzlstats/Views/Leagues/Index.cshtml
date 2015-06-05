@@ -1,9 +1,9 @@
 ﻿@model Wuzlstats.ViewModels.Leagues.IndexViewModel
 
-<h1>Leagues</h1>
+<h1>Choose a league</h1>
 
 <p>
-    Every player and every game is assigned a league.
+    Leagues are used to group players and games. Statistics are calculated for each league.
 </p>
 
 @if (Model.Leagues.Any())
@@ -11,8 +11,8 @@
     <table class="table">
         <tr>
             <th>League</th>
-            <th># of games (total)</th>
-            <th># of games (last @Model.DaysForStatistics days)</th>
+            <th class="hidden-xs"># of games (total)</th>
+            <th class="hidden-xs"># of games (last @Model.DaysForStatistics days)</th>
             <th class="text-right">
                 <a asp-action="Create" class="btn btn-default">Create a new league</a>
             </th>
@@ -24,10 +24,10 @@
                 <td>
                     @league.Name
                 </td>
-                <td>
+                <td class="hidden-xs">
                     @league.GamesCountTotal.ToString("N0")
                 </td>
-                <td>
+                <td class="hidden-xs">
                     @league.GamesCountDays.ToString("N0")
                 </td>
                 <td class="text-right">
