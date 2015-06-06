@@ -22,7 +22,7 @@ namespace Wuzlstats.ViewModels.Hubs
         {
             daysForStatistics = _settings.DaysForStatistics;
 
-            var gamesQuery = _db.Games.Where(x => x.LeagueId == league.Id);
+            var gamesQuery = _db.Games.AsNoTracking().Where(x => x.LeagueId == league.Id);
             var date = DateTime.UtcNow.Date.AddDays(-_settings.DaysForStatistics);
             gamesQuery = gamesQuery.Where(x => x.Date >= date);
 
@@ -48,8 +48,8 @@ namespace Wuzlstats.ViewModels.Hubs
                 blueGoals += game.BlueScore;
                 redGoals += game.RedScore;
 
-                var positions = await (from position in _db.PlayerPositions
-                                       join player in _db.Players on position.PlayerId equals player.Id
+                var positions = await (from position in _db.PlayerPositions.AsNoTracking()
+                                       join player in _db.Players.AsNoTracking() on position.PlayerId equals player.Id
                                        where position.GameId == game.Id
                                        select new
                                        {
@@ -127,7 +127,7 @@ namespace Wuzlstats.ViewModels.Hubs
                     else if (game.RedWins)
                     {
                         redTeam.wins++;
-                        blueTeam.wins++;
+                        blueTeam.losses++;
                     }
                 }
             }
@@ -215,7 +215,7 @@ namespace Wuzlstats.ViewModels.Hubs
 
             public static Team Create(Player p1, Player p2)
             {
-                if (p1.name[0] <= p2.name[0])
+                if (p1.id <= p2.id)
                 {
                     return new Team
                     {

@@ -87,8 +87,6 @@ span {
         }
     }
 
-
-
     div:nth-child(2) {
         text-align: center;
         padding: 0;
@@ -107,10 +105,11 @@ span {
     }
 }
 
-
-.progress-bar-info {
-    background-color: #e3e3e3;
-    height: 1em;
+.progress {
+    height:1em;
+    .progress-bar {
+        background-color: #c3c3c3;
+    }
 }
 
 
