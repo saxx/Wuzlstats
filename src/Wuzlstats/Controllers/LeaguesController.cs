@@ -33,6 +33,7 @@ namespace Wuzlstats.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(string name)
         {
+            name = (name ?? "").Trim();
             if (string.IsNullOrEmpty(name))
             {
                 ModelState.AddModelError(nameof(name), "Name is required.");
