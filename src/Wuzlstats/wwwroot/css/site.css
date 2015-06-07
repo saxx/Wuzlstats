@@ -71,7 +71,10 @@ span.team-red {
   padding-top: 1em; }
 
 .progress {
-  height: 1em; }
+  height: 1em;
+  padding: 0;
+  margin: 0;
+  list-style-type: none; }
   .progress .progress-bar {
     background-color: #c3c3c3; }
 

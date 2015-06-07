@@ -105,8 +105,13 @@ span {
     }
 }
 
+
 .progress {
-    height:1em;
+    height: 1em;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
     .progress-bar {
         background-color: #c3c3c3;
     }
