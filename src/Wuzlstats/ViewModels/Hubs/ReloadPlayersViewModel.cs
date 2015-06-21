@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Wuzlstats.ExtensionMethods;
 using Wuzlstats.Models;
-using System.Linq;
 
-namespace Wuzlstats.ViewModels.PlayersHub
+namespace Wuzlstats.ViewModels.Hubs
 {
     public class ReloadPlayersViewModel
     {

@@ -6,7 +6,7 @@ using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Wuzlstats.Models;
 using Microsoft.Data.Entity;
-using Wuzlstats.ViewModels.PlayersHub;
+using Wuzlstats.ViewModels.Hubs;
 
 
 namespace Wuzlstats

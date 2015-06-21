@@ -33,9 +33,11 @@ namespace Wuzlstats.ViewModels.Hubs
             var teams = new List<Team>();
             var redPlayerIds = new List<int>();
             var bluePlayerIds = new List<int>();
+            var goalDifferences = new List<int>();
 
             foreach (var game in await gamesQuery.ToListAsync())
             {
+                // league stats
                 games++;
                 if (game.BlueWins)
                 {
@@ -47,6 +49,7 @@ namespace Wuzlstats.ViewModels.Hubs
                 }
                 blueGoals += game.BlueScore;
                 redGoals += game.RedScore;
+                goalDifferences.Add(Math.Max(game.BlueScore, game.RedScore) - Math.Min(game.BlueScore, game.RedScore));
 
                 var positions = await (from position in _db.PlayerPositions.AsNoTracking()
                                        join player in _db.Players.AsNoTracking() on position.PlayerId equals player.Id
@@ -139,6 +142,18 @@ namespace Wuzlstats.ViewModels.Hubs
             worstPlayers = players.OrderBy(x => x.rank).Take(5).ToList();
             bestTeams = teams.OrderByDescending(x => x.rank).Take(3).ToList();
             worstTeams = teams.OrderBy(x => x.rank).Take(3).ToList();
+            goalDifference = goalDifferences.Average(x => x);
+
+            var mostActivePlayerEntity = players.OrderByDescending(x => x.losses + x.wins).FirstOrDefault();
+            if (mostActivePlayerEntity != null)
+            {
+                mostActivePlayer = mostActivePlayerEntity.name;
+            }
+            else
+            {
+                mostActivePlayer = "";
+            }
+
             return this;
         }
 
@@ -157,6 +172,8 @@ namespace Wuzlstats.ViewModels.Hubs
         public int redWins { get; set; }
         public int bluePlayers { get; set; }
         public int redPlayers { get; set; }
+        public double goalDifference { get; set; }
+        public string mostActivePlayer { get; set; }
 
         public class Player
         {

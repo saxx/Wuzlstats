@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Wuzlstats.ViewModels.PlayersHub;
+using Wuzlstats.ViewModels.Hubs;
 
 namespace Wuzlstats.Hubs
 {
