@@ -51,7 +51,6 @@ namespace Wuzlstats
 
             if (env.IsEnvironment("Development"))
             {
-                app.UseBrowserLink();
                 app.UseErrorPage(ErrorPageOptions.ShowAll);
             }
             else
