@@ -17,6 +17,7 @@ namespace Wuzlstats.Controllers
             _db = db;
         }
 
+
         [Route("~/League/{league}")]
         public IActionResult Index(string league)
         {
@@ -26,6 +27,7 @@ namespace Wuzlstats.Controllers
             });
             return Redirect("~/");
         }
+
 
         public async Task<IActionResult> Index()
         {
@@ -45,6 +47,38 @@ namespace Wuzlstats.Controllers
 
             return View(new IndexViewModel().Fill(league));
         }
+
+
+        [Route("~/League/{league}/Games")]
+        public async Task<IActionResult> Games(string league)
+        {
+            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.ToLower() == league.ToLower());
+            if (leagueEntity == null)
+            {
+                return RedirectToAction("Index", "Leagues");
+            }
+
+            return View(await new GamesViewModel(_db).Fill(leagueEntity));
+        }
+
+
+        [HttpGet("~/League/{league}/Games/{game}/Delete")]
+        public async Task<IActionResult> DeleteGame(string league, int game)
+        {
+            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.ToLower() == league.ToLower());
+            if (leagueEntity != null)
+            {
+                var gameEntity = await _db.Games.FirstOrDefaultAsync(x => x.Id == game && x.LeagueId == leagueEntity.Id);
+                if (gameEntity != null)
+                {
+                    _db.PlayerPositions.RemoveRange(_db.PlayerPositions.Where(x => x.GameId == gameEntity.Id));
+                    _db.Games.Remove(gameEntity);
+                    await _db.SaveChangesAsync();
+                }
+            }
+            return RedirectToAction("Games");
+        }
+
 
         public IActionResult Error()
         {
