@@ -125,14 +125,18 @@
             }
 
             if (viewModel) {
-                submitButton.hide();
+                submitButton.attr('disabled', true).html('<span class="glyphicon glyphicon-hourglass"></span> Submitting ...');
 
                 app.apiHub.server.postScore(league, viewModel).done(function () {
                     $('.player').val('');
                     $('.score').val('');
-                }).always(function () {
-                    submitButton.show();
+                    submitButton.attr('disabled', true).html('<span class="glyphicon glyphicon-ok-circle"></span> Saved!');
+                    
+                    setTimeout(function () {
+                        submitButton.attr('disabled', false).html('Submit');
+                    }, 5000);
                 }).fail(function (errorMessage) {
+                    submitButton.attr('disabled', false).html('Submit');
                     alert('Post score failed.\n\n' + errorMessage);
                 });
             }
