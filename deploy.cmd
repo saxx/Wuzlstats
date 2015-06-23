@@ -12,7 +12,9 @@ Path=%~dp0src\Wuzlstats\node_modules\.bin;C:\Program Files (x86)\Microsoft Visua
 @ECHO ON
 CALL %HOMEDRIVE%%HOMEPATH%\.dnx\runtimes\dnx-clr-win-x86.1.0.0-beta4\bin\dnu.cmd publish "%~dp0src\Wuzlstats" --out "%~dp0artifacts\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta4 --wwwroot-out "wwwroot" --quiet
 
-CALL %~dp0deploy\MsWebDeploy-3.6-beta\msdeploy.exe -verb:sync -source:contentPath=%~dp0artifacts\publish\wwwroot -dest:contentPath=%siteName%,computername=%server%/MSDEPLOYAGENTSERVICE,username=%username%,password=%password% -enableRule:AppOffline
-CALL %~dp0deploy\MsWebDeploy-3.6-beta\msdeploy.exe -verb:sync -source:contentPathLib=%~dp0artifacts\publish\approot -dest:contentPathLib=%siteName%,computername=%server%/MSDEPLOYAGENTSERVICE,username=%username%,password=%password% -enableRule:AppOffline
+CALL %~dp0deploy\MsWebDeploy-3.6-beta\msdeploy.exe -verb:sync -source:recycleApp  -dest:recycleApp=%siteName%,recycleMode=StopAppPool,computername=%server%/MSDEPLOYAGENTSERVICE,username=%username%,password=%password%
+CALL %~dp0deploy\MsWebDeploy-3.6-beta\msdeploy.exe -verb:sync -source:contentPath=%~dp0artifacts\publish\wwwroot -dest:contentPath=%siteName%,computername=%server%/MSDEPLOYAGENTSERVICE,username=%username%,password=%password%
+CALL %~dp0deploy\MsWebDeploy-3.6-beta\msdeploy.exe -verb:sync -source:contentPathLib=%~dp0artifacts\publish\approot -dest:contentPathLib=%siteName%,computername=%server%/MSDEPLOYAGENTSERVICE,username=%username%,password=%password%
+CALL %~dp0deploy\MsWebDeploy-3.6-beta\msdeploy.exe -verb:sync -source:recycleApp  -dest:recycleApp=%siteName%,recycleMode=StartAppPool,computername=%server%/MSDEPLOYAGENTSERVICE,username=%username%,password=%password%
 
 PAUSE
