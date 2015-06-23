@@ -8,7 +8,8 @@ namespace Wuzlstats.ViewModels.Player
     public class IndexViewModel
     {
         private readonly Db _db;
-        
+
+
         public IndexViewModel(Db db)
         {
             _db = db;
@@ -32,7 +33,8 @@ namespace Wuzlstats.ViewModels.Player
 
             return this;
         }
-        
+
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string League { get; set; }

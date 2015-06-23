@@ -11,6 +11,7 @@ namespace Wuzlstats.ViewModels.Hubs
         private readonly Db _db;
         private readonly AppSettings _settings;
 
+
         public LeagueStatisticsViewModel(Db db, AppSettings settings)
         {
             _settings = settings;
@@ -52,13 +53,13 @@ namespace Wuzlstats.ViewModels.Hubs
                 goalDifferences.Add(Math.Max(game.BlueScore, game.RedScore) - Math.Min(game.BlueScore, game.RedScore));
 
                 var positions = await (from position in _db.PlayerPositions.AsNoTracking()
-                                       join player in _db.Players.AsNoTracking() on position.PlayerId equals player.Id
-                                       where position.GameId == game.Id
-                                       select new
-                                       {
-                                           position.Position,
-                                           Player = player
-                                       }).ToListAsync();
+                    join player in _db.Players.AsNoTracking() on position.PlayerId equals player.Id
+                    where position.GameId == game.Id
+                    select new
+                    {
+                        position.Position,
+                        Player = player
+                    }).ToListAsync();
 
                 // player stats
                 foreach (var position in positions)
@@ -88,11 +89,13 @@ namespace Wuzlstats.ViewModels.Hubs
                     {
                         player.wins++;
                     }
-                    else if (game.RedWins && (position.Position == PlayerPositionTypes.Blue || position.Position == PlayerPositionTypes.BlueDefense || position.Position == PlayerPositionTypes.BlueOffense))
+                    else if (game.RedWins &&
+                             (position.Position == PlayerPositionTypes.Blue || position.Position == PlayerPositionTypes.BlueDefense || position.Position == PlayerPositionTypes.BlueOffense))
                     {
                         player.losses++;
                     }
-                    else if (game.BlueWins && (position.Position == PlayerPositionTypes.Red || position.Position == PlayerPositionTypes.RedDefense || position.Position == PlayerPositionTypes.RedOffense))
+                    else if (game.BlueWins &&
+                             (position.Position == PlayerPositionTypes.Red || position.Position == PlayerPositionTypes.RedDefense || position.Position == PlayerPositionTypes.RedOffense))
                     {
                         player.losses++;
                     }
@@ -184,7 +187,7 @@ namespace Wuzlstats.ViewModels.Hubs
             public int losses { get; set; }
 
             // ReSharper disable once PossibleLossOfFraction
-            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1d / losses : (double)wins / losses);
+            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1d/losses : (double) wins/losses);
 
 
             public bool Equals(Models.Player p)
@@ -212,7 +215,7 @@ namespace Wuzlstats.ViewModels.Hubs
             public int losses { get; set; }
 
             // ReSharper disable once PossibleLossOfFraction
-            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1d / losses : (double)wins / losses);
+            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1d/losses : (double) wins/losses);
 
 
             public bool Equals(Player p1, Player p2)
@@ -247,7 +250,7 @@ namespace Wuzlstats.ViewModels.Hubs
                 };
             }
         }
-        // ReSharper restore InconsistentNaming
 
+        // ReSharper restore InconsistentNaming
     }
 }

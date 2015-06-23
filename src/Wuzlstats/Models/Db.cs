@@ -9,6 +9,7 @@ namespace Wuzlstats.Models
         public DbSet<Game> Games { get; set; }
         public DbSet<PlayerPosition> PlayerPositions { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ForSqlServer().UseIdentity();

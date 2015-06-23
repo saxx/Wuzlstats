@@ -31,7 +31,7 @@
                     @league.GamesCountDays.ToString("N0")
                 </td>
                 <td class="text-right">
-                    <a href="@Url.Action("Index", "Home", new {league = league.Name})" class="btn btn-primary">Switch to this league</a>
+                    <a href="@Url.Action("Index", "Home", new { league = league.Name })" class="btn btn-primary">Switch to this league</a>
                 </td>
             </tr>
         }
@@ -39,5 +39,6 @@
 }
 else
 {
-    <div class="alert alert-warning">There are no leagues yet. You should <a asp-controller="Leagues" asp-action="Create" class="alert-link">create a new one</a>.</div>
+    <div class="alert alert-warning">There are no leagues yet. You should <a asp-controller="Leagues" asp-action="Create" class="alert-link">create a new one</a>.
+    </div>
 }

@@ -11,6 +11,7 @@ namespace Wuzlstats.ViewModels.Hubs
     {
         private readonly Db _db;
 
+
         public ReloadPlayersViewModel(Db db)
         {
             _db = db;

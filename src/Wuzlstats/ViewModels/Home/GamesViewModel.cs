@@ -10,6 +10,7 @@ namespace Wuzlstats.ViewModels.Home
     {
         private readonly Db _db;
 
+
         public GamesViewModel(Db db)
         {
             _db = db;
@@ -37,11 +38,15 @@ namespace Wuzlstats.ViewModels.Home
             {
                 var positions = await _db.PlayerPositions.Where(x => x.GameId == game.Id).ToListAsync();
                 game.RedPlayers = positions.Where(x => x.IsRedPosition).Select(x => allPlayers.Single(y => y.Id == x.PlayerId).Name).Aggregate("", (seed, value) => seed + ", " + value).Trim(',', ' ');
-                game.BluePlayers = positions.Where(x => x.IsBluePosition).Select(x => allPlayers.Single(y => y.Id == x.PlayerId).Name).Aggregate("", (seed, value) => seed + ", " + value).Trim(',', ' ');
+                game.BluePlayers = positions.Where(x => x.IsBluePosition)
+                    .Select(x => allPlayers.Single(y => y.Id == x.PlayerId).Name)
+                    .Aggregate("", (seed, value) => seed + ", " + value)
+                    .Trim(',', ' ');
             }
 
             return this;
         }
+
 
         public string League { get; set; }
         public IEnumerable<Game> Games { get; set; }

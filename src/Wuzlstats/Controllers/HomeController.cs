@@ -1,8 +1,8 @@
 ﻿using System;
-using Microsoft.AspNet.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Http;
+using Microsoft.AspNet.Mvc;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Home;
 
@@ -11,6 +11,7 @@ namespace Wuzlstats.Controllers
     public class HomeController : Controller
     {
         private readonly Db _db;
+
 
         public HomeController(Db db)
         {

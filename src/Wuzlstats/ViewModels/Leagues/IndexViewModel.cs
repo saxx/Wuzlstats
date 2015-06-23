@@ -35,6 +35,7 @@ namespace Wuzlstats.ViewModels.Leagues
             return this;
         }
 
+
         public IEnumerable<League> Leagues { get; set; }
         public int DaysForStatistics { get; set; }
 

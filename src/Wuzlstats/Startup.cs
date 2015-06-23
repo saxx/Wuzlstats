@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Hosting;
+using Microsoft.Data.Entity;
 using Microsoft.Framework.ConfigurationModel;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
 using Wuzlstats.Models;
-using Microsoft.Data.Entity;
 using Wuzlstats.ViewModels.Hubs;
-
 
 namespace Wuzlstats
 {
@@ -21,7 +20,9 @@ namespace Wuzlstats
                 .AddEnvironmentVariables("Wuzlstats.");
         }
 
+
         public IConfiguration Configuration { get; set; }
+
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -32,17 +33,12 @@ namespace Wuzlstats
             services
                 .AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<Db>(options =>
-                {
-                    options.UseSqlServer(settings.DatabaseConnectionString);
-                });
+                .AddDbContext<Db>(options => { options.UseSqlServer(settings.DatabaseConnectionString); });
 
-            services.AddSignalR(options =>
-            {
-                options.Hubs.EnableDetailedErrors = true;
-            });
+            services.AddSignalR(options => { options.Hubs.EnableDetailedErrors = true; });
             services.AddMvc();
         }
+
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory)
         {
@@ -67,10 +63,7 @@ namespace Wuzlstats
 
             app.UseSignalR();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
         }
     }
 }

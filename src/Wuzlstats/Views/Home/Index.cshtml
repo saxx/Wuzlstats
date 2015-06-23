@@ -75,7 +75,7 @@
         app.initSignalR();
         app.initScore('@Model.Name');
 
-        app.apiHub.client.reloadStatistics = function (statistics) {
+        app.apiHub.client.reloadStatistics = function(statistics) {
             console.log("Rendering statistics ...");
 
             app.renderLeagueStatistics($('#leagueStatistics'), statistics);
@@ -87,7 +87,7 @@
 
         app.autoPageReload();
 
-        app.connectSignalR('@Model.Name', function () {
+        app.connectSignalR('@Model.Name', function() {
             $('#loadingAlert').alert('close');
         });
 

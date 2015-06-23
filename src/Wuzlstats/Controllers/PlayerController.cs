@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using ImageResizer;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
-using Microsoft.Data.Entity.Relational;
-using NuGet;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Player;
 
@@ -15,10 +13,12 @@ namespace Wuzlstats.Controllers
     {
         private readonly Db _db;
 
+
         public PlayerController(Db db)
         {
             _db = db;
         }
+
 
         public async Task<IActionResult> Index(int id)
         {
@@ -40,7 +40,7 @@ namespace Wuzlstats.Controllers
                     MaxHeight = 150,
                     Format = "png"
                 };
-                
+
                 var outputStream = new MemoryStream();
                 ImageBuilder.Current.Build(avatar.OpenReadStream(), outputStream, settings);
 

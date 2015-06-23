@@ -6,9 +6,11 @@ namespace Wuzlstats
     {
         public AppSettings(IConfiguration configuration)
         {
-            DatabaseConnectionString = Get(configuration, "DatabaseConnectionString", "Data Source=(localdb)\\ProjectsV12;Initial Catalog=Wuzlstats;Integrated Security=True;MultipleActiveResultSets=True;");
+            DatabaseConnectionString = Get(configuration, "DatabaseConnectionString",
+                "Data Source=(localdb)\\ProjectsV12;Initial Catalog=Wuzlstats;Integrated Security=True;MultipleActiveResultSets=True;");
             DaysForStatistics = Get(configuration, "DaysForStatistics", 90);
         }
+
 
         public string DatabaseConnectionString { get; set; }
 

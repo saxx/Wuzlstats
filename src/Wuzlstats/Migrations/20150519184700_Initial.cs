@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using Microsoft.Data.Entity.Relational.Migrations;
 using Microsoft.Data.Entity.Relational.Migrations.Builders;
-using Microsoft.Data.Entity.Relational.Migrations.Operations;
 
 namespace Wuzlstats.Migrations
 {
@@ -17,10 +15,7 @@ namespace Wuzlstats.Migrations
                         .Annotation("SqlServer:ValueGeneration", "Identity"),
                     Name = table.Column(type: "nvarchar(max)", nullable: true)
                 },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_League", x => x.Id);
-                });
+                constraints: table => { table.PrimaryKey("PK_League", x => x.Id); });
             migration.CreateTable(
                 name: "Game",
                 columns: table => new
@@ -85,7 +80,8 @@ namespace Wuzlstats.Migrations
                         referencedColumn: "Id");
                 });
         }
-        
+
+
         public override void Down(MigrationBuilder migration)
         {
             migration.DropTable("Game");

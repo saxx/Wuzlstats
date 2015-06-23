@@ -1,13 +1,12 @@
-﻿@using Microsoft.AspNet.Mvc.ModelBinding
-<h1>Create a new league</h1>
-<hr />
+﻿<h1>Create a new league</h1>
+<hr/>
 
 @if (!ViewContext.ModelState.IsValid)
 {
     <div class="alert alert-danger">
         @Html.ValidationSummary()
     </div>
-    <hr />
+    <hr/>
 }
 
 <form>

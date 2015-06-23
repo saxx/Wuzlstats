@@ -25,10 +25,12 @@ namespace Wuzlstats.Controllers
             return View(viewModel);
         }
 
+
         public IActionResult Create()
         {
             return View();
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Create(string name)

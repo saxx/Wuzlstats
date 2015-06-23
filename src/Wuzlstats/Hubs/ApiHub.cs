@@ -6,7 +6,6 @@ using Microsoft.AspNet.SignalR.Hubs;
 using Wuzlstats.ExtensionMethods;
 using Wuzlstats.Models;
 
-
 namespace Wuzlstats.Hubs
 {
     [HubName("apiHub")]

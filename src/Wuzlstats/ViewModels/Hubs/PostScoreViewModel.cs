@@ -25,7 +25,7 @@ namespace Wuzlstats.ViewModels.Hubs
 
         private async Task SavePlayerScore(League league, Db db)
         {
-            if (BluePlayerScore <= 0 && RedPlayerScore  <= 0)
+            if (BluePlayerScore <= 0 && RedPlayerScore <= 0)
             {
                 throw new Exception("Invalid scores, both must be greater zero.");
             }
