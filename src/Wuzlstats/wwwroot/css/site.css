@@ -70,6 +70,9 @@ span.team-red {
 .score-box.team-score-box div:nth-child(2) {
   padding-top: 1em; }
 
+#leagueMenuBar {
+  margin-top: 1.5em; }
+
 .progress {
   height: 1em;
   padding: 0;

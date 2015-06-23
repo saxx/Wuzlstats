@@ -9,7 +9,7 @@
         return val;
     }
 
-    app.displayScoreForTwoPlayers = function() {
+    app.displayScoreForTwoPlayers = function () {
         $('#twoPlayersScore').show();
         $('#fourPlayersScore').hide();
 
@@ -21,7 +21,7 @@
         $('#blueTeamDefense').val('');
     };
 
-    app.displayScoreForFourPlayers = function() {
+    app.displayScoreForFourPlayers = function () {
         $('#twoPlayersScore').hide();
         $('#fourPlayersScore').show();
 
@@ -51,16 +51,23 @@
             console.log('Score posted.');
         };
 
-        $('#twoPlayersButton').change(function() {
+        $('#twoPlayersButton').change(function () {
             app.displayScoreForTwoPlayers();
         });
-        $('#fourPlayersButton').change(function() {
+        $('#fourPlayersButton').change(function () {
             app.displayScoreForFourPlayers();
         });
-        
+
         var submitButton = $('#submitScore');
-        submitButton.click(function() {
+        submitButton.click(function () {
             var viewModel = null;
+
+            localStorage.removeItem('lastRedPlayer');
+            localStorage.removeItem('lastBluePlayer');
+            localStorage.removeItem('lastRedOffensePlayer');
+            localStorage.removeItem('lastRedDefensePlayer');
+            localStorage.removeItem('lastBlueOffensePlayer');
+            localStorage.removeItem('lastBlueDefensePlayer');
 
             if ($('#twoPlayersScore').is(':visible')) {
                 var redPlayerScore = getValueOrFocus('#redPlayerScore');
@@ -69,7 +76,6 @@
                 var bluePlayer = getValueOrFocus('#bluePlayer');
 
                 if (redPlayerScore && bluePlayerScore && redPlayer && bluePlayer) {
-
                     if (redPlayer === bluePlayer) {
                         alert('Very funny. Same players not allowed.');
                         return;
@@ -81,6 +87,9 @@
                         redPlayer: redPlayer,
                         bluePlayer: bluePlayer
                     };
+
+                    localStorage.setItem('lastRedPlayer', redPlayer);
+                    localStorage.setItem('lastBluePlayer', bluePlayer);
                 }
             } else {
                 var redTeamScore = getValueOrFocus('#redTeamScore');
@@ -107,6 +116,11 @@
                         redTeamDefense: redTeamDefense,
                         blueTeamDefense: blueTeamDefense
                     };
+
+                    localStorage.setItem('lastRedOffensePlayer', redTeamOffense);
+                    localStorage.setItem('lastRedDefensePlayer', redTeamDefense);
+                    localStorage.setItem('lastBlueOffensePlayer', blueTeamOffense);
+                    localStorage.setItem('lastBlueDefensePlayer', blueTeamDefense);
                 }
             }
 
@@ -116,9 +130,9 @@
                 app.apiHub.server.postScore(league, viewModel).done(function () {
                     $('.player').val('');
                     $('.score').val('');
-                }).always(function() {
+                }).always(function () {
                     submitButton.show();
-                }).fail(function(errorMessage) {
+                }).fail(function (errorMessage) {
                     alert('Post score failed.\n\n' + errorMessage);
                 });
             }

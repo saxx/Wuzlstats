@@ -8,10 +8,14 @@
     <div class="col-md-6">
         <div id="scoreBox" class="well">
             @Html.Partial("_Score")
-
             <div id="leagueMenuBar" class="row" style="display: none;">
-                <div class="col-xs-12 text-right">
-                    <a href="@Url.Action("Games","Home", new { league = Model.Name })" class="btn btn-default btn-sm">View / delete games</a>
+                <div class="col-xs-12">
+                    <div class="btn-group pull-right">
+                        <button id="replayButton" class="btn btn-default btn-sm">Replay</button>
+                        <button id="switchSidesButton" class="btn btn-default btn-sm">Switch sides</button>
+                        <button id="switchPositionsButton" class="btn btn-default btn-sm">Switch positions</button>
+                        <a href="@Url.Action("Games", "Home", new { league = Model.Name })" class="btn btn-default btn-sm">View / delete games</a>
+                    </div>
                 </div>
             </div>
         </div>
