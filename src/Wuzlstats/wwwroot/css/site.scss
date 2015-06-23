@@ -199,4 +199,8 @@ span {
 
 footer {
     margin-top: 100px;
+
+    @media (max-width: $smallScreenPixels) {
+        margin-top: 50px;
+    }
 }

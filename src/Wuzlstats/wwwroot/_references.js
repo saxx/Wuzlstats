@@ -13,4 +13,3 @@
 /// <reference path="js/app.playerStatistics.js" />
 /// <reference path="js/app.teamStatistics.js" />
 /// <reference path="js/app.leagueMenuBar.js" />
-/// <reference path="lib/hammerjs/hammer.js" />
