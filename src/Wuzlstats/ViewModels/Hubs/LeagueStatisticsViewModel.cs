@@ -148,14 +148,7 @@ namespace Wuzlstats.ViewModels.Hubs
             goalDifference = goalDifferences.Average(x => x);
 
             var mostActivePlayerEntity = players.OrderByDescending(x => x.losses + x.wins).FirstOrDefault();
-            if (mostActivePlayerEntity != null)
-            {
-                mostActivePlayer = mostActivePlayerEntity.name;
-            }
-            else
-            {
-                mostActivePlayer = "";
-            }
+            mostActivePlayer = mostActivePlayerEntity != null ? mostActivePlayerEntity.name : "";
 
             return this;
         }

@@ -2,18 +2,29 @@
 	<s:String x:Key="/Default/CodeInspection/Browsers/Browsers/@EntryValue">C7+,FF4+,IE10+,O11+,S5+</s:String>
 	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=angular_002A_002Cjs/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=angular_002A_002Cjs/@EntryIndexRemoved">True</s:Boolean>
-	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=angular_002A_002Ejs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=angular_002A_002Ejs/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=angular_002Ejs/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=angular_002Ejs/@EntryIndexRemoved">True</s:Boolean>
-	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=bootstrap_002A_002Ecss/@EntryIndexedValue">True</s:Boolean>
-	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=bootstrap_002A_002Ejs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=bootstrap_002A_002Ecss/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=bootstrap_002A_002Ejs/@EntryIndexedValue">False</s:Boolean>
 	
 	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=bootstrap_002Ejs/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=bootstrap_002Ejs/@EntryIndexRemoved">True</s:Boolean>
-	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=dx_002A_002Ejs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=dx_002A_002Ejs/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=dx_002Echartjs_002A_002Ejs/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=dx_002Echartjs_002A_002Ejs/@EntryIndexRemoved">True</s:Boolean>
-	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=jquery_002A_002Ejs/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=hammer_002A_002Ejs/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=jquery_002A_002Ejs/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=_002A_002Emin_002Ejs/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=_002A_002Emin_002Ejs/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=angular_002A_002Ejs/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=bootstrap_002A_002Ecss/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=bootstrap_002A_002Ejs/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=dx_002A_002Ejs/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=hammer_002A_002Ejs/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/CodeInspection/ExcludedFiles/FileMasksToSkip/=jquery_002A_002Ejs/@EntryIndexRemoved">True</s:Boolean>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=3F22A308_002D342E_002D45EC_002D9E06_002D4134D237853E_002Fd_003Awwwroot_002Fd_003Ajs_002Fd_003Aminified/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=3F22A308_002D342E_002D45EC_002D9E06_002D4134D237853E_002Fd_003Awwwroot_002Fd_003Alib/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=A93272D4_002DF0ED_002D4FD3_002DBFF9_002DB7762D0E458B_002Fd_003AScripts_002Fd_003Achartjs_002Dmodules/@EntryIndexedValue">ExplicitlyExcluded</s:String>
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=A93272D4_002DF0ED_002D4FD3_002DBFF9_002DB7762D0E458B_002Fd_003AScripts_002Fd_003Ajquery_002Eglobalize/@EntryIndexedValue">ExplicitlyExcluded</s:String>

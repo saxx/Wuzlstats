@@ -1,4 +1,5 @@
-﻿(function (app, $) {
+﻿// ReSharper disable once UnusedParameter
+(function (app, $) {
 
     // ReSharper disable InconsistentNaming
     var _playerUrl;

@@ -1,5 +1,8 @@
 using Microsoft.Data.Entity.Relational.Migrations;
 using Microsoft.Data.Entity.Relational.Migrations.Builders;
+// ReSharper disable RedundantArgumentNameForLiteralExpression
+// ReSharper disable RedundantArgumentName
+// ReSharper disable RedundantArgumentDefaultValue
 
 namespace Wuzlstats.Migrations
 {

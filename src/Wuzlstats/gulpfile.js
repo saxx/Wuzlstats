@@ -44,7 +44,9 @@ gulp.task("copy", ["clean", "uglify"], function () {
     }
 
     for (var destinationDir in bower) {
-        gulp.src(paths.bower + bower[destinationDir])
-          .pipe(gulp.dest(paths.lib + destinationDir));
+        if (bower.hasOwnProperty(destinationDir)) {
+            gulp.src(paths.bower + bower[destinationDir])
+                .pipe(gulp.dest(paths.lib + destinationDir));
+        }
     }
 });
