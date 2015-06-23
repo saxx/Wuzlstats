@@ -8,7 +8,9 @@
             }
         });
 
-        $("#scoreBox").dblclick(function () {
+        var mc = new window.Hammer.Manager(document.getElementById('scoreBox'));
+        mc.add(new window.Hammer.Tap({ event: 'doubletap', taps: 2 }));
+        mc.on('doubletap', function () {
             menuBar.toggle();
         });
 
