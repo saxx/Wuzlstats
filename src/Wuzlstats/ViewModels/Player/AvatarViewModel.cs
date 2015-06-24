@@ -5,18 +5,17 @@ using Wuzlstats.Models;
 
 namespace Wuzlstats.ViewModels.Player
 {
-    public class IndexViewModel
+    public class AvatarViewModel
     {
         private readonly Db _db;
-
-
-        public IndexViewModel(Db db)
+        
+        public AvatarViewModel(Db db)
         {
             _db = db;
         }
 
 
-        public async Task<IndexViewModel> Fill(Models.Player player)
+        public async Task<AvatarViewModel> Fill(Models.Player player)
         {
             Id = player.Id;
             Name = player.Name;
@@ -27,8 +26,7 @@ namespace Wuzlstats.ViewModels.Player
 
             return this;
         }
-
-
+        
         public int Id { get; set; }
         public string Name { get; set; }
         public string League { get; set; }

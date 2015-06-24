@@ -1,0 +1,21 @@
+﻿@model Wuzlstats.ViewModels.Player.IndexViewModel
+
+<div class="row">
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <form enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="avatar">Select a file to update the avatar:</label>
+                <input type="file" id="avatar" name="avatar">
+                <p class="help-block">Make sure the avatar is a square image. It will be resized to 150x150 pixels.</p>
+            </div>
+            <button type="submit" class="btn btn-default">Update player profile</button>
+        </form>
+    </div>
+    <div class="col-md-4 hidden-sm hidden-xs">
+        <img src="data:image/png;base64,@Model.Image" class="player-image" alt="Image for @Model.Name" />
+    </div>
+</div>
+
+
+
+

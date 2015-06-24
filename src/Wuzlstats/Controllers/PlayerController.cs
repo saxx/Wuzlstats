@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using ImageResizer;
@@ -22,7 +23,17 @@ namespace Wuzlstats.Controllers
 
         public async Task<IActionResult> Index(int id)
         {
-            var viewModel = await new IndexViewModel(_db).Fill(id);
+            var player = await LoadAndEnsurePlayerExists(id);
+            var viewModel = await new IndexViewModel(_db).Fill(player);
+            ViewBag.CurrentLeague = viewModel.League;
+            return View(viewModel);
+        }
+
+
+        public async Task<IActionResult> Avatar(int id)
+        {
+            var player = await LoadAndEnsurePlayerExists(id);
+            var viewModel = await new AvatarViewModel(_db).Fill(player);
             ViewBag.CurrentLeague = viewModel.League;
             return View(viewModel);
         }
@@ -31,8 +42,8 @@ namespace Wuzlstats.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(int id, IFormFile avatar)
         {
-            var player = await _db.Players.SingleOrDefaultAsync(x => x.Id == id);
-            if (player != null && avatar.Length > 0)
+            var player = await LoadAndEnsurePlayerExists(id);
+            if (avatar.Length > 0)
             {
                 var settings = new ResizeSettings
                 {
@@ -47,7 +58,19 @@ namespace Wuzlstats.Controllers
                 player.Image = outputStream.ToArray();
                 await _db.SaveChangesAsync();
             }
-            return await Index(id);
+
+            return RedirectToAction("Index", new { id });
+        }
+
+
+        private async Task<Player> LoadAndEnsurePlayerExists(int id)
+        {
+            var player = await _db.Players.FirstOrDefaultAsync(x => x.Id == id);
+            if (player == null)
+            {
+                throw new Exception("There is no player with ID " + id + ".");
+            }
+            return player;
         }
     }
 }
