@@ -145,7 +145,11 @@ namespace Wuzlstats.ViewModels.Hubs
             worstPlayers = players.OrderBy(x => x.rank).Take(5).ToList();
             bestTeams = teams.OrderByDescending(x => x.rank).Take(3).ToList();
             worstTeams = teams.OrderBy(x => x.rank).Take(3).ToList();
-            goalDifference = goalDifferences.Average(x => x);
+
+            if (goalDifferences.Any())
+            {
+                goalDifference = goalDifferences.Average(x => x);
+            }
 
             var mostActivePlayerEntity = players.OrderByDescending(x => x.losses + x.wins).FirstOrDefault();
             mostActivePlayer = mostActivePlayerEntity != null ? mostActivePlayerEntity.name : "";

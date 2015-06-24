@@ -13,10 +13,12 @@ namespace Wuzlstats.Controllers
     public class PlayerController : Controller
     {
         private readonly Db _db;
+        private readonly AppSettings _settings;
 
 
-        public PlayerController(Db db)
+        public PlayerController(Db db, AppSettings settings)
         {
+            _settings = settings;
             _db = db;
         }
 
@@ -24,12 +26,12 @@ namespace Wuzlstats.Controllers
         public async Task<IActionResult> Index(int id)
         {
             var player = await LoadAndEnsurePlayerExists(id);
-            var viewModel = await new IndexViewModel(_db).Fill(player);
+            var viewModel = await new IndexViewModel(_db, _settings).Fill(player);
             ViewBag.CurrentLeague = viewModel.League;
             return View(viewModel);
         }
 
-
+        #region Avatar
         public async Task<IActionResult> Avatar(int id)
         {
             var player = await LoadAndEnsurePlayerExists(id);
@@ -40,7 +42,7 @@ namespace Wuzlstats.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Index(int id, IFormFile avatar)
+        public async Task<IActionResult> Avatar(int id, IFormFile avatar)
         {
             var player = await LoadAndEnsurePlayerExists(id);
             if (avatar.Length > 0)
@@ -61,6 +63,7 @@ namespace Wuzlstats.Controllers
 
             return RedirectToAction("Index", new { id });
         }
+        #endregion
 
 
         private async Task<Player> LoadAndEnsurePlayerExists(int id)
