@@ -11,7 +11,7 @@ There is a public instance running at http://wuzlstats.sachsenhofer.com. Feel fr
 
 ## Technology
 
-Wuzlstats is built using ASP.NET vNext (v5 beta4 for the time being). Data is saved in SQL Server using Entity Framework, the real-time (websockets) functionality is provided by SignalR.
+Wuzlstats is built using ASP.NET vNext (v5 beta5 for the time being). Data is saved in SQL Server using Entity Framework, the real-time (websockets) functionality is provided by SignalR.
 
 Since I'm [abstracting on the shoulders of giants](http://www.hanselman.com/blog/WeAreAbstractingOnTheShouldersOfGiants.aspx), these are the great open source libraries that Wuzlstats is built upon:
 
