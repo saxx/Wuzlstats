@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using Microsoft.Data.Entity;
 using System.Threading.Tasks;
 using ImageResizer;
 using Microsoft.AspNet.Http;

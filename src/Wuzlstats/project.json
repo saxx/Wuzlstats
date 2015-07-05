@@ -3,21 +3,21 @@
   "version": "0.0.0-*",
 
   "dependencies": {
-    "Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
-    "Microsoft.AspNet.Mvc": "6.0.0-beta4",
-    "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta4",
-    "Microsoft.AspNet.Server.IIS": "1.0.0-beta4",
-    "Microsoft.AspNet.Server.WebListener": "1.0.0-beta4",
-    "Microsoft.AspNet.StaticFiles": "1.0.0-beta4",
-    "Microsoft.AspNet.Tooling.Razor": "1.0.0-beta4",
-    "Microsoft.AspNet.SignalR.Server":  "3.0.0-beta4",
-    "Microsoft.Framework.ConfigurationModel.Json": "1.0.0-beta4",
-    "Microsoft.Framework.CodeGenerators.Mvc": "1.0.0-beta4",
-    "Microsoft.Framework.Logging": "1.0.0-beta4",
-    "Microsoft.Framework.Logging.Console": "1.0.0-beta4",
+    "Microsoft.AspNet.Diagnostics": "1.0.0-beta5",
+    "Microsoft.AspNet.Mvc": "6.0.0-beta5",
+    "Microsoft.AspNet.Mvc.TagHelpers": "6.0.0-beta5",
+    "Microsoft.AspNet.Server.IIS": "1.0.0-beta5",
+    "Microsoft.AspNet.Server.WebListener": "1.0.0-beta5",
+    "Microsoft.AspNet.StaticFiles": "1.0.0-beta5",
+    "Microsoft.AspNet.Tooling.Razor": "1.0.0-beta5",
+    "Microsoft.AspNet.SignalR.Server":  "3.0.0-beta5",
+    "Microsoft.Framework.Configuration.Json": "1.0.0-beta5",
+    "Microsoft.Framework.CodeGenerators.Mvc": "1.0.0-beta5",
+    "Microsoft.Framework.Logging": "1.0.0-beta5",
+    "Microsoft.Framework.Logging.Console": "1.0.0-beta5",
     "EntityFramework": "7.0.0-beta4",
-    "EntityFramework.SqlServer": "7.0.0-beta4",
-    "EntityFramework.Commands": "7.0.0-beta4",
+    "EntityFramework.SqlServer": "7.0.0-beta5",
+    "EntityFramework.Commands": "7.0.0-beta5",
     "ImageResizer": "3.4.3"
   },
 
@@ -32,8 +32,7 @@
       "frameworkAssemblies": {
         "System.Drawing": "4.0.0.0"
       }
-    }/*,
-    "dnxcore50": { }*/
+    }
   },
 
   "exclude": [

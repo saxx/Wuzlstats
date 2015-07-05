@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Wuzlstats.Models;
+using Microsoft.Data.Entity;
 
 namespace Wuzlstats.ViewModels.Hubs
 {

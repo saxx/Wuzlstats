@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using Microsoft.Data.Entity;
 using System.Threading.Tasks;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;

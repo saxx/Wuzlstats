@@ -2,9 +2,10 @@
 using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Data.Entity;
-using Microsoft.Framework.ConfigurationModel;
+using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
+using Microsoft.Framework.Runtime;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Hubs;
 
@@ -13,11 +14,12 @@ namespace Wuzlstats
     public class Startup
     {
         // ReSharper disable once UnusedParameter.Local
-        public Startup(IHostingEnvironment env)
+        public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
-            Configuration = new Configuration()
+            Configuration = new ConfigurationBuilder(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json")
-                .AddEnvironmentVariables("Wuzlstats.");
+                .AddEnvironmentVariables("Wuzlstats.")
+                .Build();
         }
 
 
