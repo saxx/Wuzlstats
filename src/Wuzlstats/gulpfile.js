@@ -37,10 +37,7 @@ gulp.task('watch', function () {
 
 gulp.task("copy", ["clean", "uglify"], function () {
     var bower = {
-        "bootstrap": "bootstrap/dist/**/*.{js,map,css,ttf,svg,woff,eot}",
-        "jquery": "jquery/dist/jquery*.{js,map}",
-        "signalr": "signalr/*.{js,map}",
-        "hammerjs": "hammerjs/*.{js,map}"
+        "signalr": "signalr/*.{js,map}"
     }
 
     for (var destinationDir in bower) {
