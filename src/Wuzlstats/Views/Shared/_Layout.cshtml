@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Wuzlstats@(ViewBag.CurrentLeague != null ? " - " + @ViewBag.CurrentLeague : "")</title>
 
-    @* ReSharper disable Html.PathError *@
-    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
 
     <link rel="apple-touch-icon" sizes="57x57" href="~/apple-icon-57x57.png">
@@ -26,7 +25,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    @* ReSharper restore Html.PathError *@
 </head>
 <body>
 <div class="container">
@@ -73,14 +71,12 @@
     </footer>
 </div>
 
-@* ReSharper disable Html.PathError *@
-<script src="~/lib/jquery/jquery.min.js"></script>
-<script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.4/hammer.min.js"></script>
 <script src="~/lib/signalr/jquery.signalr.min.js"></script>
-<script src="~/lib/hammerjs/hammer.min.js"></script>
 <script src="~/signalr/hubs"></script>
 <script src="~/js/minified/app.js"></script>
-@* ReSharper restore Html.PathError *@
 
 @RenderSection("scripts", required: false)
 
