@@ -1,6 +1,6 @@
 using System;
 using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Relational.Migrations.Infrastructure;
+using Microsoft.Data.Entity.Migrations.Infrastructure;
 using Wuzlstats.Models;
 
 namespace Wuzlstats.Migrations
@@ -29,7 +29,7 @@ namespace Wuzlstats.Migrations
                     b.Property<DateTime>("Date")
                         .Annotation("OriginalValueIndex", 1);
                     b.Property<int>("Id")
-                        .GenerateValueOnAdd()
+                        .ValueGeneratedOnAdd()
                         .Annotation("OriginalValueIndex", 2)
                         .Annotation("SqlServer:ValueGeneration", "Default");
                     b.Property<int>("LeagueId")
@@ -42,7 +42,7 @@ namespace Wuzlstats.Migrations
             builder.Entity("Wuzlstats.Models.League", b =>
                 {
                     b.Property<int>("Id")
-                        .GenerateValueOnAdd()
+                        .ValueGeneratedOnAdd()
                         .Annotation("OriginalValueIndex", 0)
                         .Annotation("SqlServer:ValueGeneration", "Default");
                     b.Property<string>("Name")
@@ -53,7 +53,7 @@ namespace Wuzlstats.Migrations
             builder.Entity("Wuzlstats.Models.Player", b =>
                 {
                     b.Property<int>("Id")
-                        .GenerateValueOnAdd()
+                        .ValueGeneratedOnAdd()
                         .Annotation("OriginalValueIndex", 0)
                         .Annotation("SqlServer:ValueGeneration", "Default");
                     b.Property<byte[]>("Image")
@@ -70,7 +70,7 @@ namespace Wuzlstats.Migrations
                     b.Property<int>("GameId")
                         .Annotation("OriginalValueIndex", 0);
                     b.Property<int>("Id")
-                        .GenerateValueOnAdd()
+                        .ValueGeneratedOnAdd()
                         .Annotation("OriginalValueIndex", 1)
                         .Annotation("SqlServer:ValueGeneration", "Default");
                     b.Property<int>("PlayerId")

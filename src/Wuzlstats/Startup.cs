@@ -51,14 +51,7 @@ namespace Wuzlstats
 
             loggerfactory.AddConsole();
 
-            if (env.IsEnvironment("Development"))
-            {
-                app.UseErrorPage(ErrorPageOptions.ShowAll);
-            }
-            else
-            {
-                app.UseErrorHandler("/Home/Error");
-            }
+            app.UseErrorHandler("/Home/Error");
 
             app.UseStaticFiles();
 

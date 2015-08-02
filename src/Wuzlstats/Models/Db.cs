@@ -12,7 +12,7 @@ namespace Wuzlstats.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ForSqlServer().UseIdentity();
+            //modelBuilder.ForSqlServer().UseIdentity();
 
             modelBuilder.Entity<Game>().Reference(x => x.League).InverseCollection(x => x.Games).ForeignKey(x => x.LeagueId);
             modelBuilder.Entity<Player>().Reference(x => x.League).InverseCollection(x => x.Players).ForeignKey(x => x.LeagueId);
