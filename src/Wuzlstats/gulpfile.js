@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='sass' AfterBuild='copy' Clean='clean' />
+/// <binding BeforeBuild='sass' AfterBuild='uglify' Clean='clean' />
 var gulp = require("gulp"),
   sass = require("gulp-sass"),
   rimraf = require("rimraf"),
