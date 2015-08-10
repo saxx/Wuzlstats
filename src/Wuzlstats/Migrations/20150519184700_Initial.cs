@@ -1,5 +1,6 @@
 using Microsoft.Data.Entity.Migrations;
 using Microsoft.Data.Entity.Migrations.Builders;
+// ReSharper disable RedundantArgumentDefaultValue
 
 namespace Wuzlstats.Migrations
 {

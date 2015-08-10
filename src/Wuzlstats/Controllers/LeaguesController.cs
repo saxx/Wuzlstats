@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Microsoft.Data.Entity;
+﻿using Microsoft.Data.Entity;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Wuzlstats.Models;

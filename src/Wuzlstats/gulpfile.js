@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='sass' AfterBuild='copy' Clean='clean' />
+/// <binding BeforeBuild='sass' AfterBuild='uglify' Clean='clean' />
 var gulp = require("gulp"),
   sass = require("gulp-sass"),
   rimraf = require("rimraf"),
@@ -9,7 +9,6 @@ var gulp = require("gulp"),
 eval("var project = " + fs.readFileSync("./project.json"));
 
 var paths = {
-    bower: "./bower_components/",
     lib: "./" + project.webroot + "/lib/"
 };
 
@@ -33,17 +32,4 @@ gulp.task('uglify', function () {
 
 gulp.task('watch', function () {
     gulp.watch(['./wwwroot/css/*.scss', './wwwroot/js/*.js'], ['sass', 'uglify']);
-});
-
-gulp.task("copy", ["clean", "uglify"], function () {
-    var bower = {
-        "signalr": "signalr/*.{js,map}"
-    }
-
-    for (var destinationDir in bower) {
-        if (bower.hasOwnProperty(destinationDir)) {
-            gulp.src(paths.bower + bower[destinationDir])
-                .pipe(gulp.dest(paths.lib + destinationDir));
-        }
-    }
 });

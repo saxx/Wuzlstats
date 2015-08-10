@@ -9,5 +9,3 @@
 /// <reference path="js/app.signalr.js" />
 /// <reference path="js/app.teamStatistics.js" />
 /// <reference path="js/minified/app.js" />
-/// <reference path="lib/jquery/jquery.js" />
-/// <reference path="lib/signalr/jquery.signalR.js" />
