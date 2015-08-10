@@ -7,11 +7,11 @@ using Wuzlstats.Models;
 namespace Wuzlstats.Migrations
 {
     [ContextType(typeof(Db))]
-    partial class Timeouts
+    partial class Initial
     {
         public override string Id
         {
-            get { return "20150808175852_Timeouts"; }
+            get { return "20150810174412_Initial"; }
         }
 
         public override string ProductVersion

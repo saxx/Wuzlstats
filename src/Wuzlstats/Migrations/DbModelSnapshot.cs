@@ -4,7 +4,7 @@ using Microsoft.Data.Entity.Metadata;
 using Microsoft.Data.Entity.Migrations.Infrastructure;
 using Wuzlstats.Models;
 
-namespace WuzlstatsMigrations
+namespace Wuzlstats.Migrations
 {
     [ContextType(typeof(Db))]
     partial class DbModelSnapshot : ModelSnapshot
