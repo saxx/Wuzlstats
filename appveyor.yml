@@ -1,0 +1,33 @@
+version: '{build}'
+
+os: Visual Studio 2015
+
+before_build:
+- nuget restore
+
+build:
+  publish_wap: true
+  verbosity: minimal
+
+configuration: Release
+
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+
+deploy:
+- provider: WebDeploy
+  server: http://wuzlstats.sachsenhofer.com/MSDEPLOYAGENTSERVICE
+  website: Wuzlstats
+  username: Administrator
+  password:
+    secure: 0VezCAl9nnPtt2Kdqabh3Q==
+  ntlm: true
+  remove_files: true
+  app_offline: false
+  aspnet5: true
+  on:
+    branch: master
