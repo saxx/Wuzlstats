@@ -8,15 +8,9 @@ before_build:
 build:
   publish_wap: true
   verbosity: minimal
+  project: src\Wuzlstats\project.json    
 
 configuration: Release
-
-assembly_info:
-  patch: true
-  file: '**\AssemblyInfo.*'
-  assembly_version: '{version}'
-  assembly_file_version: '{version}'
-  assembly_informational_version: '{version}'
 
 deploy:
 - provider: WebDeploy
