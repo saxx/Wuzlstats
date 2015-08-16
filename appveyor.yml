@@ -13,7 +13,9 @@ before_build:
  - ps: dnvm list
  - ps: npm cache clean
  - ps: npm install -g gulp
- - ps: dnu restore
+ - ps: >-
+     dnu restore
+     exit 0
  - ps: nuget restore
  - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
 
