@@ -47,7 +47,7 @@
     "wwwroot/js/*.js"
   ],
   "scripts": {
-    "postrestore": [ "npm install", "bower install" ],
+    "postrestore": [ "npm install" ],
     "prepare": [ "gulp uglify", "gulp sass" ]
   }
 }
