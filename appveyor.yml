@@ -10,12 +10,7 @@ before_build:
  - cmd: powershell -NoProfile -ExecutionPolicy unrestricted -Command "&{$Branch='dev';iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.ps1'))}"
  - ps: dnvm install 1.0.0-beta6
  - ps: dnvm use 1.0.0-beta6
- - ps: dnvm list
- - ps: npm cache clean
- - ps: npm install -g gulp
- - ps: >-
-     dnu restore
-     exit 0
+ - ps: dnu restore --quiet
  - ps: nuget restore
  - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
 
