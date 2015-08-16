@@ -7,10 +7,11 @@ install:
  - cmd: nuget sources add -Name AspNetVNext -Source https://www.myget.org/F/aspnetvnext/api/v2
 
 before_build:
- - cmd: powershell -NoProfile -ExecutionPolicy unrestricted -Command "&{$Branch='dev';iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.ps1'))}"
  - ps: dnvm install 1.0.0-beta6
  - ps: dnvm use 1.0.0-beta6
- - ps: dnu restore --quiet
+ - ps: >-
+     dnu restore --quiet
+     exit 0
  - ps: nuget restore
  - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
 
