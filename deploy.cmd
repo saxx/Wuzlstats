@@ -6,7 +6,7 @@ SET username=Administrator
 ECHO Publishing to %server%...
 SET /p password=Enter password for %username%: 
 
-rmdir /S /Q %~dp0artifacts\publish
+IF EXIST %~dp0artifacts\publish rmdir /S /Q %~dp0artifacts\publish
 Path=%~dp0src\Wuzlstats\node_modules\.bin;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\\EXTENSIONS\MICROSOFT\WEB TOOLS\External;%PATH%;C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\\EXTENSIONS\MICROSOFT\WEB TOOLS\External\git
 
 @ECHO ON

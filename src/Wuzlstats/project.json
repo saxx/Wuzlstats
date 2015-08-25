@@ -42,10 +42,12 @@
     "bower_components",
     "**.xproj",
     "**.user",
-    "**.vspscc"
+    "**.vspscc",
+    "wwwroot/css/*.scss",
+    "wwwroot/js/*.js"
   ],
   "scripts": {
-    "postrestore": [ "npm install", "bower install" ],
-    "prepare": [ "gulp uglify" ]
+    "postrestore": [ "npm install" ],
+    "prepare": [ "gulp uglify", "gulp sass" ]
   }
 }

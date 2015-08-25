@@ -1,0 +1,14 @@
+
+deploy:
+- provider: WebDeploy
+  server: http://wuzlstats.sachsenhofer.com/MSDEPLOYAGENTSERVICE
+  website: Wuzlstats
+  username: Administrator
+  password:
+    secure: 0VezCAl9nnPtt2Kdqabh3Q==
+  ntlm: true
+  remove_files: true
+  app_offline: false
+  aspnet5: true
+  on:
+    branch: master
