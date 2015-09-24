@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Wuzlstats.ViewModels.Players.IndexViewModel>
+
+<p>These are all the players. Ever.<br />No one will be forgotten. Shame and fame will last till the very end of days, or at least until a database crash with no backups.</p>
+
+<ul class="ranking player-ranking">
+    @foreach (var player in Model)
+    {
+        <li>
+            <a href="@Url.Action("Index", "Player", new { id = player.PlayerId })">
+                <img src="data:image/png;base64,@player.Image" alt="@player.Name" class="ranking-image" />
+            </a>
+            <div class="ranking-name">@player.Name</div>
+            <div class="ranking-score">
+                <span>#@player.PlayerId</span>
+                @*<span class="ranking-wins">3<span class="glyphicon glyphicon-thumbs-up"></span></span>
+                <span class="ranking-losses">0<span class="glyphicon glyphicon-thumbs-down"></span></span>*@
+            </div>
+        </li>
+    }
+</ul>
