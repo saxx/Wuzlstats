@@ -3,6 +3,8 @@ using Microsoft.AspNet.Mvc;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Players;
 using System;
+using System.Threading.Tasks;
+using Wuzlstats.Services;
 
 namespace Wuzlstats.Controllers
 {
@@ -10,15 +12,17 @@ namespace Wuzlstats.Controllers
     {
         private readonly Db _db;
         private readonly AppSettings _settings;
+        private readonly PlayersService _statisticsService;
 
         public PlayersController(Db db, AppSettings settings)
         {
             _settings = settings;
             _db = db;
+            _statisticsService = new PlayersService(_db);
         }
 
         [Route("~/League/{league}/Players")]
-        public IActionResult Index(string league)
+        public async Task<IActionResult> Index(string league)
         {
             var leagueEntity = _db.Leagues.FirstOrDefault(x => x.Name.ToLower() == league.ToLower());
             if (leagueEntity == null)
@@ -26,19 +30,20 @@ namespace Wuzlstats.Controllers
                 return RedirectToAction("Index", "Leagues");
             }
             ViewBag.CurrentLeague = leagueEntity.Name;
-            var players = _db.Players.Where(x => x.LeagueId == leagueEntity.Id).Select(x => new
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Image = x.Image
-            }).ToList();
+            var players = await _statisticsService.FindPlayersOfLeague(leagueEntity.Id, /*_settings.DaysForStatistics*/ null);
 
             return View(players.Select(player => new IndexViewModel
             {
                 PlayerId = player.Id,
                 Name = player.Name,
-                Image = player.Image == null || player.Image.Length <= 0 ? EmptyAvatar.Base64 : Convert.ToBase64String(player.Image)
+                Image = player.Image == null || player.Image.Length <= 0 ? EmptyAvatar.Base64 : Convert.ToBase64String(player.Image),
+                Wins = player.Wins,
+                Losses = player.Losses,
+                SingleGames = player.SingleGames,
+                TeamGames = player.TeamGames,
+                LastGamePlayedOn = player.LatestGame
             }));
         }
+
     }
 }

@@ -2,19 +2,47 @@
 
 <p>These are all the players. Ever.<br />No one will be forgotten. Shame and fame will last till the very end of days, or at least until a database crash with no backups.</p>
 
-<ul class="ranking player-ranking">
-    @foreach (var player in Model)
-    {
-        <li>
-            <a href="@Url.Action("Index", "Player", new { id = player.PlayerId })">
-                <img src="data:image/png;base64,@player.Image" alt="@player.Name" class="ranking-image" />
-            </a>
-            <div class="ranking-name">@player.Name</div>
-            <div class="ranking-score">
-                <span>#@player.PlayerId</span>
-                @*<span class="ranking-wins">3<span class="glyphicon glyphicon-thumbs-up"></span></span>
-                <span class="ranking-losses">0<span class="glyphicon glyphicon-thumbs-down"></span></span>*@
-            </div>
-        </li>
-    }
-</ul>
+<table class="table table-striped ranking players">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Player</th>
+            <th>Score</th>
+            <th>Last game</th>
+            <th># 1 vs. 1</th>
+            <th># 2 vs. 2</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{var rank = 1; }
+        @foreach (var player in Model)
+        {
+            <tr>
+                <td>
+                    @(rank++)
+                </td>
+                <td>
+                    <a href="@Url.Action("Index", "Player", new { id = player.PlayerId })">
+                        <img src="data:image/png;base64,@player.Image" alt="@player.Name" class="ranking-image" />
+                    </a>
+                    <div class="player-name">@player.Name</div>
+                    </td>
+                <td>
+                    <div class="player-score">
+                        <span class="ranking-wins">@player.Wins<span class="glyphicon glyphicon-thumbs-up"></span></span>
+                        <span class="ranking-losses">@player.Losses<span class="glyphicon glyphicon-thumbs-down"></span></span>
+                    </div>
+                </td>
+                <td>
+                    @player.LastGamePlayedOn.ToShortDateString()
+                </td>
+                <td>
+                    @player.SingleGames
+                </td>
+                <td>
+                    @player.TeamGames
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
