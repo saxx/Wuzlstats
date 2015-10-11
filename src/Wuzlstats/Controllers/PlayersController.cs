@@ -22,7 +22,7 @@ namespace Wuzlstats.Controllers
         }
 
         [Route("~/League/{league}/Players")]
-        public async Task<IActionResult> Index(string league)
+        public async Task<IActionResult> Index(string league, string sort)
         {
             var leagueEntity = _db.Leagues.FirstOrDefault(x => x.Name.ToLower() == league.ToLower());
             if (leagueEntity == null)
@@ -31,6 +31,21 @@ namespace Wuzlstats.Controllers
             }
             ViewBag.CurrentLeague = leagueEntity.Name;
             var players = await _statisticsService.FindPlayersOfLeague(leagueEntity.Id, /*_settings.DaysForStatistics*/ null);
+
+            switch (sort)
+            {
+                case "best":
+                    players = players.OrderByDescending(x => x.Rank);
+                    break;
+                case "worst":
+                    players = players.OrderBy(x => x.Rank);
+                    break;
+                case "activity":
+                    players = players.OrderByDescending(x => x.Wins + x.Losses);
+                    break;
+                default:
+                    break;
+            }
 
             return View(players.Select(player => new IndexViewModel
             {

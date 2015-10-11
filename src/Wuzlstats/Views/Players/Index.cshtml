@@ -2,6 +2,12 @@
 
 <p>These are all the players. Ever.<br />No one will be forgotten. Shame and fame will last till the very end of days, or at least until a database crash with no backups.</p>
 
+<ul class="list-unstyled list-inline filter">
+    <li><a href="@Url.Action("Index", "Players", new { sort = "best" })">Best</a></li>
+    <li><a href="@Url.Action("Index", "Players", new { sort = "worst" })">Worst</a></li>
+    <li><a href="@Url.Action("Index", "Players", new { sort = "activity" })">Most active</a></li>
+</ul>
+
 <table class="table table-striped ranking players">
     <thead>
         <tr>
