@@ -213,6 +213,11 @@ footer {
 }
 
 .players {
+    td > a {
+        &:focus, &:hover {
+            text-decoration: none;
+        }
+    }
 
     .player-name {
         font-weight: bold;

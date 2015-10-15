@@ -139,6 +139,9 @@ footer {
 .filter li.active {
   font-weight: bold; }
 
+.players td > a:focus, .players td > a:hover {
+  text-decoration: none; }
+
 .players .player-name {
   font-weight: bold;
   display: inline; }
