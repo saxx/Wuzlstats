@@ -205,6 +205,13 @@ footer {
     }
 }
 
+//Players page
+.filter {
+    li.active {
+        font-weight: bold;
+    }
+}
+
 .players {
 
     .player-name {

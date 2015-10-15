@@ -136,6 +136,9 @@ footer {
     footer {
       margin-top: 50px; } }
 
+.filter li.active {
+  font-weight: bold; }
+
 .players .player-name {
   font-weight: bold;
   display: inline; }
