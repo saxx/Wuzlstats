@@ -1,11 +1,12 @@
-﻿@model IEnumerable<Wuzlstats.ViewModels.Players.IndexViewModel>
+﻿@model Wuzlstats.ViewModels.Players.IndexViewModel
 
-<p>These are all the players. Ever.<br />No one will be forgotten. Shame and fame will last till the very end of days, or at least until a database crash with no backups.</p>
+<p class="help-block">These are all the players. Ever.<br />No one will be forgotten. Shame and fame will last till the very end of days, or at least until a database crash with no backups.</p>
 
 <ul class="list-unstyled list-inline filter">
-    <li><a href="@Url.Action("Index", "Players", new { sort = "best" })">Best</a></li>
-    <li><a href="@Url.Action("Index", "Players", new { sort = "worst" })">Worst</a></li>
-    <li><a href="@Url.Action("Index", "Players", new { sort = "activity" })">Most active</a></li>
+    <li class="@(string.IsNullOrEmpty(Model.ActiveFilter) ? "active" : "")"><a href="@Url.Action("Index", "Players", new { recent = Model.Recent })">Last played</a></li>
+    <li class="@(Model.ActiveFilter == "best" ? "active" : "")"><a href="@Url.Action("Index", "Players", new { sort = "best", recent = Model.Recent })">Best</a></li>
+    <li class="@(Model.ActiveFilter == "worst" ? "active" : "")"><a href="@Url.Action("Index", "Players", new { sort = "worst", recent = Model.Recent })">Worst</a></li>
+    <li class="@(Model.ActiveFilter == "activity" ? "active" : "")"><a href="@Url.Action("Index", "Players", new { sort = "activity", recent = Model.Recent })">Most active</a></li>
 </ul>
 
 <table class="table table-striped ranking players">
@@ -21,7 +22,7 @@
     </thead>
     <tbody>
         @{var rank = 1; }
-        @foreach (var player in Model)
+        @foreach (var player in Model.Players)
         {
             <tr>
                 <td>
