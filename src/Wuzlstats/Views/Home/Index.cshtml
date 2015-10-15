@@ -31,7 +31,7 @@
     <div class="col-md-6">
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="text-center">The best players</h3>
+                <h3 class="text-center"><a href="@Url.Action("Index", "Players", new { league = Model.Name, sort = "best", recent = true })">The best players</a></h3>
                 <ul id="bestPlayerRanking">
                     <li class="progress">
                         <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
@@ -39,7 +39,7 @@
                 </ul>
             </div>
             <div class="col-sm-6">
-                <h3 class="text-center">The worst players</h3>
+                <h3 class="text-center"><a href="@Url.Action("Index", "Players", new { league = Model.Name, sort = "worst", recent = true })">The worst players</a></h3>
                 <ul id="worstPlayerRanking">
                     <li class="progress">
                         <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
