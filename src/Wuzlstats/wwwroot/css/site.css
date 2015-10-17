@@ -140,9 +140,6 @@ footer {
     footer {
       margin-top: 50px; } }
 
-.filter li.active {
-  font-weight: bold; }
-
 .players td > a:focus, .players td > a:hover {
   text-decoration: none; }
 

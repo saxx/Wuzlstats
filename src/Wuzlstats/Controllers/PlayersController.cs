@@ -30,7 +30,7 @@ namespace Wuzlstats.Controllers
                 return RedirectToAction("Index", "Leagues");
             }
             ViewBag.CurrentLeague = leagueEntity.Name;
-            var players = await _statisticsService.FindPlayersOfLeague(leagueEntity.Id);
+            var players = await _statisticsService.FindPlayersOfLeague(leagueEntity.Id, recent ?_settings.DaysForStatistics : default(int?));
 
             switch (sort)
             {

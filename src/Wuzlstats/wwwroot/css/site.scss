@@ -210,13 +210,6 @@ footer {
     }
 }
 
-//Players page
-.filter {
-    li.active {
-        font-weight: bold;
-    }
-}
-
 .players {
     td > a {
         &:focus, &:hover {
