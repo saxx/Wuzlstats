@@ -12,5 +12,7 @@ namespace Wuzlstats.ViewModels.Players
         public DateTime LastGamePlayedOn { get; set; }
         public int SingleGames { get; set; }
         public int TeamGames { get; set; }
+
+        public double Score => Losses == 0 ? Wins : (Wins == 0 ? 0.1d / Losses : (double)Wins / Losses);
     }
 }
