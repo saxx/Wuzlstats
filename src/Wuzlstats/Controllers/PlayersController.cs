@@ -51,6 +51,7 @@ namespace Wuzlstats.Controllers
             {
                 ActiveFilter = sort,
                 Recent = recent,
+                Days = _settings.DaysForStatistics,
                 Players = players.Select(player => new PlayerViewModel
                 {
                     PlayerId = player.Id,

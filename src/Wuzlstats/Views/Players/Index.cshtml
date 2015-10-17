@@ -1,6 +1,19 @@
 ﻿@model Wuzlstats.ViewModels.Players.IndexViewModel
 
-<p class="help-block">These are all the players. Ever.<br />No one will be forgotten. Shame and fame will last till the very end of days, or at least until a database crash with no backups.</p>
+@if (Model.Recent)
+{
+    <p class="help-block">
+        These are the players of the last @Model.Days days. All of them.<br />This is pretty sweet, but it gets better: There's also
+        <a href="@Url.Action("Index", "Players", new { sort = Model.ActiveFilter, recent = false })">this very same statistic, but for all of the time</a>. All of it. Holy crap!
+    </p>
+}
+else
+{
+    <p class="help-block">
+        These are all the players. Ever.<br />No one will be forgotten. Shame and fame will last till the very end of days, or at least until a database crash with no backups. <br />
+        There's the same statistic, <a href="@Url.Action("Index", "Players", new { sort = Model.ActiveFilter, recent = true })">>but only for the last @Model.Days days</a>, too.
+    </p>
+}
 
 <div class="input-group">
     Order By
