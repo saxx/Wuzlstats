@@ -1,5 +1,5 @@
 @ECHO OFF
-SET server=http://wuzlstats.sachsenhofer.com
+SET server=http://85.93.17.211
 SET siteName=Wuzlstats
 SET username=Administrator
 
