@@ -16,14 +16,9 @@ namespace Wuzlstats.Services
             _db = db;
         }
 
-        public async Task<IEnumerable<PlayerDto>> FindPlayersOfLeague(int leagueId, int? daysForStatistics)
+        public async Task<IEnumerable<PlayerDto>> FindPlayersOfLeague(int leagueId)
         {
             var gamesQuery = _db.Games.AsNoTracking().Where(x => x.LeagueId == leagueId);
-            if (daysForStatistics.HasValue)
-            {
-                var date = DateTime.UtcNow.Date.AddDays(-daysForStatistics.Value);
-                gamesQuery = gamesQuery.Where(x => x.Date >= date);
-            }
 
             // EF7 beta4 does not support navigation properties in queries yet
             // this complicates the code a lot, because we need joins :(
