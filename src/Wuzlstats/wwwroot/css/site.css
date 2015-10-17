@@ -135,3 +135,16 @@ footer {
   @media (max-width: 768px) {
     footer {
       margin-top: 50px; } }
+
+.filter li.active {
+  font-weight: bold; }
+
+.players td > a:focus, .players td > a:hover {
+  text-decoration: none; }
+
+.players .player-name {
+  font-weight: bold;
+  display: inline; }
+
+.players .player-score {
+  color: #999; }
