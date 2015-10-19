@@ -2,7 +2,6 @@
 using Microsoft.AspNet.Mvc;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Players;
-using System;
 using System.Threading.Tasks;
 using Wuzlstats.Services;
 
@@ -35,10 +34,10 @@ namespace Wuzlstats.Controllers
             switch (sort)
             {
                 case "best":
-                    players = players.OrderByDescending(x => x.Rank);
+                    players = players.OrderByDescending(x => x.Score);
                     break;
                 case "worst":
-                    players = players.OrderBy(x => x.Rank);
+                    players = players.OrderBy(x => x.Score);
                     break;
                 case "activity":
                     players = players.OrderByDescending(x => x.Wins + x.Losses);
@@ -51,17 +50,8 @@ namespace Wuzlstats.Controllers
             {
                 ActiveFilter = sort,
                 Recent = recent,
-                Players = players.Select(player => new PlayerViewModel
-                {
-                    PlayerId = player.Id,
-                    Name = player.Name,
-                    Image = player.Image == null || player.Image.Length <= 0 ? EmptyAvatar.Base64 : Convert.ToBase64String(player.Image),
-                    Wins = player.Wins,
-                    Losses = player.Losses,
-                    SingleGames = player.SingleGames,
-                    TeamGames = player.TeamGames,
-                    LastGamePlayedOn = player.LatestGame
-                })
+                Days = _settings.DaysForStatistics,
+                Players = players
             });
         }
 

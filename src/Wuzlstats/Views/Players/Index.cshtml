@@ -1,13 +1,29 @@
 ﻿@model Wuzlstats.ViewModels.Players.IndexViewModel
 
-<p class="help-block">These are all the players. Ever.<br />No one will be forgotten. Shame and fame will last till the very end of days, or at least until a database crash with no backups.</p>
+@if (Model.Recent)
+{
+    <p class="help-block">
+        These are the players of the last @Model.Days days. All of them.<br />This is pretty sweet, but it gets better: There's also
+        <a href="@Url.Action("Index", "Players", new { sort = Model.ActiveFilter, recent = false })">this very same statistic, but for all of the time</a>. All of it. Holy crap!
+    </p>
+}
+else
+{
+    <p class="help-block">
+        These are all the players. Ever.<br />No one will be forgotten. Shame and fame will last till the very end of days, or at least until a database crash with no backups. <br />
+        There's the same statistic, <a href="@Url.Action("Index", "Players", new { sort = Model.ActiveFilter, recent = true })">but only for the last @Model.Days days</a>, too.
+    </p>
+}
 
-<ul class="list-unstyled list-inline filter">
-    <li class="@(string.IsNullOrEmpty(Model.ActiveFilter) ? "active" : "")"><a href="@Url.Action("Index", "Players", new { recent = Model.Recent })">Last played</a></li>
-    <li class="@(Model.ActiveFilter == "best" ? "active" : "")"><a href="@Url.Action("Index", "Players", new { sort = "best", recent = Model.Recent })">Best</a></li>
-    <li class="@(Model.ActiveFilter == "worst" ? "active" : "")"><a href="@Url.Action("Index", "Players", new { sort = "worst", recent = Model.Recent })">Worst</a></li>
-    <li class="@(Model.ActiveFilter == "activity" ? "active" : "")"><a href="@Url.Action("Index", "Players", new { sort = "activity", recent = Model.Recent })">Most active</a></li>
-</ul>
+<div class="input-group">
+    Order By
+    <div class="btn-group">
+        <a href="@Url.Action("Index", "Players", new { recent = Model.Recent })" class="btn btn-default btn-sm @(string.IsNullOrEmpty(Model.ActiveFilter) ? "active" : "")">Last played</a>
+        <a href="@Url.Action("Index", "Players", new { sort = "best", recent = Model.Recent })" class="btn btn-default btn-sm @(Model.ActiveFilter == "best" ? "active" : "")">Best</a>
+        <a href="@Url.Action("Index", "Players", new { sort = "worst", recent = Model.Recent })" class="btn btn-default btn-sm @(Model.ActiveFilter == "worst" ? "active" : "")">Worst</a>
+        <a href="@Url.Action("Index", "Players", new { sort = "activity", recent = Model.Recent })" class="btn btn-default btn-sm @(Model.ActiveFilter == "activity" ? "active" : "")">Most active</a>
+    </div>
+</div>
 
 <table class="table table-striped ranking players">
     <thead>
@@ -33,7 +49,7 @@
                         <img src="data:image/png;base64,@player.Image" alt="@player.Name" class="ranking-image" />
                     </a>
                     <div class="player-name">@player.Name</div>
-                    </td>
+                </td>
                 <td>
                     <div class="player-score">
                         <span class="ranking-wins">@player.Wins<span class="glyphicon glyphicon-thumbs-up"></span></span>

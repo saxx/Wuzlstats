@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Wuzlstats.Models;
+using Wuzlstats.ViewModels.Players;
 
 namespace Wuzlstats.Services
 {
@@ -16,7 +17,7 @@ namespace Wuzlstats.Services
             _db = db;
         }
 
-        public async Task<IEnumerable<PlayerDto>> FindPlayersOfLeague(int leagueId, int? daysForStatistics)
+        public async Task<IEnumerable<PlayerViewModel>> FindPlayersOfLeague(int leagueId, int? daysForStatistics)
         {
             var gamesQuery = _db.Games.AsNoTracking().Where(x => x.LeagueId == leagueId);
             if (daysForStatistics.HasValue)
@@ -28,7 +29,7 @@ namespace Wuzlstats.Services
             // EF7 beta4 does not support navigation properties in queries yet
             // this complicates the code a lot, because we need joins :(
 
-            var players = new List<PlayerDto>();
+            var players = new List<PlayerViewModel>();
 
             foreach (var game in await gamesQuery.ToListAsync())
             {
@@ -43,12 +44,20 @@ namespace Wuzlstats.Services
                 // player stats
                 foreach (var position in positions)
                 {
-                    var player = players.FirstOrDefault(x => x.Equals(position.Player));
+                    var playerEntity = position.Player;
+
+                    var player = players.FirstOrDefault(x => x.PlayerId == playerEntity.Id);
                     if (player == null)
                     {
-                        player = PlayerDto.Create(position.Player);
+                        player = new PlayerViewModel
+                        {
+                            PlayerId = playerEntity.Id,
+                            Name = playerEntity.Name,
+                            Image = playerEntity.Image == null || playerEntity.Image.Length <= 0 ? EmptyAvatar.Base64 : Convert.ToBase64String(playerEntity.Image)
+                        };
                         players.Add(player);
                     }
+
                     // calculate count of single or team games
                     if (position.Position == PlayerPositionTypes.Blue || position.Position == PlayerPositionTypes.Red)
                     {
@@ -78,42 +87,13 @@ namespace Wuzlstats.Services
                     {
                         player.Losses++;
                     }
-                    if (game.Date > player.LatestGame)
+                    if (game.Date > player.LastGamePlayedOn)
                     {
-                        player.LatestGame = game.Date;
+                        player.LastGamePlayedOn = game.Date;
                     }
                 }
             }
-            return players.OrderByDescending(x => x.LatestGame);
-        }
-    }
-
-    public class PlayerDto
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public byte[] Image { get; set; }
-        public int Wins { get; set; }
-        public int Losses { get; set; }
-        public int SingleGames { get; set; }
-        public int TeamGames { get; set; }
-        public DateTime LatestGame { get; set; }
-
-        public double Rank => Losses == 0 ? Wins : (Wins == 0 ? 0.1d / Losses : (double)Wins / Losses);
-
-        public bool Equals(Player p)
-        {
-            return Id == p.Id;
-        }
-
-        public static PlayerDto Create(Player p)
-        {
-            return new PlayerDto
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Image = p.Image
-            };
+            return players.OrderByDescending(x => x.LastGamePlayedOn);
         }
     }
 }
