@@ -26,8 +26,8 @@ namespace Wuzlstats
 
         private string Get(IConfiguration configuration, string key, string defaultValue)
         {
-            string value;
-            return configuration.TryGet(key, out value) ? value : defaultValue;
+            string value = configuration[key];
+            return !string.IsNullOrEmpty(value) ? value : defaultValue;
         }
     }
 }

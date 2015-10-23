@@ -1,22 +1,20 @@
-using System.Collections.Generic;
 using Microsoft.Data.Entity.Migrations;
-using Microsoft.Data.Entity.Migrations.Builders;
-using Microsoft.Data.Entity.Migrations.Operations;
+using System;
 
 namespace Wuzlstats.Migrations
 {
     public partial class Initial : Migration
     {
-        public override void Up(MigrationBuilder migration)
+        protected override void Up(MigrationBuilder migration)
         {
             migration.CreateTable(
                 name: "League",
                 columns: table => new
                 {
-                    Id = table.Column(type: "int", nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", "IdentityColumn"),
-                    Name = table.Column(type: "nvarchar(max)", nullable: true),
-                    TimeoutConfiguration = table.Column(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TimeoutConfiguration = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,12 +24,12 @@ namespace Wuzlstats.Migrations
                 name: "Game",
                 columns: table => new
                 {
-                    Id = table.Column(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", "IdentityColumn"),
-                    BlueScore = table.Column(type: "int", nullable: false),
-                    Date = table.Column(type: "datetime2", nullable: false),
-                    LeagueId = table.Column(type: "int", nullable: false),
-                    RedScore = table.Column(type: "int", nullable: false)
+                    BlueScore = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LeagueId = table.Column<int>(type: "int", nullable: false),
+                    RedScore = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,18 +37,18 @@ namespace Wuzlstats.Migrations
                     table.ForeignKey(
                         name: "FK_Game_League_LeagueId",
                         columns: x => x.LeagueId,
-                        referencedTable: "League",
-                        referencedColumn: "Id");
-                });
+                        principalTable: "League",
+                        principalColumns: new[] { "Id" });
+        });
             migration.CreateTable(
                 name: "Player",
                 columns: table => new
                 {
-                    Id = table.Column(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", "IdentityColumn"),
-                    Image = table.Column(type: "varbinary(max)", nullable: true),
-                    LeagueId = table.Column(type: "int", nullable: false),
-                    Name = table.Column(type: "nvarchar(max)", nullable: true)
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    LeagueId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,18 +56,18 @@ namespace Wuzlstats.Migrations
                     table.ForeignKey(
                         name: "FK_Player_League_LeagueId",
                         columns: x => x.LeagueId,
-                        referencedTable: "League",
-                        referencedColumn: "Id");
+                        principalTable: "League",
+                        principalColumns: new[] { "Id" });
                 });
             migration.CreateTable(
                 name: "PlayerPosition",
                 columns: table => new
                 {
-                    Id = table.Column(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", "IdentityColumn"),
-                    GameId = table.Column(type: "int", nullable: false),
-                    PlayerId = table.Column(type: "int", nullable: false),
-                    Position = table.Column(type: "int", nullable: false)
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    PlayerId = table.Column<int>(type: "int", nullable: false),
+                    Position = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,17 +75,17 @@ namespace Wuzlstats.Migrations
                     table.ForeignKey(
                         name: "FK_PlayerPosition_Game_GameId",
                         columns: x => x.GameId,
-                        referencedTable: "Game",
-                        referencedColumn: "Id");
+                        principalTable: "Game",
+                        principalColumns: new[] { "Id" });
                     table.ForeignKey(
                         name: "FK_PlayerPosition_Player_PlayerId",
                         columns: x => x.PlayerId,
-                        referencedTable: "Player",
-                        referencedColumn: "Id");
+                        principalTable: "Player",
+                        principalColumns: new[] { "Id" });
                 });
         }
 
-        public override void Down(MigrationBuilder migration)
+        protected override void Down(MigrationBuilder migration)
         {
             migration.DropTable("PlayerPosition");
             migration.DropTable("Game");

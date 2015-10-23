@@ -4,7 +4,7 @@ using Microsoft.Data.Entity;
 using Microsoft.Framework.Configuration;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.Framework.Logging;
-using Microsoft.Framework.Runtime;
+using Microsoft.Dnx.Runtime;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Hubs;
 
@@ -15,7 +15,8 @@ namespace Wuzlstats
         // ReSharper disable once UnusedParameter.Local
         public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
         {
-            Configuration = new ConfigurationBuilder(appEnv.ApplicationBasePath)
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(appEnv.ApplicationBasePath)
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables("Wuzlstats.")
                 .Build();
@@ -50,7 +51,10 @@ namespace Wuzlstats
 
             loggerfactory.AddConsole();
 
-            app.UseErrorHandler("/Home/Error");
+            app.UseExceptionHandler("/Home/Error");
+
+            // Add the platform handler to the request pipeline.
+            app.UseIISPlatformHandler();
 
             app.UseStaticFiles();
 

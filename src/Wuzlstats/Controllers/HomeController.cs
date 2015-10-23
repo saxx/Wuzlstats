@@ -6,6 +6,7 @@ using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Home;
+using Microsoft.Framework.Primitives;
 
 namespace Wuzlstats.Controllers
 {
@@ -34,12 +35,12 @@ namespace Wuzlstats.Controllers
         public async Task<IActionResult> Index()
         {
             var leagueCookie = Request.Cookies["league"];
-            if (leagueCookie == null)
+            if (StringValues.IsNullOrEmpty(leagueCookie))
             {
                 return RedirectToAction("Index", "Leagues");
             }
 
-            var league = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.ToLower() == leagueCookie.ToLower());
+            var league = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.ToLower() == leagueCookie.ToString().ToLower());
             if (league == null)
             {
                 return RedirectToAction("Index", "Leagues");
