@@ -2,13 +2,17 @@
 
 namespace Wuzlstats.Models
 {
-    public class Db : DbContext
+    public sealed class Db : DbContext
     {
+        public Db()
+        {
+            Database.Migrate();
+        }
+
         public DbSet<League> Leagues { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<PlayerPosition> PlayerPositions { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
