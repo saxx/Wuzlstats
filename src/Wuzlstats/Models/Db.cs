@@ -12,10 +12,10 @@ namespace Wuzlstats.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Game>().Reference(x => x.League).InverseCollection(x => x.Games).ForeignKey(x => x.LeagueId);
-            modelBuilder.Entity<Player>().Reference(x => x.League).InverseCollection(x => x.Players).ForeignKey(x => x.LeagueId);
-            modelBuilder.Entity<PlayerPosition>().Reference(x => x.Player).InverseCollection(x => x.Positions).ForeignKey(x => x.PlayerId);
-            modelBuilder.Entity<PlayerPosition>().Reference(x => x.Game).InverseCollection(x => x.Positions).ForeignKey(x => x.GameId);
+            modelBuilder.Entity<Game>().HasOne(x => x.League).WithMany(x => x.Games).ForeignKey(x => x.LeagueId);
+            modelBuilder.Entity<Player>().HasOne(x => x.League).WithMany(x => x.Players).ForeignKey(x => x.LeagueId);
+            modelBuilder.Entity<PlayerPosition>().HasOne(x => x.Player).WithMany(x => x.Positions).ForeignKey(x => x.PlayerId);
+            modelBuilder.Entity<PlayerPosition>().HasOne(x => x.Game).WithMany(x => x.Positions).ForeignKey(x => x.GameId);
 
             base.OnModelCreating(modelBuilder);
         }
