@@ -28,7 +28,7 @@ deploy:
     secure: MoW0xgokacm0ynXqPSoGI9VoHcjdDZ/Y+cU2rl/O5mQ=
   ntlm: true
   remove_files: true
-  app_offline: false
+  app_offline: true
   aspnet5: true
   on:
     branch: master
