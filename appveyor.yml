@@ -7,7 +7,7 @@ install:
   # Get the latest stable version of Node.js or io.js
   - ps: Install-Product node $env:nodejs_version
   # install modules
-  - .\src\Wuzlstats\npm install
+  - npm install
   - dnvm install 1.0.0-beta8 --arch x64
   - dnvm install 1.0.0-beta8 --arch x86
   - dnvm use 1.0.0-beta8 --arch x86
