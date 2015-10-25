@@ -1,7 +1,24 @@
+version: '{build}'
+
+os: Visual Studio 2015
+
+build_script:
+- cmd: >-
+    .\src\Wuzlstats\npm install
+    dnvm install 1.0.0-beta8 --arch x64
+    dnvm install 1.0.0-beta8 --arch x86
+    dnvm use 1.0.0-beta8 --arch x86
+    
+    set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+    
+    CALL dnu publish "%~dp0src\Wuzlstats" --out "%~dp0artifacts\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta8 --wwwroot-out "wwwroot" --quiet
+
+artifacts:
+- path: artifacts/publish
 
 deploy:
 - provider: WebDeploy
-  server: http://wuzlstats.sachsenhofer.com/MSDEPLOYAGENTSERVICE
+  server: http://85.93.17.211/MSDEPLOYAGENTSERVICE
   website: Wuzlstats
   username: Administrator
   password:
