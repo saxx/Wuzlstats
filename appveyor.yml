@@ -10,6 +10,7 @@ install:
   - dnvm install -arch x64 1.0.0-beta8
   - dnvm install -arch x86 1.0.0-beta8
   - dnvm use -arch x86 1.0.0-beta8
+  - dnu restore ".\src\Wuzlstats"
 
 build_script:
   - SET PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
