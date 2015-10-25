@@ -3,12 +3,12 @@ version: '{build}'
 os: Visual Studio 2015
 
 install:
-- ps: Install-Product node $env:nodejs_version
-- npm --prefix .\src\Wuzlstats install .\src\Wuzlstats
+#- ps: Install-Product node $env:nodejs_version
+#- npm --prefix .\src\Wuzlstats install .\src\Wuzlstats
 - npm install -g gulp
 - dnvm install -arch x64 1.0.0-beta8
 - dnvm install -arch x86 1.0.0-beta8
-- dnvm use -arch x86 1.0.0-beta8
+#- dnvm use -arch x86 1.0.0-beta8
 - dnu restore ".\src\Wuzlstats"
 
 build_script:
@@ -28,8 +28,7 @@ environment:
     secure: MoW0xgokacm0ynXqPSoGI9VoHcjdDZ/Y+cU2rl/O5mQ=
 
 deploy_script:
-- ECHO %APPVEYOR_REPO_BRANCH%==master
 - IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=Wuzlstats,recycleMode=StopAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
-- IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPath=%APPVEYOR_BUILD_FOLDER%\artifacts\publish\wwwroot -dest:contentPath=Wuzlstats,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
 - IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPathLib=%APPVEYOR_BUILD_FOLDER%\artifacts\publish\approot -dest:contentPathLib=Wuzlstats,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
+- IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPath=%APPVEYOR_BUILD_FOLDER%\artifacts\publish\wwwroot -dest:contentPath=Wuzlstats,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
 - IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=Wuzlstats,recycleMode=StartAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
