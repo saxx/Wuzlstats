@@ -2,22 +2,22 @@ version: '{build}'
 
 os: Visual Studio 2015
 
-# Install scripts. (runs after repo cloning)
 install:
-  - ps: Install-Product node $env:nodejs_version
-  - npm --prefix .\src\Wuzlstats install .\src\Wuzlstats
-  - npm install -g gulp
-  - dnvm install -arch x64 1.0.0-beta8
-  - dnvm install -arch x86 1.0.0-beta8
-  - dnvm use -arch x86 1.0.0-beta8
-  - dnu restore ".\src\Wuzlstats"
+- ps: Install-Product node $env:nodejs_version
+- npm --prefix .\src\Wuzlstats install .\src\Wuzlstats
+- npm install -g gulp
+- dnvm install -arch x64 1.0.0-beta8
+- dnvm install -arch x86 1.0.0-beta8
+- dnvm use -arch x86 1.0.0-beta8
+- dnu restore ".\src\Wuzlstats"
 
 build_script:
-  - SET PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-  - CALL dnu publish ".\src\Wuzlstats" --out "%~dp0artifacts\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta8 --wwwroot-out "wwwroot" --quiet
+- SET PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+- CALL dnu publish ".\src\Wuzlstats" --out "%~dp0artifacts\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta8 --wwwroot-out "wwwroot" --quiet
 
 artifacts:
 - path: artifacts/publish
+  name: Web application
 
 deploy:
 - provider: WebDeploy
