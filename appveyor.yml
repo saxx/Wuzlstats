@@ -2,16 +2,19 @@ version: '{build}'
 
 os: Visual Studio 2015
 
+# Install scripts. (runs after repo cloning)
+install:
+  # Get the latest stable version of Node.js or io.js
+  - ps: Install-Product node $env:nodejs_version
+  # install modules
+  - .\src\Wuzlstats\npm install
+  - dnvm install 1.0.0-beta8 --arch x64
+  - dnvm install 1.0.0-beta8 --arch x86
+  - dnvm use 1.0.0-beta8 --arch x86
+
 build_script:
-- cmd: >-
-    .\src\Wuzlstats\npm install
-    dnvm install 1.0.0-beta8 --arch x64
-    dnvm install 1.0.0-beta8 --arch x86
-    dnvm use 1.0.0-beta8 --arch x86
-    
-    set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-    
-    CALL dnu publish "%~dp0src\Wuzlstats" --out "%~dp0artifacts\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta8 --wwwroot-out "wwwroot" --quiet
+  - SET PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+  - CALL dnu publish "%~dp0src\Wuzlstats" --out "%~dp0artifacts\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta8 --wwwroot-out "wwwroot" --quiet
 
 artifacts:
 - path: artifacts/publish
