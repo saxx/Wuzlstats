@@ -25,7 +25,7 @@ deploy:
   website: Wuzlstats
   username: Administrator
   password:
-    secure: 0VezCAl9nnPtt2Kdqabh3Q==
+    secure: MoW0xgokacm0ynXqPSoGI9VoHcjdDZ/Y+cU2rl/O5mQ=
   ntlm: true
   remove_files: true
   app_offline: false
