@@ -19,16 +19,16 @@ artifacts:
 - path: artifacts/publish
   name: Web application
 
-deploy:
-- provider: WebDeploy
-  server: http://85.93.17.211/MSDEPLOYAGENTSERVICE
-  website: Wuzlstats
-  username: Administrator
-  password:
+environment:
+  deploy_server:
+    secure: F+KLCVGHG2RAp7DIw4Scyw==
+  deploy_username:
+    secure: lIFltaQi1u2vXngmaV9iKw==
+  deploy_password:
     secure: MoW0xgokacm0ynXqPSoGI9VoHcjdDZ/Y+cU2rl/O5mQ=
-  ntlm: true
-  remove_files: true
-  app_offline: true
-  aspnet5: true
-  on:
-    branch: master
+
+after_test:
+- CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=Wuzlstats,recycleMode=StopAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
+- CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPath=c:\projects\wuzlstats\artifacts\publish\wwwroot -dest:contentPath=Wuzlstats,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
+- CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPathLib=c:\projects\wuzlstats\publish\approot -dest:contentPathLib=Wuzlstats,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
+- CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=Wuzlstats,recycleMode=StartAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
