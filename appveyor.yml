@@ -13,7 +13,7 @@ install:
 
 build_script:
 - SET PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-- CALL dnu publish ".\src\Wuzlstats" --out "%~dp0artifacts\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta8 --wwwroot-out "wwwroot" --quiet
+- CALL dnu publish ".\src\Wuzlstats" --out ".\artifacts\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta8 --wwwroot-out "wwwroot" --quiet
 
 artifacts:
 - path: artifacts/publish
