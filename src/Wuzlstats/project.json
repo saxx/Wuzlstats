@@ -43,9 +43,7 @@
     "bower_components",
     "**.xproj",
     "**.user",
-    "**.vspscc",
-    "wwwroot/css/*.scss",
-    "wwwroot/js/*.js"
+    "**.vspscc"
   ],
   "scripts": {
     "postrestore": [ "npm install" ],

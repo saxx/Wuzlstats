@@ -149,3 +149,12 @@ footer {
 
 .players .player-score {
   color: #999; }
+
+footer .nav > li {
+  padding-bottom: 15px;
+  padding-top: 15px;
+  margin-right: 15px; }
+
+footer .nav > li > a {
+  display: inline;
+  padding: 0; }

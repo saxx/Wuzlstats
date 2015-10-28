@@ -8,10 +8,11 @@ It supports multiple leagues (tenants) per installation and tries to provide as 
 
 There is a public instance running at http://wuzlstats.sachsenhofer.com. Feel free to create your own league and start tracking your wuzl scores there. Please take care not to screw up the scores of the other leagues ;-) (Wuzlstats is a completely open system)
 
-
 ## Technology
 
-Wuzlstats is built using ASP.NET vNext (v5 beta6 for the time being). Data is saved in SQL Server using Entity Framework, the real-time (websockets) functionality is provided by SignalR.
+[![Build status](https://ci.appveyor.com/api/projects/status/mbyycfkhuekda2r3?svg=true)](https://ci.appveyor.com/project/saxx/wuzlstats)
+
+Wuzlstats is built using ASP.NET vNext (v5 beta8 for the time being). Data is saved in SQL Server using Entity Framework, the real-time (websockets) functionality is provided by SignalR.
 
 Since I'm [abstracting on the shoulders of giants](http://www.hanselman.com/blog/WeAreAbstractingOnTheShouldersOfGiants.aspx), these are the great open source libraries that Wuzlstats is built upon:
 

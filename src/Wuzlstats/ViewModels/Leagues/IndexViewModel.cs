@@ -28,9 +28,20 @@ namespace Wuzlstats.ViewModels.Leagues
             Leagues = await _db.Leagues.OrderBy(x => x.Name).Select(x => new League()
             {
                 Name = x.Name,
-                GamesCountTotal = _db.Games.Count(y => y.LeagueId == x.Id),
-                GamesCountDays = _db.Games.Count(y => y.LeagueId == x.Id && y.Date >= minDate)
+                Id = x.Id,
+                GamesCountTotal = 0,
+                GamesCountDays = 0
             }).ToListAsync();
+
+            // for some strange reason (probably bug in EF), we can't read these properties directly in the query above (there's and IooB exception)
+
+            foreach (var league in Leagues)
+            {
+                league.GamesCountTotal = _db.Games.Count(x => x.LeagueId == league.Id);
+                league.GamesCountDays = _db.Games.Count(x => x.LeagueId == league.Id && x.Date >= minDate);
+            }
+            
+
 
             DaysForStatistics = _settings.DaysForStatistics;
             return this;
@@ -43,6 +54,7 @@ namespace Wuzlstats.ViewModels.Leagues
         public class League
         {
             public string Name { get; set; }
+            public int Id { get; set; }
             public int GamesCountTotal { get; set; }
             public int GamesCountDays { get; set; }
         }

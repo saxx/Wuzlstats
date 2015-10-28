@@ -1,22 +1,23 @@
 using System;
 using Microsoft.Data.Entity;
-using Wuzlstats.Models;
-using Microsoft.Data.Entity.Migrations;
 using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.Data.Entity.Metadata;
+using Microsoft.Data.Entity.Migrations;
+using Wuzlstats.Models;
 
 namespace Wuzlstats.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20150810174412_Initial")]
+    [Migration("20151024191829_Initial")]
     partial class Initial
     {
-        protected override void BuildTargetModel(ModelBuilder builder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
-            builder
-                .Annotation("ProductVersion", "7.0.0-beta6-13815")
-                .Annotation("SqlServer:ValueGenerationStrategy", "IdentityColumn");
+            modelBuilder
+                .Annotation("ProductVersion", "7.0.0-beta8-15964")
+                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            builder.Entity("Wuzlstats.Models.Game", b =>
+            modelBuilder.Entity("Wuzlstats.Models.Game", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -32,7 +33,7 @@ namespace Wuzlstats.Migrations
                     b.HasKey("Id");
                 });
 
-            builder.Entity("Wuzlstats.Models.League", b =>
+            modelBuilder.Entity("Wuzlstats.Models.League", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -44,7 +45,7 @@ namespace Wuzlstats.Migrations
                     b.HasKey("Id");
                 });
 
-            builder.Entity("Wuzlstats.Models.Player", b =>
+            modelBuilder.Entity("Wuzlstats.Models.Player", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -58,7 +59,7 @@ namespace Wuzlstats.Migrations
                     b.HasKey("Id");
                 });
 
-            builder.Entity("Wuzlstats.Models.PlayerPosition", b =>
+            modelBuilder.Entity("Wuzlstats.Models.PlayerPosition", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -72,21 +73,21 @@ namespace Wuzlstats.Migrations
                     b.HasKey("Id");
                 });
 
-            builder.Entity("Wuzlstats.Models.Game", b =>
+            modelBuilder.Entity("Wuzlstats.Models.Game", b =>
                 {
                     b.HasOne("Wuzlstats.Models.League")
                         .WithMany()
                         .ForeignKey("LeagueId");
                 });
 
-            builder.Entity("Wuzlstats.Models.Player", b =>
+            modelBuilder.Entity("Wuzlstats.Models.Player", b =>
                 {
                     b.HasOne("Wuzlstats.Models.League")
                         .WithMany()
                         .ForeignKey("LeagueId");
                 });
 
-            builder.Entity("Wuzlstats.Models.PlayerPosition", b =>
+            modelBuilder.Entity("Wuzlstats.Models.PlayerPosition", b =>
                 {
                     b.HasOne("Wuzlstats.Models.Game")
                         .WithMany()

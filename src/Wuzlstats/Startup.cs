@@ -51,9 +51,9 @@ namespace Wuzlstats
 
             loggerfactory.AddConsole();
 
-            app.UseExceptionHandler("/Home/Error");
+            //app.UseExceptionHandler("/Home/Error");
+            app.UseDeveloperExceptionPage();
 
-            // Add the platform handler to the request pipeline.
             app.UseIISPlatformHandler();
 
             app.UseStaticFiles();
