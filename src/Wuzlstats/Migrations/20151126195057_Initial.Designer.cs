@@ -8,13 +8,13 @@ using Wuzlstats.Models;
 namespace Wuzlstats.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20151024191829_Initial")]
+    [Migration("20151126195057_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0-beta8-15964")
+                .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Wuzlstats.Models.Game", b =>
