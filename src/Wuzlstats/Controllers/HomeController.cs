@@ -6,7 +6,7 @@ using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Home;
-using Microsoft.Framework.Primitives;
+using Microsoft.Extensions.Primitives;
 
 namespace Wuzlstats.Controllers
 {

@@ -13,8 +13,8 @@ namespace Wuzlstats.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Annotation("ProductVersion", "7.0.0-beta8-15964")
-                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "7.0.0-beta8-15964")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Wuzlstats.Models.Game", b =>
                 {
@@ -76,25 +76,25 @@ namespace Wuzlstats.Migrations
                 {
                     b.HasOne("Wuzlstats.Models.League")
                         .WithMany()
-                        .ForeignKey("LeagueId");
+                        .HasForeignKey("LeagueId");
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.Player", b =>
                 {
                     b.HasOne("Wuzlstats.Models.League")
                         .WithMany()
-                        .ForeignKey("LeagueId");
+                        .HasForeignKey("LeagueId");
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.PlayerPosition", b =>
                 {
                     b.HasOne("Wuzlstats.Models.Game")
                         .WithMany()
-                        .ForeignKey("GameId");
+                        .HasForeignKey("GameId");
 
                     b.HasOne("Wuzlstats.Models.Player")
                         .WithMany()
-                        .ForeignKey("PlayerId");
+                        .HasForeignKey("PlayerId");
                 });
         }
     }
