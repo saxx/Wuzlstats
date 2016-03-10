@@ -1,8 +1,7 @@
 ﻿@model Wuzlstats.ViewModels.Home.GamesViewModel
 
 <p>
-    You may delete any game in this league. Please be careful and only delete erroneous games.
-    Since all the data is open and available to everyone, you can do a lot of harm. With great power comes great responsibility!
+    All games of this league are listed here.
 </p>
 
 @if (Model.Games.Any())
@@ -12,7 +11,6 @@
             <th>Date</th>
             <th>Players</th>
             <th>Score</th>
-            <th></th>
         </tr>
 
         @foreach (var game in Model.Games)
@@ -26,9 +24,6 @@
                 </td>
                 <td>
                     <span class="team-red">@game.RedScore</span> : <span class="team-blue">@game.BlueScore</span>
-                </td>
-                <td>
-                    <a href="@Url.Action("DeleteGame", "Home", new { league = Model.League, game = game.Id })" class="btn btn-danger glyphicon glyphicon-remove" onclick="return confirm('Are you really, really, really sure?')"></a>
                 </td>
             </tr>
         }
