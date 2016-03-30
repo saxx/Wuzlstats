@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.Data.Entity;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Http;
@@ -63,25 +62,6 @@ namespace Wuzlstats.Controllers
             ViewBag.CurrentLeague = leagueEntity.Name;
             return View(await new GamesViewModel(_db).Fill(leagueEntity));
         }
-
-
-        [HttpGet("~/League/{league}/Games/{game}/Delete")]
-        public async Task<IActionResult> DeleteGame(string league, int game)
-        {
-            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.ToLower() == league.ToLower());
-            if (leagueEntity != null)
-            {
-                var gameEntity = await _db.Games.FirstOrDefaultAsync(x => x.Id == game && x.LeagueId == leagueEntity.Id);
-                if (gameEntity != null)
-                {
-                    _db.PlayerPositions.RemoveRange(_db.PlayerPositions.Where(x => x.GameId == gameEntity.Id));
-                    _db.Games.Remove(gameEntity);
-                    await _db.SaveChangesAsync();
-                }
-            }
-            return RedirectToAction("Games");
-        }
-
 
         public IActionResult Error()
         {
