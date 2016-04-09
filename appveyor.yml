@@ -5,8 +5,7 @@ os: Visual Studio 2015
 install:
 - npm install -g gulp
 - dnvm install -arch x64 1.0.0-beta8
-- dnvm install -arch x86 1.0.0-beta8
-- dnu restore ".\src\Wuzlstats"
+- dnu restore ".\src\Wuzlstats" --quiet
 
 build_script:
 - dnu publish ".\src\Wuzlstats" --out "%APPVEYOR_BUILD_FOLDER%\artifacts\publish" --configuration Release --no-source --runtime dnx-clr-win-x64.1.0.0-beta8 --wwwroot-out "wwwroot" --quiet
@@ -17,15 +16,15 @@ artifacts:
 
 environment:
   deploy_server:
-    secure: F+KLCVGHG2RAp7DIw4Scyw==
+    secure: 7f9bcFkXgx37td51cnPI9A==
   deploy_username:
-    secure: lIFltaQi1u2vXngmaV9iKw==
+    secure: +4+0JDINyo6SMCl7QDFxjA==
   deploy_password:
-    secure: MoW0xgokacm0ynXqPSoGI9VoHcjdDZ/Y+cU2rl/O5mQ=
+    secure: RHmwJ0TuDaknqQdBiIUtYiO6NSmxqEbXDACMtJG16W4=
 
 # only deploy master branch
 deploy_script:
-- IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=Wuzlstats,recycleMode=StopAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
-- IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPathLib=%APPVEYOR_BUILD_FOLDER%\artifacts\publish\approot -dest:contentPathLib=Wuzlstats,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
-- IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPath=%APPVEYOR_BUILD_FOLDER%\artifacts\publish\wwwroot -dest:contentPath=Wuzlstats,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
-- IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=Wuzlstats,recycleMode=StartAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
+- IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=wuzlstats,recycleMode=StopAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
+- IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPathLib=%APPVEYOR_BUILD_FOLDER%\artifacts\publish\approot -dest:contentPathLib=wuzlstats,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
+- IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPath=%APPVEYOR_BUILD_FOLDER%\artifacts\publish\wwwroot -dest:contentPath=wuzlstats,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
+- IF %APPVEYOR_REPO_BRANCH%==master CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=wuzlstats,recycleMode=StartAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
