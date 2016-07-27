@@ -1,8 +1,8 @@
 ﻿using System;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Home;
 using Microsoft.Extensions.Primitives;
