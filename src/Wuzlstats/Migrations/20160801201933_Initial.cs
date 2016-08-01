@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -22,6 +22,7 @@ namespace Wuzlstats.Migrations
                 {
                     table.PrimaryKey("PK_League", x => x.Id);
                 });
+
             migrationBuilder.CreateTable(
                 name: "Game",
                 columns: table => new
@@ -40,8 +41,10 @@ namespace Wuzlstats.Migrations
                         name: "FK_Game_League_LeagueId",
                         column: x => x.LeagueId,
                         principalTable: "League",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
             migrationBuilder.CreateTable(
                 name: "Player",
                 columns: table => new
@@ -59,8 +62,10 @@ namespace Wuzlstats.Migrations
                         name: "FK_Player_League_LeagueId",
                         column: x => x.LeagueId,
                         principalTable: "League",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
             migrationBuilder.CreateTable(
                 name: "PlayerPosition",
                 columns: table => new
@@ -78,21 +83,50 @@ namespace Wuzlstats.Migrations
                         name: "FK_PlayerPosition_Game_GameId",
                         column: x => x.GameId,
                         principalTable: "Game",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PlayerPosition_Player_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Player",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Game_LeagueId",
+                table: "Game",
+                column: "LeagueId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Player_LeagueId",
+                table: "Player",
+                column: "LeagueId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayerPosition_GameId",
+                table: "PlayerPosition",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlayerPosition_PlayerId",
+                table: "PlayerPosition",
+                column: "PlayerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable("PlayerPosition");
-            migrationBuilder.DropTable("Game");
-            migrationBuilder.DropTable("Player");
-            migrationBuilder.DropTable("League");
+            migrationBuilder.DropTable(
+                name: "PlayerPosition");
+
+            migrationBuilder.DropTable(
+                name: "Game");
+
+            migrationBuilder.DropTable(
+                name: "Player");
+
+            migrationBuilder.DropTable(
+                name: "League");
         }
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -8,13 +8,13 @@ using Wuzlstats.Models;
 namespace Wuzlstats.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20151126195057_Initial")]
+    [Migration("20160801201933_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
+                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Wuzlstats.Models.Game", b =>
@@ -31,6 +31,10 @@ namespace Wuzlstats.Migrations
                     b.Property<int>("RedScore");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LeagueId");
+
+                    b.ToTable("Game");
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.League", b =>
@@ -43,6 +47,8 @@ namespace Wuzlstats.Migrations
                     b.Property<string>("TimeoutConfiguration");
 
                     b.HasKey("Id");
+
+                    b.ToTable("League");
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.Player", b =>
@@ -57,6 +63,10 @@ namespace Wuzlstats.Migrations
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LeagueId");
+
+                    b.ToTable("Player");
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.PlayerPosition", b =>
@@ -71,31 +81,41 @@ namespace Wuzlstats.Migrations
                     b.Property<int>("Position");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("PlayerPosition");
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.Game", b =>
                 {
-                    b.HasOne("Wuzlstats.Models.League")
-                        .WithMany()
-                        .HasForeignKey("LeagueId");
+                    b.HasOne("Wuzlstats.Models.League", "League")
+                        .WithMany("Games")
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.Player", b =>
                 {
-                    b.HasOne("Wuzlstats.Models.League")
-                        .WithMany()
-                        .HasForeignKey("LeagueId");
+                    b.HasOne("Wuzlstats.Models.League", "League")
+                        .WithMany("Players")
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.PlayerPosition", b =>
                 {
-                    b.HasOne("Wuzlstats.Models.Game")
-                        .WithMany()
-                        .HasForeignKey("GameId");
+                    b.HasOne("Wuzlstats.Models.Game", "Game")
+                        .WithMany("Positions")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Wuzlstats.Models.Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId");
+                    b.HasOne("Wuzlstats.Models.Player", "Player")
+                        .WithMany("Positions")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }

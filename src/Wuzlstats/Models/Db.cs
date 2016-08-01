@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Wuzlstats.Models
 {
     public sealed class Db : DbContext
     {
-        public Db()
+        public Db(DbContextOptions options) : base(options)
         {
             Database.Migrate();
         }
@@ -24,6 +25,12 @@ namespace Wuzlstats.Models
             modelBuilder.Entity<PlayerPosition>().HasOne(x => x.Game).WithMany(x => x.Positions).HasForeignKey(x => x.GameId);
             modelBuilder.Entity<PlayerPosition>().Ignore(x => x.IsBluePosition);
             modelBuilder.Entity<PlayerPosition>().Ignore(x => x.IsRedPosition);
+
+            //Keep table names as it was in RC1
+            foreach (var entity in modelBuilder.Model.GetEntityTypes())
+            {
+                entity.Relational().TableName = entity.DisplayName();
+            }
 
             base.OnModelCreating(modelBuilder);
         }

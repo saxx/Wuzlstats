@@ -21,6 +21,7 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+    "Microsoft.EntityFrameworkCore.Design": "1.0.0-preview2-final",
     "ImageResizer": "3.4.3"
   },
 
