@@ -22,7 +22,7 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
     "Microsoft.EntityFrameworkCore.Design": "1.0.0-preview2-final",
-    "ImageResizer": "3.4.3"
+    "ImageResizer": "4.0.5"
   },
 
   "tools": {
