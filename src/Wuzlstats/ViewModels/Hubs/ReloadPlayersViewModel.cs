@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Wuzlstats.ExtensionMethods;
+using Wuzlstats.Extensions;
 using Wuzlstats.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,7 +34,7 @@ namespace Wuzlstats.ViewModels.Hubs
 
         private async Task<League> CheckAndLoadLeague(string league)
         {
-            if (league.IsNoE())
+            if (league.IsNullOrEmpty())
             {
                 throw new Exception("Invalid league, must not be empty.");
             }
