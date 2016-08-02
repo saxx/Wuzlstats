@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Wuzlstats.Models;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Wuzlstats.ViewModels.Player
 {

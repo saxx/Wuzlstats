@@ -1,9 +1,9 @@
 ﻿using System;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
-using Wuzlstats.ExtensionMethods;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.SignalR.Hubs;
+using Wuzlstats.Extensions;
 using Wuzlstats.Models;
 
 namespace Wuzlstats.Hubs
@@ -38,7 +38,7 @@ namespace Wuzlstats.Hubs
 
         private async Task<League> CheckAndLoadLeague(string league)
         {
-            if (league.IsNoE())
+            if (league.IsNullOrEmpty())
             {
                 throw new Exception("Invalid league, must not be empty.");
             }

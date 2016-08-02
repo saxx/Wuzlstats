@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Wuzlstats.ExtensionMethods;
+using Wuzlstats.Extensions;
 using Wuzlstats.Models;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Wuzlstats.ViewModels.Hubs
 {
@@ -12,7 +12,7 @@ namespace Wuzlstats.ViewModels.Hubs
         //TODO: All these methods should move to a dedicated service
         public async Task<PostScoreViewModel> Save(League league, Db db)
         {
-            if (!BluePlayer.IsNoE() && !RedPlayer.IsNoE())
+            if (!BluePlayer.IsNullOrEmpty() && !RedPlayer.IsNullOrEmpty())
             {
                 await SavePlayerScore(league, db);
             }
@@ -30,7 +30,7 @@ namespace Wuzlstats.ViewModels.Hubs
             {
                 throw new Exception("Invalid scores, both must be greater zero.");
             }
-            if (BluePlayer.IsNoE() || RedPlayer.IsNoE())
+            if (BluePlayer.IsNullOrEmpty() || RedPlayer.IsNullOrEmpty())
             {
                 throw new Exception("One or more player names empty.");
             }
@@ -50,7 +50,7 @@ namespace Wuzlstats.ViewModels.Hubs
             {
                 throw new Exception("Invalid scores, both must be greater zero.");
             }
-            if (BlueTeamOffense.IsNoE() || BlueTeamDefense.IsNoE() || RedTeamOffense.IsNoE() || RedTeamDefense.IsNoE())
+            if (BlueTeamOffense.IsNullOrEmpty() || BlueTeamDefense.IsNullOrEmpty() || RedTeamOffense.IsNullOrEmpty() || RedTeamDefense.IsNullOrEmpty())
             {
                 throw new Exception("One or more player names empty.");
             }

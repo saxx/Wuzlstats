@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.Data.Entity;
-using Microsoft.Framework.Configuration;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.Framework.Logging;
-using Microsoft.Dnx.Runtime;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Serialization;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Hubs;
 
@@ -12,11 +12,10 @@ namespace Wuzlstats
 {
     public class Startup
     {
-        // ReSharper disable once UnusedParameter.Local
-        public Startup(IHostingEnvironment env, IApplicationEnvironment appEnv)
+        public Startup(IHostingEnvironment hostingEnvironment)
         {
             Configuration = new ConfigurationBuilder()
-                .SetBasePath(appEnv.ApplicationBasePath)
+                .SetBasePath(hostingEnvironment.ContentRootPath)
                 .AddJsonFile("config.json")
                 .AddEnvironmentVariables("Wuzlstats.")
                 .Build();
@@ -33,28 +32,32 @@ namespace Wuzlstats
             services.AddTransient<ReloadPlayersViewModel>();
 
             services
-                .AddEntityFramework()
-                .AddSqlServer()
                 .AddDbContext<Db>(options => { options.UseSqlServer(settings.DatabaseConnectionString); });
 
             services.AddSignalR(options => { options.Hubs.EnableDetailedErrors = true; });
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver()); ;
         }
 
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerfactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.ApplicationServices
                 .GetService<Db>()
                 .Database
                 .EnsureCreated();
 
-            loggerfactory.AddConsole();
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
 
-            //app.UseExceptionHandler("/Home/Error");
-            app.UseDeveloperExceptionPage();
-
-            app.UseIISPlatformHandler();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
 
             app.UseStaticFiles();
 

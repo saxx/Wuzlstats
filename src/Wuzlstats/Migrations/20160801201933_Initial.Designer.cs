@@ -1,21 +1,21 @@
-using System;
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
-using Microsoft.Data.Entity.Metadata;
-using Microsoft.Data.Entity.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Wuzlstats.Models;
 
 namespace Wuzlstats.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20151024191829_Initial")]
+    [Migration("20160801201933_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .Annotation("ProductVersion", "7.0.0-beta8-15964")
-                .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Wuzlstats.Models.Game", b =>
                 {
@@ -31,6 +31,10 @@ namespace Wuzlstats.Migrations
                     b.Property<int>("RedScore");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LeagueId");
+
+                    b.ToTable("Game");
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.League", b =>
@@ -43,6 +47,8 @@ namespace Wuzlstats.Migrations
                     b.Property<string>("TimeoutConfiguration");
 
                     b.HasKey("Id");
+
+                    b.ToTable("League");
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.Player", b =>
@@ -57,6 +63,10 @@ namespace Wuzlstats.Migrations
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LeagueId");
+
+                    b.ToTable("Player");
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.PlayerPosition", b =>
@@ -71,31 +81,41 @@ namespace Wuzlstats.Migrations
                     b.Property<int>("Position");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("PlayerPosition");
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.Game", b =>
                 {
-                    b.HasOne("Wuzlstats.Models.League")
-                        .WithMany()
-                        .ForeignKey("LeagueId");
+                    b.HasOne("Wuzlstats.Models.League", "League")
+                        .WithMany("Games")
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.Player", b =>
                 {
-                    b.HasOne("Wuzlstats.Models.League")
-                        .WithMany()
-                        .ForeignKey("LeagueId");
+                    b.HasOne("Wuzlstats.Models.League", "League")
+                        .WithMany("Players")
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Wuzlstats.Models.PlayerPosition", b =>
                 {
-                    b.HasOne("Wuzlstats.Models.Game")
-                        .WithMany()
-                        .ForeignKey("GameId");
+                    b.HasOne("Wuzlstats.Models.Game", "Game")
+                        .WithMany("Positions")
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Wuzlstats.Models.Player")
-                        .WithMany()
-                        .ForeignKey("PlayerId");
+                    b.HasOne("Wuzlstats.Models.Player", "Player")
+                        .WithMany("Positions")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
         }
     }
