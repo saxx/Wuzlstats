@@ -1,7 +1,4 @@
 {
-  "webroot": "wwwroot",
-  "version": "1.0.0-*",
-
   "dependencies": {
     "Microsoft.AspNetCore.Mvc": "1.0.*",
     "Microsoft.AspNetCore.StaticFiles": "1.0.0",
@@ -47,12 +44,10 @@
     }
   },
   "publishOptions": {
-    "exclude": [
-      "node_modules",
-      "bower_components",
-      "**.xproj",
-      "**.user",
-      "**.vspscc"
+    "include": [
+      "wwwroot",
+      "Views",
+      "web.config"
     ]
   },
   "scripts": {
