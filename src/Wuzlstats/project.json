@@ -51,7 +51,7 @@
     ]
   },
   "scripts": {
-    "prepublish": [ "npm install", "gulp uglify", "gulp sass", "dotnet bundle" ],
+    "prepublish": [ "npm install", "npm install -g gulp", "gulp uglify", "gulp sass", "dotnet bundle" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }
