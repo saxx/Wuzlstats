@@ -47,7 +47,8 @@
     "include": [
       "wwwroot",
       "Views",
-      "web.config"
+      "web.config",
+      "config.json"
     ]
   },
   "scripts": {
