@@ -51,7 +51,7 @@
     ]
   },
   "scripts": {
-    "postrestore": [ "npm install" ],
-    "prepare": [ "gulp uglify", "gulp sass" ]
+    "prepublish": [ "npm install", "dotnet bundle" ],
+    "postpublish": [ "gulp uglify", "gulp sass", "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }
