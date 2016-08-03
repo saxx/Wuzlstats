@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Wuzlstats.Models
@@ -21,12 +22,12 @@ namespace Wuzlstats.Models
             modelBuilder.Entity<Game>().Ignore(x => x.BlueWins);
             modelBuilder.Entity<Game>().Ignore(x => x.RedWins);
             modelBuilder.Entity<Player>().HasOne(x => x.League).WithMany(x => x.Players).HasForeignKey(x => x.LeagueId);
-            modelBuilder.Entity<PlayerPosition>().HasOne(x => x.Player).WithMany(x => x.Positions).HasForeignKey(x => x.PlayerId);
-            modelBuilder.Entity<PlayerPosition>().HasOne(x => x.Game).WithMany(x => x.Positions).HasForeignKey(x => x.GameId);
+            modelBuilder.Entity<PlayerPosition>().HasOne(x => x.Player).WithMany(x => x.Positions).HasForeignKey(x => x.PlayerId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<PlayerPosition>().HasOne(x => x.Game).WithMany(x => x.Positions).HasForeignKey(x => x.GameId).OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<PlayerPosition>().Ignore(x => x.IsBluePosition);
             modelBuilder.Entity<PlayerPosition>().Ignore(x => x.IsRedPosition);
 
-            //Keep table names as it was in RC1
+            // keep table names as it was in RC1
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             {
                 entity.Relational().TableName = entity.DisplayName();
