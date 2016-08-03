@@ -12,13 +12,13 @@ There is a public instance running at http://wuzlstats.sachsenhofer.com. Feel fr
 
 [![Build status](https://ci.appveyor.com/api/projects/status/mbyycfkhuekda2r3?svg=true)](https://ci.appveyor.com/project/saxx/wuzlstats)
 
-Wuzlstats is built using ASP.NET vNext (v5 beta8 for the time being). Data is saved in SQL Server using Entity Framework, the real-time (websockets) functionality is provided by SignalR.
+Wuzlstats is built using ASP.NET Core (1.0 RTM for the time being). Data is saved in SQL Server using Entity Framework Core, the real-time (websockets) functionality is provided by SignalR.
 
 Since I'm [abstracting on the shoulders of giants](http://www.hanselman.com/blog/WeAreAbstractingOnTheShouldersOfGiants.aspx), these are the great open source libraries that Wuzlstats is built upon:
 
-* [ASP.NET vNext](http://www.asp.net/vnext)
+* [ASP.NET Core](http://www.asp.net/core)
 * [SignalR](http://signalr.net/)
-* [Entity Framework](https://msdn.microsoft.com/en-us/data/ef.aspx)
+* [Entity Framework Core](https://ef.readthedocs.io/en/latest/)
 * [jQuery](https://jquery.com/)
 * [Bootstrap](http://getbootstrap.com/)
 * [ImageResizer](http://imageresizing.net/)
