@@ -84,13 +84,13 @@ namespace Wuzlstats.Migrations
                         column: x => x.GameId,
                         principalTable: "Game",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PlayerPosition_Player_PlayerId",
                         column: x => x.PlayerId,
                         principalTable: "Player",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

@@ -1,6 +1,6 @@
 {
-  "name": "Wuzlstats",
-  "version": "1.0.0",
+  "name": "wuzlstats",
+  "version": "0.0.0",
   "private": true,
   "devDependencies": {
     "gulp": "3.9.1",

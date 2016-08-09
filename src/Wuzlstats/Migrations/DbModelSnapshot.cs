@@ -108,13 +108,11 @@ namespace Wuzlstats.Migrations
                 {
                     b.HasOne("Wuzlstats.Models.Game", "Game")
                         .WithMany("Positions")
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("GameId");
 
                     b.HasOne("Wuzlstats.Models.Player", "Player")
                         .WithMany("Positions")
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("PlayerId");
                 });
         }
     }
