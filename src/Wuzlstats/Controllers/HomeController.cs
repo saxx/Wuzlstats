@@ -1,11 +1,14 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
+using Wuzlstats.Extensions;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Home;
-using Microsoft.Extensions.Primitives;
 
 namespace Wuzlstats.Controllers
 {
@@ -62,6 +65,71 @@ namespace Wuzlstats.Controllers
             ViewBag.CurrentLeague = leagueEntity.Name;
             return View(await new GamesViewModel(_db).Fill(leagueEntity));
         }
+
+
+        [HttpGet("~/League/{league}/Games/{game}/Delete")]
+        public async Task<IActionResult> DeleteGame(string league, int? game)
+        {
+            if (league.IsNullOrEmpty() || !game.HasValue)
+            {
+                return NotFound();
+            }
+            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.ToLower() == league.ToLower());
+            if (leagueEntity == null)
+            {
+                return NotFound();
+            }
+            var gameEntity = await _db.Games.Include(include => include.Positions).FirstOrDefaultAsync(x => (x.Id == game) && (x.LeagueId == leagueEntity.Id));
+            if (gameEntity == null)
+            {
+                return NotFound();
+            }
+            var players = await _db.Players.Where(player => gameEntity.Positions.Select(x => x.PlayerId).Contains(player.Id)).ToDictionaryAsync(x => x.Id, x => x.Name);
+
+            var bluePlayerIds = gameEntity.Positions.Where(x => x.IsBluePosition).Select(x => x.PlayerId).ToList();
+            var redPlayerIds = gameEntity.Positions.Where(x => x.IsRedPosition).Select(x => x.PlayerId).ToList();
+            return View(new DeleteGameViewModel
+            {
+                Id = gameEntity.Id,
+                PlayedOn = gameEntity.Date,
+                BluePlayers = BuildPlayerNames(FetchPlayers(players, bluePlayerIds)),
+                RedPlayers = BuildPlayerNames(FetchPlayers(players, redPlayerIds)),
+                RedScore = gameEntity.RedScore,
+                BlueScore = gameEntity.BlueScore
+            });
+        }
+
+
+        private static IEnumerable<string> FetchPlayers(IDictionary<int, string> allPlayers, IEnumerable<int> playerIds)
+        {
+            return playerIds.Select(playerId => allPlayers[playerId]).ToList();
+        }
+
+
+        private static string BuildPlayerNames(IEnumerable<string> players)
+        {
+            return string.Join(", ", players);
+        }
+
+
+        [HttpPost("~/League/{league}/Games/{game}/Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteGameConfirmed(string league, int game)
+        {
+            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.ToLower() == league.ToLower());
+            if (leagueEntity != null)
+            {
+                var gameEntity = await _db.Games.FirstOrDefaultAsync(x => (x.Id == game) && (x.LeagueId == leagueEntity.Id));
+                if (gameEntity != null)
+                {
+                    _db.PlayerPositions.RemoveRange(_db.PlayerPositions.Where(x => x.GameId == gameEntity.Id));
+                    _db.Games.Remove(gameEntity);
+                    await _db.SaveChangesAsync();
+                }
+            }
+            return RedirectToAction("Games");
+        }
+
 
         public IActionResult Error()
         {
