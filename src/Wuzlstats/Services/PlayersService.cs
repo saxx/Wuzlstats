@@ -17,14 +17,21 @@ namespace Wuzlstats.Services
             _db = db;
         }
 
-        public async Task<IEnumerable<PlayerViewModel>> FindPlayersOfLeague(int leagueId, int? daysForStatistics)
+
+        private IQueryable<Game> FetchGames(int leagueId, int? daysForStatistics)
         {
             var gamesQuery = _db.Games.AsNoTracking().Where(x => x.LeagueId == leagueId);
-            if (daysForStatistics.HasValue)
+            if (!daysForStatistics.HasValue)
             {
-                var date = DateTime.UtcNow.Date.AddDays(-daysForStatistics.Value);
-                gamesQuery = gamesQuery.Where(x => x.Date >= date);
+                return gamesQuery;
             }
+            var date = DateTime.UtcNow.Date.AddDays(-daysForStatistics.Value);
+            return gamesQuery.Where(x => x.Date >= date);
+        }
+
+        public async Task<IEnumerable<PlayerViewModel>> FindPlayersOfLeague(int leagueId, int? daysForStatistics)
+        {
+            var gamesQuery = FetchGames(leagueId, daysForStatistics);
 
             // EF7 beta4 does not support navigation properties in queries yet
             // this complicates the code a lot, because we need joins :(
@@ -95,5 +102,6 @@ namespace Wuzlstats.Services
             }
             return players.OrderByDescending(x => x.LastGamePlayedOn);
         }
+
     }
 }
