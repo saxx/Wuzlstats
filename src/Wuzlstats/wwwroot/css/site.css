@@ -140,15 +140,39 @@ footer {
     footer {
       margin-top: 50px; } }
 
-.players td > a:focus, .players td > a:hover {
+.players td > a:focus, .players td > a:hover, .teams td > a:focus, .teams td > a:hover {
   text-decoration: none; }
 
-.players .player-name {
+.players .player-name, .teams .player-name {
   font-weight: bold;
   display: inline; }
 
-.players .player-score {
+.players .player-score, .teams .player-score {
   color: #999; }
+
+.teams .team {
+  display: inline-block; }
+
+.teams .player {
+  float: right;
+  display: block; }
+  .teams .player:first-child {
+    float: left;
+    margin-right: 1.5em; }
+    .teams .player:first-child .player-name {
+      margin-left: 50px; }
+  .teams .player:nth-of-type(2) > a {
+    float: right; }
+  .teams .player:nth-of-type(2) .player-name {
+    display: inline-block;
+    text-align: right;
+    margin-right: 0.6em;
+    top: 0.9em; }
+
+.teams .player-name {
+  display: block;
+  position: relative;
+  top: -2em; }
 
 footer .nav > li {
   padding-bottom: 15px;

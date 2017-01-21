@@ -210,7 +210,7 @@ footer {
     }
 }
 
-.players {
+.players, .teams {
     td > a {
         &:focus, &:hover {
             text-decoration: none;
@@ -227,6 +227,47 @@ footer {
     }
 }
 
+.teams {
+    .team {
+        display: inline-block;
+    }
+
+    .player {
+        float: right;
+        display: block;
+
+        &:first-child {
+            float: left;
+            margin-right: 1.5em;
+
+            & .player-name {
+                margin-left: 50px;
+            }
+        }
+
+        &:nth-of-type(2) {
+            & > a {
+                float: right;
+            }
+
+            & .player-name {
+                display: inline-block;
+                text-align: right;
+                margin-right: 0.6em;
+                top: 0.9em;
+            }
+        }
+    }
+
+    .player-name {
+        display: block;
+        //margin-left: 50px;
+        //margin-right: 50px;
+        position: relative;
+        top: -2em;
+    }
+}
+
 footer {
     .nav > li {
         padding-bottom: 15px;
@@ -235,7 +276,7 @@ footer {
     }
 
     .nav > li > a {
-            display: inline;
-            padding: 0;
+        display: inline;
+        padding: 0;
     }
 }
