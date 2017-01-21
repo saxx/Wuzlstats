@@ -9,7 +9,7 @@ namespace Wuzlstats.ViewModels.Teams
         public int Wins { get; set; }
         public int Losses { get; set; }
         public DateTime LastGamePlayedOn { get; set; }
-        public int GamesCount { get; set; }
+        public int GamesCount => Wins + Losses;
 
         // ReSharper disable once PossibleLossOfFraction
         public double Rank => Losses == 0 ? Wins : (Wins == 0 ? 0.1d / Losses : (double)Wins / Losses);

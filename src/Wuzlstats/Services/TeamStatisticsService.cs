@@ -78,10 +78,22 @@ namespace Wuzlstats.Services
                         redTeam.Wins++;
                         blueTeam.Losses++;
                     }
+                    //Resolve date of last played game
+                    ResolveLastGamePlayedOn(redTeam, game.Date);
+                    ResolveLastGamePlayedOn(blueTeam, game.Date);
                 }
             }
 
             return teams;
+        }
+
+
+        private void ResolveLastGamePlayedOn(TeamViewModel team, DateTime date)
+        {
+            if (team.LastGamePlayedOn < date)
+            {
+                team.LastGamePlayedOn = date;
+            }
         }
 
         public static TeamViewModel CreateTeam(PlayerViewModel p1, PlayerViewModel p2)
