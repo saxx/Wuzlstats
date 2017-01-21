@@ -43,6 +43,7 @@ namespace Wuzlstats.Controllers
                     teams = teams.OrderByDescending(x => x.Wins + x.Losses);
                     break;
                 default:
+                    teams = teams.OrderByDescending(x => x.LastGamePlayedOn);
                     break;
             }
 
