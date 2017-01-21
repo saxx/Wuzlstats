@@ -211,7 +211,7 @@ footer {
 }
 
 .players, .teams {
-    td > a {
+    td a {
         &:focus, &:hover {
             text-decoration: none;
         }
@@ -228,43 +228,12 @@ footer {
 }
 
 .teams {
-    .team {
-        display: inline-block;
-    }
-
     .player {
-        float: right;
-        display: block;
+        display: inline-block;
 
         &:first-child {
-            float: left;
-            margin-right: 1.5em;
-
-            & .player-name {
-                margin-left: 50px;
-            }
+            margin-right: 1em;
         }
-
-        &:nth-of-type(2) {
-            & > a {
-                float: right;
-            }
-
-            & .player-name {
-                display: inline-block;
-                text-align: right;
-                margin-right: 0.6em;
-                top: 0.9em;
-            }
-        }
-    }
-
-    .player-name {
-        display: block;
-        //margin-left: 50px;
-        //margin-right: 50px;
-        position: relative;
-        top: -2em;
     }
 }
 
