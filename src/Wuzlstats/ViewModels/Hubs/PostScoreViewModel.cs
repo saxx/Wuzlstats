@@ -12,7 +12,7 @@ namespace Wuzlstats.ViewModels.Hubs
         //TODO: All these methods should move to a dedicated service
         public async Task<PostScoreViewModel> Save(League league, Db db)
         {
-            if (!BluePlayer.IsNullOrEmpty() && !RedPlayer.IsNullOrEmpty())
+            if (!BluePlayer.IsNullOrWhiteSpace() && !RedPlayer.IsNullOrWhiteSpace())
             {
                 await SavePlayerScore(league, db);
             }
@@ -30,7 +30,7 @@ namespace Wuzlstats.ViewModels.Hubs
             {
                 throw new Exception("Invalid scores, both must be greater zero.");
             }
-            if (BluePlayer.IsNullOrEmpty() || RedPlayer.IsNullOrEmpty())
+            if (BluePlayer.IsNullOrWhiteSpace() || RedPlayer.IsNullOrWhiteSpace())
             {
                 throw new Exception("One or more player names empty.");
             }
@@ -50,7 +50,7 @@ namespace Wuzlstats.ViewModels.Hubs
             {
                 throw new Exception("Invalid scores, both must be greater zero.");
             }
-            if (BlueTeamOffense.IsNullOrEmpty() || BlueTeamDefense.IsNullOrEmpty() || RedTeamOffense.IsNullOrEmpty() || RedTeamDefense.IsNullOrEmpty())
+            if (BlueTeamOffense.IsNullOrWhiteSpace() || BlueTeamDefense.IsNullOrWhiteSpace() || RedTeamOffense.IsNullOrWhiteSpace() || RedTeamDefense.IsNullOrWhiteSpace())
             {
                 throw new Exception("One or more player names empty.");
             }
