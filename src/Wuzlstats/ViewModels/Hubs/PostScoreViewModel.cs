@@ -26,13 +26,13 @@ namespace Wuzlstats.ViewModels.Hubs
 
         private async Task SavePlayerScore(League league, Db db)
         {
-            if (BluePlayerScore <= 0 && RedPlayerScore <= 0)
+            if (BluePlayerScore <= 0 || RedPlayerScore <= 0)
             {
                 throw new Exception("Invalid scores, both must be greater zero.");
             }
             if (BluePlayer.IsNullOrWhiteSpace() || RedPlayer.IsNullOrWhiteSpace())
             {
-                throw new Exception("One or more player names empty.");
+                throw new Exception("One or more player names are empty.");
             }
 
             var bluePlayer = await GetOrCreatePlayer(BluePlayer, league, db);
@@ -46,13 +46,13 @@ namespace Wuzlstats.ViewModels.Hubs
 
         private async Task SaveTeamScore(League league, Db db)
         {
-            if (BlueTeamScore <= 0 && RedTeamScore <= 0)
+            if (BlueTeamScore <= 0 || RedTeamScore <= 0)
             {
                 throw new Exception("Invalid scores, both must be greater zero.");
             }
             if (BlueTeamOffense.IsNullOrWhiteSpace() || BlueTeamDefense.IsNullOrWhiteSpace() || RedTeamOffense.IsNullOrWhiteSpace() || RedTeamDefense.IsNullOrWhiteSpace())
             {
-                throw new Exception("One or more player names empty.");
+                throw new Exception("One or more player names are empty.");
             }
 
             var blueOffense = await GetOrCreatePlayer(BlueTeamOffense, league, db);
