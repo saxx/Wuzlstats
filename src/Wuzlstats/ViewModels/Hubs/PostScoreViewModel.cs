@@ -12,7 +12,7 @@ namespace Wuzlstats.ViewModels.Hubs
         //TODO: All these methods should move to a dedicated service
         public async Task<PostScoreViewModel> Save(League league, Db db)
         {
-            if (!BluePlayer.IsNullOrWhiteSpace() && !RedPlayer.IsNullOrWhiteSpace())
+            if (!BluePlayer.IsNullOrEmpty() && !RedPlayer.IsNullOrEmpty())
             {
                 await SavePlayerScore(league, db);
             }
