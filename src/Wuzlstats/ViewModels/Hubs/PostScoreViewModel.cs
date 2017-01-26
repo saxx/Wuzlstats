@@ -70,18 +70,20 @@ namespace Wuzlstats.ViewModels.Hubs
 
         private async Task<Models.Player> GetOrCreatePlayer(string name, League league, Db db)
         {
+            name = name.Trim();
             var playerQuery = db.Players.Where(x => x.LeagueId == league.Id);
             var player = await playerQuery.FirstOrDefaultAsync(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
-            if (player == null)
+            if (player != null)
             {
-                player = new Models.Player
-                {
-                    LeagueId = league.Id,
-                    Name = name
-                };
-                db.Players.Add(player);
-                await db.SaveChangesAsync();
+                return player;
             }
+            player = new Models.Player
+            {
+                LeagueId = league.Id,
+                Name = name
+            };
+            db.Players.Add(player);
+            await db.SaveChangesAsync();
             return player;
         }
 
