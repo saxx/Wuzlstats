@@ -210,8 +210,8 @@ footer {
     }
 }
 
-.players {
-    td > a {
+.players, .teams {
+    td a {
         &:focus, &:hover {
             text-decoration: none;
         }
@@ -227,6 +227,16 @@ footer {
     }
 }
 
+.teams {
+    .player {
+        display: inline-block;
+
+        &:first-child {
+            margin-right: 1em;
+        }
+    }
+}
+
 footer {
     .nav > li {
         padding-bottom: 15px;
@@ -235,7 +245,7 @@ footer {
     }
 
     .nav > li > a {
-            display: inline;
-            padding: 0;
+        display: inline;
+        padding: 0;
     }
 }
