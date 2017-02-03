@@ -17,7 +17,7 @@ namespace Wuzlstats
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(hostingEnvironment.ContentRootPath)
                 .AddJsonFile("config.json")
-                .AddEnvironmentVariables("Wuzlstats.")
+                .AddEnvironmentVariables("Wuzlstats:")
                 .Build();
         }
 
@@ -31,12 +31,12 @@ namespace Wuzlstats
             services.AddSingleton(x => settings);
             services.AddTransient<ReloadPlayersViewModel>();
 
-            services
-                .AddDbContext<Db>(options => { options.UseSqlServer(settings.DatabaseConnectionString); });
+            services.AddApplicationInsightsTelemetry("10fdf039-f4c6-4413-889c-ea9981aa0e3e");
+
+            services.AddDbContext<Db>(options => { options.UseSqlServer(settings.DatabaseConnectionString); });
 
             services.AddSignalR(options => { options.Hubs.EnableDetailedErrors = true; });
-            services.AddMvc()
-                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver()); ;
+            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
 
 
