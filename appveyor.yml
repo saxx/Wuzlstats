@@ -17,14 +17,14 @@ artifacts:
 
 environment:
   deploy_server:
-    secure: 7f9bcFkXgx37td51cnPI9A==
+    secure: YmZFZZmWT1sVedoAdssDtJmzDbLqM4f5betXn9OGKgGSdIF3+0epfn/4AJwH280X
   deploy_username:
-    secure: +4+0JDINyo6SMCl7QDFxjA==
+    secure: vUkM5f2EhdTuZYWcMkClTQ==
   deploy_password:
-    secure: RHmwJ0TuDaknqQdBiIUtYiO6NSmxqEbXDACMtJG16W4=
+    secure: NVuYfhEOnbYxLwUsWWRSPeOidVMYqz6wOoGc22dVp5aJIlvWO/LYwj1VmApTMyHbQQlFOXsNOl58MMyEDrs4Jw==
 
 
 deploy_script:
-- CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=Wuzlstats,recycleMode=StopAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
-- CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPath=%APPVEYOR_BUILD_FOLDER%\src\Wuzlstats\bin\publish -dest:contentPath=Wuzlstats,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
-- CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=Wuzlstats,recycleMode=StartAppPool,computername=http://%deploy_server%/MSDEPLOYAGENTSERVICE,username=%deploy_username%,password=%deploy_password%
+- CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=wuzlstats,recycleMode=StopAppPool,computername=%deploy_server%,username=%deploy_username%,password=%deploy_password%
+- CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:contentPath=%APPVEYOR_BUILD_FOLDER%\src\Wuzlstats\bin\publish -dest:contentPath=wuzlstats,computername=%deploy_server%,username=%deploy_username%,password=%deploy_password%
+- CALL "C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:recycleApp -dest:recycleApp=wuzlstats,recycleMode=StartAppPool,computername=%deploy_server%,username=%deploy_username%,password=%deploy_password%
