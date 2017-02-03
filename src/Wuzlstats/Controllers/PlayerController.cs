@@ -2,11 +2,12 @@
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using ImageResizer;
+using ImageSharp;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Player;
+using ImageSharp.Formats;
 
 namespace Wuzlstats.Controllers
 {
@@ -47,16 +48,11 @@ namespace Wuzlstats.Controllers
             var player = await LoadAndEnsurePlayerExists(id);
             if (avatar.Length > 0)
             {
-                var settings = new ResizeSettings
-                {
-                    MaxWidth = 150,
-                    MaxHeight = 150,
-                    Format = "png"
-                };
-
                 var outputStream = new MemoryStream();
-                ImageBuilder.Current.Build(avatar.OpenReadStream(), outputStream, settings);
-
+                using (Image image = new Image(avatar.OpenReadStream()))
+                {
+                    image.Resize(150, 150).Save(outputStream, new PngFormat());
+                }
                 player.Image = outputStream.ToArray();
                 await _db.SaveChangesAsync();
             }

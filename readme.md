@@ -12,7 +12,7 @@ There is a public instance running at http://wuzlstats.sachsenhofer.com. Feel fr
 
 [![Build status](https://ci.appveyor.com/api/projects/status/mbyycfkhuekda2r3?svg=true)](https://ci.appveyor.com/project/saxx/wuzlstats)
 
-Wuzlstats is built using ASP.NET Core (1.0 RTM for the time being). Data is saved in SQL Server using Entity Framework Core, the real-time (websockets) functionality is provided by SignalR.
+Wuzlstats is built using ASP.NET Core (1.1 RTM for the time being). Data is saved in SQL Server using Entity Framework Core, the real-time (websockets) functionality is provided by SignalR.
 
 Since I'm [abstracting on the shoulders of giants](http://www.hanselman.com/blog/WeAreAbstractingOnTheShouldersOfGiants.aspx), these are the great open source libraries that Wuzlstats is built upon:
 
@@ -21,10 +21,16 @@ Since I'm [abstracting on the shoulders of giants](http://www.hanselman.com/blog
 * [Entity Framework Core](https://ef.readthedocs.io/en/latest/)
 * [jQuery](https://jquery.com/)
 * [Bootstrap](http://getbootstrap.com/)
-* [ImageResizer](http://imageresizing.net/)
 * [Gulp](http://gulpjs.com/)
 
 
 ## Notes for developers
 
-Feel free to fork Wuzlstats, of course I will accept pull requests as long as I think they are useful to everybody. Please note that Wuzlstats requires .NET 4.6 and won't run on .NET Core for the time being, because [I wasn't able to find](http://stackoverflow.com/questions/30528236/image-resizing-with-net-core) any image resizing libraries for .NET Core so far.
+Feel free to fork Wuzlstats, of course I will accept pull requests as long as I think they are useful to everybody.
+
+Make sure you use these pre-release NuGet feeds to get the latest bits:
+
+ImageSharp `https://www.myget.org/F/imagesharp/api/v3/index.json`
+AspNetCore `https://dotnet.myget.org/F/aspnetcore-ci-dev/api/v3/index.json`
+AspNetCoreTools `https://dotnet.myget.org/F/aspnetcore-tools/api/v3/index.json`
+NuGet.org `https://api.nuget.org/v3/index.json`
