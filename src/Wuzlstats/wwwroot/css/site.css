@@ -140,15 +140,20 @@ footer {
     footer {
       margin-top: 50px; } }
 
-.players td > a:focus, .players td > a:hover {
+.players td a:focus, .players td a:hover, .teams td a:focus, .teams td a:hover {
   text-decoration: none; }
 
-.players .player-name {
+.players .player-name, .teams .player-name {
   font-weight: bold;
   display: inline; }
 
-.players .player-score {
+.players .player-score, .teams .player-score {
   color: #999; }
+
+.teams .player {
+  display: inline-block; }
+  .teams .player:first-child {
+    margin-right: 1em; }
 
 footer .nav > li {
   padding-bottom: 15px;

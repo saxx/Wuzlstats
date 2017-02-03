@@ -1,0 +1,38 @@
+﻿@model Wuzlstats.ViewModels.Home.DeleteGameViewModel
+
+<form asp-action="DeleteGameConfirmed">
+    <div class="form">
+        <h2>Do you really want to delete the game?</h2>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <table class="table">
+                    <tr>
+                        <th>Date</th>
+                        <td class="text-right">@Model.PlayedOn</td>
+                    </tr>
+                    <tr>
+                        <th>Players</th>
+                        <td class="text-right">
+                            <span class="team-red">@Model.RedPlayers</span> :
+                            <span class="team-blue">@Model.BluePlayers</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Score</th>
+                        <td class="text-right">
+                            <span class="team-red">@Model.RedScore</span> :
+                            <span class="team-blue">@Model.BlueScore</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <p style="text-align: center;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a href="@Url.Action("Games")" class="btn btn-default">Back</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    @Html.AntiForgeryToken()
+</form>
