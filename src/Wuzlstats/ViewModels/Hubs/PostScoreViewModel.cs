@@ -72,7 +72,7 @@ namespace Wuzlstats.ViewModels.Hubs
         {
             name = name.Trim();
             var playerQuery = db.Players.Where(x => x.LeagueId == league.Id);
-            var player = await playerQuery.FirstOrDefaultAsync(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+            var player = await playerQuery.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
             if (player != null)
             {
                 return player;

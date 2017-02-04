@@ -32,6 +32,7 @@ namespace Wuzlstats
             services.AddSingleton(x => settings);
             services.AddTransient<ReloadPlayersViewModel>();
             services.AddTransient<GamesViewModel>();
+            services.AddTransient<LeagueStatisticsViewModel>();
 
             services.AddApplicationInsightsTelemetry("10fdf039-f4c6-4413-889c-ea9981aa0e3e");
 

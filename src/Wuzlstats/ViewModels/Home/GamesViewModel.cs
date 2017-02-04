@@ -28,7 +28,7 @@ namespace Wuzlstats.ViewModels.Home
             stopwatch.Start();
 
             League = league.Name;
-            Games = await _db.Games.Where(x => x.LeagueId == league.Id).OrderByDescending(x => x.Date).Select(x => new Game
+            Games = await _db.Games.AsNoTracking().Where(x => x.LeagueId == league.Id).OrderByDescending(x => x.Date).Select(x => new Game
             {
                 Id = x.Id,
                 Date = x.Date,
@@ -38,7 +38,7 @@ namespace Wuzlstats.ViewModels.Home
             _logger.LogTrace($"Loading {Games.Count} games took {stopwatch.ElapsedMilliseconds}ms.");
             stopwatch.Restart();
 
-            var allPlayers = await _db.Players.Where(x => x.LeagueId == league.Id).Select(x => new
+            var allPlayers = await _db.Players.AsNoTracking().Where(x => x.LeagueId == league.Id).Select(x => new
             {
                 x.Id,
                 x.Name
@@ -47,14 +47,13 @@ namespace Wuzlstats.ViewModels.Home
             stopwatch.Restart();
 
             var allGameIds = Games.Select(x => x.Id).ToList();
-            var allPositions = await _db.PlayerPositions.Where(x => allGameIds.Contains(x.GameId)).ToListAsync();
+            var allPositions = await _db.PlayerPositions.AsNoTracking().Where(x => allGameIds.Contains(x.GameId)).ToListAsync();
             _logger.LogTrace($"Loading {allPositions.Count} player positions took {stopwatch.ElapsedMilliseconds}ms.");
             stopwatch.Restart();
 
             foreach (var game in Games)
             {
                 var positions = allPositions.Where(x => x.GameId == game.Id).ToList();
-
                 game.RedPlayers = positions.Where(x => x.IsRedPosition)
                     .Select(x => allPlayers.Single(y => y.Id == x.PlayerId).Name)
                     .Aggregate("", (seed, value) => seed + ", " + value)

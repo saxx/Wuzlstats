@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Wuzlstats.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Wuzlstats.ViewModels.Hubs
 {
@@ -11,25 +13,52 @@ namespace Wuzlstats.ViewModels.Hubs
     {
         private readonly Db _db;
         private readonly AppSettings _settings;
+        private readonly ILogger _logger;
 
-
-        public LeagueStatisticsViewModel(Db db, AppSettings settings)
+        public LeagueStatisticsViewModel(Db db, AppSettings settings, ILoggerFactory loggerFactory)
         {
             _settings = settings;
             _db = db;
+            _logger = loggerFactory.CreateLogger(typeof(LeagueStatisticsViewModel));
         }
 
 
         public async Task<LeagueStatisticsViewModel> Fill(League league)
         {
+            _logger.LogTrace("Filling LeagueStatisticsViewModel ...");
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             daysForStatistics = _settings.DaysForStatistics;
 
             var gamesQuery = _db.Games.AsNoTracking().Where(x => x.LeagueId == league.Id);
             var date = DateTime.UtcNow.Date.AddDays(-_settings.DaysForStatistics);
             gamesQuery = gamesQuery.Where(x => x.Date >= date);
+            var allGames = await gamesQuery.ToListAsync();
+            _logger.LogTrace($"Loading {allGames.Count} games took {stopwatch.ElapsedMilliseconds}ms.");
+            stopwatch.Restart();
 
-            // EF7 beta4 does not support navigation properties in queries yet
-            // this complicates the code a lot, because we need joins :(
+            var allPlayers = await _db.Players.AsNoTracking().Where(x => x.LeagueId == league.Id).Select(x => new
+            {
+                x.Id,
+                x.Name,
+                x.Image
+            }).ToListAsync();
+            _logger.LogTrace($"Loading {allPlayers.Count} players took {stopwatch.ElapsedMilliseconds}ms.");
+            stopwatch.Restart();
+
+            var allGameIds = allGames.Select(x => x.Id).ToList();
+            var allPositions = await _db.PlayerPositions
+                .AsNoTracking()
+                .Where(x => allGameIds.Contains(x.GameId))
+                .Select(x => new
+                {
+                    x.GameId,
+                    x.PlayerId,
+                    x.Position
+                }).ToListAsync();
+            _logger.LogTrace($"Loading {allPositions.Count} player positions took {stopwatch.ElapsedMilliseconds}ms.");
+            stopwatch.Restart();
 
             var players = new List<Player>();
             var teams = new List<Team>();
@@ -37,7 +66,7 @@ namespace Wuzlstats.ViewModels.Hubs
             var bluePlayerIds = new List<int>();
             var goalDifferences = new List<int>();
 
-            foreach (var game in await gamesQuery.ToListAsync())
+            foreach (var game in allGames)
             {
                 // league stats
                 games++;
@@ -53,32 +82,26 @@ namespace Wuzlstats.ViewModels.Hubs
                 redGoals += game.RedScore;
                 goalDifferences.Add(Math.Max(game.BlueScore, game.RedScore) - Math.Min(game.BlueScore, game.RedScore));
 
-                var positions = await (from position in _db.PlayerPositions.AsNoTracking()
-                    join player in _db.Players.AsNoTracking() on position.PlayerId equals player.Id
-                    where position.GameId == game.Id
-                    select new
-                    {
-                        position.Position,
-                        Player = player
-                    }).ToListAsync();
+                var positions = allPositions.Where(x => x.GameId == game.Id).ToList();
 
                 // player stats
                 foreach (var position in positions)
                 {
-                    var player = players.FirstOrDefault(x => x.Equals(position.Player));
+                    var player = players.FirstOrDefault(x => x.id == position.PlayerId);
                     if (player == null)
                     {
-                        player = Player.Create(position.Player);
+                        var p = allPlayers.Single(x => x.Id == position.PlayerId);
+                        player = Player.Create(p.Id, p.Name, p.Image);
                         players.Add(player);
                     }
 
                     if (position.Position == PlayerPositionTypes.Blue || position.Position == PlayerPositionTypes.BlueDefense || position.Position == PlayerPositionTypes.BlueOffense)
                     {
-                        bluePlayerIds.Add(position.Player.Id);
+                        bluePlayerIds.Add(position.PlayerId);
                     }
                     else if (position.Position == PlayerPositionTypes.Red || position.Position == PlayerPositionTypes.RedDefense || position.Position == PlayerPositionTypes.RedOffense)
                     {
-                        redPlayerIds.Add(position.Player.Id);
+                        redPlayerIds.Add(position.PlayerId);
                     }
 
                     // don't count ties
@@ -108,10 +131,10 @@ namespace Wuzlstats.ViewModels.Hubs
                     && positions.Count(x => x.Position == PlayerPositionTypes.RedDefense) == 1
                     && positions.Count(x => x.Position == PlayerPositionTypes.RedOffense) == 1)
                 {
-                    var redOffense = players.Single(x => x.id == positions.Single(y => y.Position == PlayerPositionTypes.RedOffense).Player.Id);
-                    var redDefense = players.Single(x => x.id == positions.Single(y => y.Position == PlayerPositionTypes.RedDefense).Player.Id);
-                    var blueOffense = players.Single(x => x.id == positions.Single(y => y.Position == PlayerPositionTypes.BlueOffense).Player.Id);
-                    var blueDefense = players.Single(x => x.id == positions.Single(y => y.Position == PlayerPositionTypes.BlueDefense).Player.Id);
+                    var redOffense = players.Single(x => x.id == positions.Single(y => y.Position == PlayerPositionTypes.RedOffense).PlayerId);
+                    var redDefense = players.Single(x => x.id == positions.Single(y => y.Position == PlayerPositionTypes.RedDefense).PlayerId);
+                    var blueOffense = players.Single(x => x.id == positions.Single(y => y.Position == PlayerPositionTypes.BlueOffense).PlayerId);
+                    var blueDefense = players.Single(x => x.id == positions.Single(y => y.Position == PlayerPositionTypes.BlueDefense).PlayerId);
 
                     var redTeam = teams.FirstOrDefault(x => x.Equals(redOffense, redDefense));
                     if (redTeam == null)
@@ -139,7 +162,6 @@ namespace Wuzlstats.ViewModels.Hubs
                 }
             }
 
-
             redPlayers = redPlayerIds.Distinct().Count();
             bluePlayers = bluePlayerIds.Distinct().Count();
             bestPlayers = players.OrderByDescending(x => x.rank).Take(5).ToList();
@@ -154,6 +176,8 @@ namespace Wuzlstats.ViewModels.Hubs
 
             var mostActivePlayerEntity = players.OrderByDescending(x => x.losses + x.wins).FirstOrDefault();
             mostActivePlayer = mostActivePlayerEntity != null ? mostActivePlayerEntity.name : "";
+
+            _logger.LogTrace($"Calculating statistics took {stopwatch.ElapsedMilliseconds}ms.");
 
             return this;
         }
@@ -185,7 +209,7 @@ namespace Wuzlstats.ViewModels.Hubs
             public int losses { get; set; }
 
             // ReSharper disable once PossibleLossOfFraction
-            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1d/losses : (double) wins/losses);
+            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1d / losses : (double)wins / losses);
 
 
             public bool Equals(Models.Player p)
@@ -194,13 +218,13 @@ namespace Wuzlstats.ViewModels.Hubs
             }
 
 
-            public static Player Create(Models.Player p)
+            public static Player Create(int id, string name, byte[] image)
             {
                 return new Player
                 {
-                    id = p.Id,
-                    name = p.Name,
-                    image = p.Image == null || p.Image.Length <= 0 ? EmptyAvatar.Base64 : Convert.ToBase64String(p.Image)
+                    id = id,
+                    name = name,
+                    image = image == null || image.Length <= 0 ? EmptyAvatar.Base64 : Convert.ToBase64String(image)
                 };
             }
         }
@@ -213,7 +237,7 @@ namespace Wuzlstats.ViewModels.Hubs
             public int losses { get; set; }
 
             // ReSharper disable once PossibleLossOfFraction
-            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1d/losses : (double) wins/losses);
+            public double rank => losses == 0 ? wins : (wins == 0 ? 0.1d / losses : (double)wins / losses);
 
 
             public bool Equals(Player p1, Player p2)
