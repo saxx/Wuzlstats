@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json.Serialization;
 using Wuzlstats.Models;
+using Wuzlstats.ViewModels.Home;
 using Wuzlstats.ViewModels.Hubs;
 
 namespace Wuzlstats
@@ -30,6 +31,7 @@ namespace Wuzlstats
             var settings = new AppSettings(Configuration);
             services.AddSingleton(x => settings);
             services.AddTransient<ReloadPlayersViewModel>();
+            services.AddTransient<GamesViewModel>();
 
             services.AddApplicationInsightsTelemetry("10fdf039-f4c6-4413-889c-ea9981aa0e3e");
 
@@ -42,14 +44,14 @@ namespace Wuzlstats
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
             app.ApplicationServices
                 .GetService<Db>()
                 .Database
                 .EnsureCreated();
-
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -60,6 +62,7 @@ namespace Wuzlstats
             }
 
             app.UseStaticFiles();
+            app.UseWebSockets();
             app.UseSignalR();
             app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
         }
