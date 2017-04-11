@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
 using Wuzlstats.Extensions;
 using Wuzlstats.Models;
@@ -15,11 +16,13 @@ namespace Wuzlstats.Controllers
     public class HomeController : Controller
     {
         private readonly Db _db;
+        private readonly IServiceProvider _services;
 
 
-        public HomeController(Db db)
+        public HomeController(Db db, IServiceProvider services)
         {
             _db = db;
+            _services = services;
         }
 
 
@@ -63,7 +66,7 @@ namespace Wuzlstats.Controllers
             }
 
             ViewBag.CurrentLeague = leagueEntity.Name;
-            return View(await new GamesViewModel(_db).Fill(leagueEntity));
+            return View(await _services.GetRequiredService<GamesViewModel>().Fill(leagueEntity));
         }
 
 

@@ -12,12 +12,12 @@ namespace Wuzlstats.Hubs
     public partial class ApiHub : Hub
     {
         private readonly Db _db;
-        private readonly AppSettings _settings;
+        private readonly IServiceProvider _services;
 
 
-        public ApiHub(Db db, AppSettings settings)
+        public ApiHub(Db db, IServiceProvider services)
         {
-            _settings = settings;
+            _services = services;
             _db = db;
         }
 
@@ -42,7 +42,7 @@ namespace Wuzlstats.Hubs
             {
                 throw new Exception("Invalid league, must not be empty.");
             }
-            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.Equals(league, StringComparison.CurrentCultureIgnoreCase));
+            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.ToLower() == league.ToLower());
             if (leagueEntity == null)
             {
                 throw new Exception("Invalid league.");

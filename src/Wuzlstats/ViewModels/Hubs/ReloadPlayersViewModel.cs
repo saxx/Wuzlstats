@@ -38,7 +38,7 @@ namespace Wuzlstats.ViewModels.Hubs
             {
                 throw new Exception("Invalid league, must not be empty.");
             }
-            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.Equals(league, StringComparison.CurrentCultureIgnoreCase));
+            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.ToLower() == league.ToLower());
             if (leagueEntity == null)
             {
                 throw new Exception("Invalid league.");
