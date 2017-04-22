@@ -49,7 +49,7 @@ namespace Wuzlstats.Controllers
             if (avatar.Length > 0)
             {
                 var outputStream = new MemoryStream();
-                using (Image image = new Image(avatar.OpenReadStream()))
+                using (var image = Image.Load(avatar.OpenReadStream()))
                 {
                     image.Resize(150, 150).Save(outputStream, new PngFormat());
                 }
