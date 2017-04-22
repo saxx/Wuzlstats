@@ -28,7 +28,7 @@ Feel free to fork Wuzlstats, of course I will accept pull requests as long as I 
 
 Make sure you use these pre-release NuGet feeds to get the latest bits:
 
-ImageSharp `https://www.myget.org/F/imagesharp/api/v3/index.json`
-AspNetCore `https://dotnet.myget.org/F/aspnetcore-ci-dev/api/v3/index.json`
-AspNetCoreTools `https://dotnet.myget.org/F/aspnetcore-tools/api/v3/index.json`
-NuGet.org `https://api.nuget.org/v3/index.json`
+* ImageSharp `https://www.myget.org/F/imagesharp/api/v3/index.json`
+* AspNetCore `https://dotnet.myget.org/F/aspnetcore-ci-dev/api/v3/index.json`
+* AspNetCoreTools `https://dotnet.myget.org/F/aspnetcore-tools/api/v3/index.json`
+* NuGet.org `https://api.nuget.org/v3/index.json`
