@@ -26,10 +26,7 @@ namespace Wuzlstats.ViewModels.Hubs
 
         private async Task SavePlayerScore(League league, Db db)
         {
-            if (BluePlayerScore <= 0 || RedPlayerScore <= 0)
-            {
-                throw new Exception("Invalid scores, both must be greater zero.");
-            }
+            ValidateScore(BluePlayerScore, RedPlayerScore);
             if (BluePlayer.IsNullOrWhiteSpace() || RedPlayer.IsNullOrWhiteSpace())
             {
                 throw new Exception("One or more player names are empty.");
@@ -46,10 +43,7 @@ namespace Wuzlstats.ViewModels.Hubs
 
         private async Task SaveTeamScore(League league, Db db)
         {
-            if (BlueTeamScore <= 0 || RedTeamScore <= 0)
-            {
-                throw new Exception("Invalid scores, both must be greater zero.");
-            }
+            ValidateScore(BlueTeamScore, RedTeamScore);
             if (BlueTeamOffense.IsNullOrWhiteSpace() || BlueTeamDefense.IsNullOrWhiteSpace() || RedTeamOffense.IsNullOrWhiteSpace() || RedTeamDefense.IsNullOrWhiteSpace())
             {
                 throw new Exception("One or more player names are empty.");
@@ -65,6 +59,24 @@ namespace Wuzlstats.ViewModels.Hubs
             await CreatePosition(game, blueDefense, PlayerPositionTypes.BlueDefense, db);
             await CreatePosition(game, redOffense, PlayerPositionTypes.RedOffense, db);
             await CreatePosition(game, redDefense, PlayerPositionTypes.RedDefense, db);
+        }
+
+
+        /// <summary>
+        /// A score must be greater than or equal to zero. Both scores can't be zero.
+        /// </summary>
+        private static void ValidateScore(int blueScore, int redScore)
+        {
+            //both scores must not be negative
+            if (blueScore < 0 || redScore < 0)
+            {
+                throw new ArgumentException("Invalid score, a score must be greater than or equal to zero.");
+            }
+            //Both scores can't be zero
+            if (blueScore <= 0 && redScore <= 0)
+            {
+                throw new ArgumentException("Invalid scores, both can't be zero.");
+            }
         }
 
 
