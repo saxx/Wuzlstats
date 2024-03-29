@@ -1,0 +1,26 @@
+﻿@model Wuzlstats.ViewModels.Player.IndexViewModel
+
+<div class="row">
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4>@Model.Name in the last @Model.RecentDays days</h4>
+                @Html.Partial("_PlayerStatistic", Model.RecentStatistics)
+            </div>
+            <div class="col-sm-6">
+                <h4>@Model.Name since forever</h4>
+                @Html.Partial("_PlayerStatistic", Model.Statistics)
+            </div>
+        </div>
+
+        <hr />
+        <a href="@Url.Action("Avatar",new { id = Model.Id})" class="btn btn-default">Change the avatar image of @Model.Name</a>
+    </div>
+    <div class="col-md-4 hidden-sm hidden-xs">
+        <img src="data:image/png;base64,@Model.Image" class="player-image" alt="Avatar for @Model.Name" />
+    </div>
+</div>
+
+
+
+

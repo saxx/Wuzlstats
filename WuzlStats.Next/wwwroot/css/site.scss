@@ -1,0 +1,206 @@
+﻿$smallScreenPixels: 768px;
+
+body {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+header {
+    .pull-right {
+        padding: 15px 0 15px 0;
+    }
+}
+
+span {
+    &.team-blue {
+        background-color: #ddf;
+        padding: 1px 3px;
+        border-radius: 3px;
+    }
+
+    &.team-red {
+        background-color: #fdd;
+        padding: 1px 3px;
+        border-radius: 3px;
+    }
+}
+
+
+.navbar-header::after {
+    clear: none;
+}
+
+.well h3 {
+    padding: 0;
+    margin: 0;
+}
+
+.row + .score-box {
+    margin-top: 1.5em;
+
+    @media (min-width: $smallScreenPixels) {
+        margin-top: 3em;
+    }
+}
+
+.score-box {
+    + .row {
+        margin-top: 1.5em;
+
+        @media (min-width: $smallScreenPixels) {
+            margin-top: 3em;
+        }
+    }
+
+    .form-control {
+        &.team-blue {
+            background-color: #ddf;
+        }
+
+        &.team-red {
+            background-color: #fdd;
+        }
+
+        &.player:nth-of-type(2) {
+            margin-top: 0.5em;
+        }
+    }
+
+    .score {
+        padding: 6px 0;
+        text-align: center;
+        width: 30px;
+        font-weight: bold;
+
+        @media (min-width: $smallScreenPixels) {
+            font-size: 1.5em;
+            line-height: 2em;
+            width: 55px;
+        }
+
+        &:nth-of-type(1) {
+            float: left;
+        }
+
+        &:nth-of-type(2) {
+            float: right;
+        }
+    }
+
+    div:nth-child(2) {
+        text-align: center;
+        padding: 0;
+        line-height: 2em;
+        font-weight: bold;
+
+        span {
+            @media (min-width: $smallScreenPixels) {
+                font-size: 1.5em;
+            }
+        }
+    }
+
+    &.team-score-box div:nth-child(2) {
+        padding-top: 1em;
+    }
+}
+
+#leagueMenuBar {
+    margin-top: 1.5em;
+}
+
+
+.progress {
+    height: 1em;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+    .progress-bar {
+        background-color: #c3c3c3;
+    }
+}
+
+
+.ranking {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+        margin: 0;
+        padding: 0;
+        height: 50px;
+    }
+
+    a {
+        border: 0;
+
+        &:nth-of-type(2) {
+            float: right;
+        }
+    }
+
+    .ranking-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #999;
+    }
+
+    .ranking-name {
+        font-weight: bold;
+        position: relative;
+        top: -38px;
+        margin-left: 50px;
+        margin-right: 50px;
+
+        &:nth-of-type(2) {
+            top: -58px;
+            text-align: right;
+        }
+    }
+
+    .ranking-score {
+        position: relative;
+        top: -40px;
+        margin-left: 50px;
+        margin-right: 50px;
+        color: #999;
+    }
+
+    &.team-ranking .ranking-score {
+        text-align: center;
+        top: -60px;
+    }
+
+    .ranking-wins {
+        padding-right: 10px;
+
+        .glyphicon {
+            padding-left: 5px;
+        }
+    }
+
+    .ranking-losses {
+        .glyphicon {
+            padding-left: 5px;
+        }
+    }
+}
+
+.player-image {
+    width: 150px;
+    height: 150px;
+    float: right;
+    border-radius: 50%;
+    border: 2px solid #999;
+}
+
+footer {
+    margin-top: 100px;
+
+    @media (max-width: $smallScreenPixels) {
+        margin-top: 50px;
+    }
+}

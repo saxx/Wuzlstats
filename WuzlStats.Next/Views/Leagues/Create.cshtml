@@ -1,0 +1,19 @@
+﻿<h1>Create a new league</h1>
+<hr/>
+
+@if (!ViewContext.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @Html.ValidationSummary()
+    </div>
+    <hr/>
+}
+
+<form method="POST">
+    <div class="form-group">
+        <label for="name">Choose a name for the new league:</label>
+        <input type="text" class="form-control" id="name" placeholder="League name" name="name" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Next</button>
+</form>

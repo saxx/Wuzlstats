@@ -1,0 +1,53 @@
+﻿<div class="row">
+    <div class="col-sm-6">
+        <h3 class="hidden-xs">Add score</h3>
+    </div>
+    <div class="col-sm-6">
+        <div class="btn-group pull-right" data-toggle="buttons">
+            <label class="btn btn-default btn-sm active">
+                <input type="radio" name="options" id="twoPlayersButton" autocomplete="off" checked>1 vs. 1
+            </label>
+            <label class="btn btn-default btn-sm">
+                <input type="radio" name="options" id="fourPlayersButton" autocomplete="off">2 vs. 2
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="row score-box player-score-box" id="twoPlayersScore">
+    <div class="col-xs-4">
+        <input class="form-control player team-red" id="redPlayer" placeholder="Red player" list="playersDatalist">
+    </div>
+    <div class="col-xs-4">
+        <input class="form-control score team-red" id="redPlayerScore" type="number">
+        <input class="form-control score team-blue pull-right" type="number" id="bluePlayerScore">
+        <span>:</span>
+    </div>
+    <div class="col-xs-4">
+        <input class="form-control player team-blue" id="bluePlayer" placeholder="Blue player" list="playersDatalist">
+    </div>
+</div>
+
+<div class="row score-box team-score-box" id="fourPlayersScore" style="display: none;">
+    <div class="col-xs-4">
+        <input class="form-control player team-red" id="redTeamOffense" placeholder="Red offense player" list="playersDatalist">
+        <input class="form-control player team-red" id="redTeamDefense" placeholder="Red defense player" list="playersDatalist">
+    </div>
+    <div class="col-xs-4">
+        <input class="form-control score team-red" id="redTeamScore" type="number">
+        <input class="form-control score team-blue pull-right" id="blueTeamScore" type="number">
+        <span>:</span>
+    </div>
+    <div class="col-xs-4">
+        <input class="form-control player team-blue" id="blueTeamOffense" placeholder="Blue offense player" list="playersDatalist">
+        <input class="form-control player team-blue" id="blueTeamDefense" placeholder="Blue defense player" list="playersDatalist">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <button class="btn btn-default btn-lg" id="submitScore">Submit</button>
+    </div>
+</div>
+
+<datalist id="playersDatalist"></datalist>

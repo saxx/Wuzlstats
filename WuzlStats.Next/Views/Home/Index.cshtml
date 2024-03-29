@@ -1,0 +1,97 @@
+﻿@model Wuzlstats.ViewModels.Home.IndexViewModel
+
+<div class="alert alert-info" id="loadingAlert">
+    Establishing real-time connection to league. This may take a second or two, please be patient ...
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div id="scoreBox" class="well">
+            @Html.Partial("_Score")
+            <div id="leagueMenuBar" class="row" style="display: none;">
+                <div class="col-xs-12">
+                    <div class="btn-group pull-right">
+                        <button id="replayButton" class="btn btn-default btn-sm">Replay</button>
+                        <button id="switchSidesButton" class="btn btn-default btn-sm">Switch sides</button>
+                        <button id="switchPositionsButton" class="btn btn-default btn-sm">Switch positions</button>
+                        <a href="@Url.Action("Games", "Home", new { league = Model.Name })" class="btn btn-default btn-sm">View / delete games</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 class="text-center">League trivia</h3>
+            <div id="leagueStatistics">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="text-center">The best players</h3>
+                <ul id="bestPlayerRanking">
+                    <li class="progress">
+                        <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h3 class="text-center">The worst players</h3>
+                <ul id="worstPlayerRanking">
+                    <li class="progress">
+                        <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="text-center">The best teams</h3>
+                <ul id="bestTeamRanking">
+                    <li class="progress">
+                        <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h3 class="text-center">The worst teams</h3>
+                <ul id="worstTeamRanking">
+                    <li class="progress">
+                        <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* ReSharper disable once Razor.SectionNotResolved *@
+@section scripts {
+    <script>
+        app.config.init('@Url.Action("Index", "Player", new { id = "[id]" })');
+
+        app.initSignalR();
+        app.initScore('@Model.Name');
+
+        app.apiHub.on("reloadStatistics", function(statistics) {
+            debugger;
+            console.log("Rendering statistics ...");
+            app.renderLeagueStatistics($('#leagueStatistics'), statistics);
+            app.renderPlayerRanking($('#bestPlayerRanking'), statistics.bestPlayers);
+            app.renderPlayerRanking($('#worstPlayerRanking'), statistics.worstPlayers);
+            app.renderTeamRanking($('#bestTeamRanking'), statistics.bestTeams);
+            app.renderTeamRanking($('#worstTeamRanking'), statistics.worstTeams);
+        });
+
+        app.autoPageReload();
+
+        app.connectSignalR('@Model.Name', function() {
+            $('#loadingAlert').alert('close');
+        });
+
+        app.registerLeagueMenuBar();
+    </script>
+}

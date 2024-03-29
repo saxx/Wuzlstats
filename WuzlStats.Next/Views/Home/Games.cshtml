@@ -1,0 +1,40 @@
+﻿@model Wuzlstats.ViewModels.Home.GamesViewModel
+
+<p>
+    You may delete any game in this league. Please be careful and only delete erroneous games.
+    Since all the data is open and available to everyone, you can do a lot of harm. With great power comes great responsibility!
+</p>
+
+@if (Model.Games.Any())
+{
+    <table class="table">
+        <tr>
+            <th>Date</th>
+            <th>Players</th>
+            <th>Score</th>
+            <th></th>
+        </tr>
+
+        @foreach (var game in Model.Games)
+        {
+            <tr>
+                <td>
+                    @game.Date UTC
+                </td>
+                <td>
+                    <span class="team-red">@game.RedPlayers</span> : <span class="team-blue">@game.BluePlayers</span>
+                </td>
+                <td>
+                    <span class="team-red">@game.RedScore</span> : <span class="team-blue">@game.BlueScore</span>
+                </td>
+                <td>
+                    <a href="@Url.Action("DeleteGame", "Home", new { league = Model.League, game = game.Id })" class="btn btn-danger glyphicon glyphicon-remove" onclick="return confirm('Are you really, really, really sure?')"></a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">There are no games associated with this league. What a pity, you definitly should wuzl more.</div>
+}
