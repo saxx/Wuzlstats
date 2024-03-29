@@ -1,17 +1,16 @@
 ﻿// ReSharper disable once UnusedParameter
-(function (app, $) {
+(function(app, $) {
 
     // ReSharper disable InconsistentNaming
     var _playerUrl;
     // ReSharper restore InconsistentNaming
 
     app.config = {
-
-        init: function (playerUrl) {
+        init: function(playerUrl) {
             _playerUrl = playerUrl;
         },
 
-        getPlayerUrl: function () {
+        getPlayerUrl: function() {
             return _playerUrl;
         }
     };

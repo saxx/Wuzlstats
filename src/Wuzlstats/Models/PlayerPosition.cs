@@ -7,8 +7,8 @@
         public int PlayerId { get; set; }
         public PlayerPositionTypes Position { get; set; }
 
-        public virtual Game Game { get; set; }
-        public virtual Player Player { get; set; }
+        public Game? Game { get; set; }
+        public Player? Player { get; set; }
 
         public bool IsBluePosition => Position == PlayerPositionTypes.Blue || Position == PlayerPositionTypes.BlueDefense || Position == PlayerPositionTypes.BlueOffense;
         public bool IsRedPosition => Position == PlayerPositionTypes.Red || Position == PlayerPositionTypes.RedDefense || Position == PlayerPositionTypes.RedOffense;

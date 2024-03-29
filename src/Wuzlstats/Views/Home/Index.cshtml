@@ -76,7 +76,7 @@
         app.initSignalR();
         app.initScore('@Model.Name');
 
-        app.apiHub.client.reloadStatistics = function(statistics) {
+        app.apiHub.on("reloadStatistics", function(statistics) {
             console.log("Rendering statistics ...");
 
             app.renderLeagueStatistics($('#leagueStatistics'), statistics);
@@ -84,7 +84,7 @@
             app.renderPlayerRanking($('#worstPlayerRanking'), statistics.worstPlayers);
             app.renderTeamRanking($('#bestTeamRanking'), statistics.bestTeams);
             app.renderTeamRanking($('#worstTeamRanking'), statistics.worstTeams);
-        };
+        });
 
         app.autoPageReload();
 

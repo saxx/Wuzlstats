@@ -1,22 +1,21 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.SignalR;
 using Wuzlstats.ViewModels.Hubs;
 
 namespace Wuzlstats.Hubs
 {
     public partial class ApiHub
     {
-        public async Task NotifyCallerToReloadStatistics(string league)
+        public async Task NotifyCallerToReloadStatistics(string league, LeagueStatisticsViewModel viewModel)
         {
-            var viewModel = await _services.GetRequiredService<LeagueStatisticsViewModel>().Fill(await CheckAndLoadLeague(league));
-            await Clients.Caller.reloadStatistics(viewModel);
+            await viewModel.Fill(await CheckAndLoadLeague(league));
+            await Clients.Caller.SendAsync("reloadStatistics", viewModel);
         }
 
 
-        public async Task NotifyGroupToReloadStatistics(string league)
+        public async Task NotifyGroupToReloadStatistics(string league, LeagueStatisticsViewModel viewModel)
         {
-            var viewModel = await _services.GetRequiredService<LeagueStatisticsViewModel>().Fill(await CheckAndLoadLeague(league));
-            Clients.Group(league).reloadStatistics(viewModel);
+            await viewModel.Fill(await CheckAndLoadLeague(league));
+            await Clients.Group("league").SendAsync("reloadStatistics", viewModel);
         }
     }
 }

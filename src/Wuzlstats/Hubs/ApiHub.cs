@@ -1,44 +1,39 @@
-﻿using System;
+﻿using Wuzlstats.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.AspNetCore.SignalR.Hubs;
-using Wuzlstats.Extensions;
-using Wuzlstats.Models;
 
 namespace Wuzlstats.Hubs
 {
-    [HubName("apiHub")]
     public partial class ApiHub : Hub
     {
         private readonly Db _db;
-        private readonly IServiceProvider _services;
+        private readonly AppSettings _settings;
 
 
-        public ApiHub(Db db, IServiceProvider services)
+        public ApiHub(Db db, AppSettings settings)
         {
-            _services = services;
+            _settings = settings;
             _db = db;
         }
 
-
         public async Task JoinLeague(string league)
         {
-            await Groups.Add(Context.ConnectionId, league);
+            Console.WriteLine($"Joining {league}");
+            await Groups.AddToGroupAsync(Context.ConnectionId, league);
             await NotifyCallerToReloadPlayers(league);
-            await NotifyCallerToReloadStatistics(league);
+            //await NotifyCallerToReloadStatistics(league);
         }
 
 
         public Task LeaveLeague(string league)
         {
-            return Groups.Remove(Context.ConnectionId, league);
+            return Groups.RemoveFromGroupAsync(Context.ConnectionId, league);
         }
 
 
         private async Task<League> CheckAndLoadLeague(string league)
         {
-            if (league.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(league))
             {
                 throw new Exception("Invalid league, must not be empty.");
             }

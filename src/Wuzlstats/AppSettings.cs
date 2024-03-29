@@ -2,6 +2,7 @@
 
 namespace Wuzlstats
 {
+
     public class AppSettings
     {
         public AppSettings(IConfiguration configuration)
@@ -16,18 +17,15 @@ namespace Wuzlstats
 
         public int DaysForStatistics { get; set; }
 
-
         private int Get(IConfiguration configuration, string key, int defaultValue)
         {
             int value;
             return int.TryParse(Get(configuration, key, defaultValue.ToString()), out value) ? value : defaultValue;
         }
 
-
-        private string Get(IConfiguration configuration, string key, string defaultValue)
+        private static string Get(IConfiguration configuration, string key, string defaultValue)
         {
-            string value = configuration[key];
-            return !string.IsNullOrEmpty(value) ? value : defaultValue;
+            return configuration.GetValue(key, defaultValue)!;
         }
     }
 }

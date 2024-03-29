@@ -6,4 +6,4 @@ PublishProfiles
 node_modules
 
 *.user
-deploy.cmd
+deploy.cmd/.idea/
