@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Wuzlstats.ExtensionMethods;
+﻿using Wuzlstats.ExtensionMethods;
 using Wuzlstats.Models;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Wuzlstats.ViewModels.Hubs
 {
     public class PostScoreViewModel
     {
+        public PostScoreViewModel() { }
+
         //TODO: All these methods should move to a dedicated service
         public async Task<PostScoreViewModel> Save(League league, Db db)
         {
@@ -71,7 +70,7 @@ namespace Wuzlstats.ViewModels.Hubs
         private async Task<Models.Player> GetOrCreatePlayer(string name, League league, Db db)
         {
             var playerQuery = db.Players.Where(x => x.LeagueId == league.Id);
-            var player = await playerQuery.FirstOrDefaultAsync(x => x.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase));
+            var player = await playerQuery.FirstOrDefaultAsync(x => x.Name.ToLower().Equals(name.ToLower()));
             if (player == null)
             {
                 player = new Models.Player
@@ -113,15 +112,15 @@ namespace Wuzlstats.ViewModels.Hubs
         }
 
 
-        public string BluePlayer { get; set; }
-        public string RedPlayer { get; set; }
+        public string? BluePlayer { get; set; }
+        public string? RedPlayer { get; set; }
         public int RedPlayerScore { get; set; }
         public int BluePlayerScore { get; set; }
 
-        public string BlueTeamOffense { get; set; }
-        public string RedTeamOffense { get; set; }
-        public string BlueTeamDefense { get; set; }
-        public string RedTeamDefense { get; set; }
+        public string? BlueTeamOffense { get; set; }
+        public string? RedTeamOffense { get; set; }
+        public string? BlueTeamDefense { get; set; }
+        public string? RedTeamDefense { get; set; }
         public int RedTeamScore { get; set; }
         public int BlueTeamScore { get; set; }
     }

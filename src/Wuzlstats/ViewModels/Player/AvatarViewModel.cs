@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using Wuzlstats.Models;
-using Microsoft.Data.Entity;
 
 namespace Wuzlstats.ViewModels.Player
 {

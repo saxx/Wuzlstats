@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Wuzlstats.ExtensionMethods;
+﻿using Wuzlstats.ExtensionMethods;
 using Wuzlstats.Models;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Wuzlstats.ViewModels.Hubs
 {
@@ -22,7 +18,12 @@ namespace Wuzlstats.ViewModels.Hubs
         public async Task<ReloadPlayersViewModel> Fill(string league)
         {
             var leagueEntity = await CheckAndLoadLeague(league);
-            players = await _db.Players.Where(x => x.LeagueId == leagueEntity.Id).Select(x => x.Name).Distinct().ToListAsync();
+            players = await _db
+            .Players
+            .Where(x => x.LeagueId == leagueEntity.Id)
+            .Select(x => x.Name)
+            .Distinct()
+            .ToListAsync();
 
             return this;
         }
@@ -38,7 +39,7 @@ namespace Wuzlstats.ViewModels.Hubs
             {
                 throw new Exception("Invalid league, must not be empty.");
             }
-            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.Equals(league, StringComparison.CurrentCultureIgnoreCase));
+            var leagueEntity = (await _db.Leagues.ToListAsync()).FirstOrDefault(x => x.Name.ToLower() == league.ToLower());
             if (leagueEntity == null)
             {
                 throw new Exception("Invalid league.");

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Linq;
-using Microsoft.Data.Entity;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Mvc;
-using Wuzlstats.Models;
+﻿using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Home;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Wuzlstats.Controllers
 {

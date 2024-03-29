@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.SignalR;
 using Wuzlstats.ViewModels.Hubs;
 
 namespace Wuzlstats.Hubs
@@ -8,14 +8,14 @@ namespace Wuzlstats.Hubs
         public async Task NotifyCallerToReloadStatistics(string league)
         {
             var viewModel = await new LeagueStatisticsViewModel(_db, _settings).Fill(await CheckAndLoadLeague(league));
-            await Clients.Caller.reloadStatistics(viewModel);
+            await Clients.Caller.SendAsync("reloadStatistics", viewModel);
         }
 
 
         public async Task NotifyGroupToReloadStatistics(string league)
         {
             var viewModel = await new LeagueStatisticsViewModel(_db, _settings).Fill(await CheckAndLoadLeague(league));
-            Clients.Group(league).reloadStatistics(viewModel);
+            await Clients.Group("league").SendAsync("reloadStatistics", viewModel);
         }
     }
 }

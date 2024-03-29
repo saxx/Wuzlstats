@@ -1,14 +1,10 @@
-﻿using System;
-using Microsoft.Data.Entity;
-using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
-using Wuzlstats.ExtensionMethods;
+﻿using Wuzlstats.ExtensionMethods;
 using Wuzlstats.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Wuzlstats.Hubs
 {
-    [HubName("apiHub")]
     public partial class ApiHub : Hub
     {
         private readonly Db _db;
@@ -21,10 +17,10 @@ namespace Wuzlstats.Hubs
             _db = db;
         }
 
-
         public async Task JoinLeague(string league)
         {
-            await Groups.Add(Context.ConnectionId, league);
+            Console.WriteLine($"Joining {league}");
+            await Groups.AddToGroupAsync(Context.ConnectionId, league);
             await NotifyCallerToReloadPlayers(league);
             await NotifyCallerToReloadStatistics(league);
         }
@@ -32,7 +28,7 @@ namespace Wuzlstats.Hubs
 
         public Task LeaveLeague(string league)
         {
-            return Groups.Remove(Context.ConnectionId, league);
+            return Groups.RemoveFromGroupAsync(Context.ConnectionId, league);
         }
 
 
@@ -42,7 +38,7 @@ namespace Wuzlstats.Hubs
             {
                 throw new Exception("Invalid league, must not be empty.");
             }
-            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.Equals(league, StringComparison.CurrentCultureIgnoreCase));
+            var leagueEntity = await _db.Leagues.FirstOrDefaultAsync(x => x.Name.ToLower() == league.ToLower());
             if (leagueEntity == null)
             {
                 throw new Exception("Invalid league.");

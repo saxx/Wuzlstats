@@ -1,12 +1,8 @@
-﻿using System;
-using System.IO;
-using Microsoft.Data.Entity;
-using System.Threading.Tasks;
-using ImageResizer;
-using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Mvc;
-using Wuzlstats.Models;
+﻿using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Player;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SkiaSharp;
 
 namespace Wuzlstats.Controllers
 {
@@ -47,16 +43,24 @@ namespace Wuzlstats.Controllers
             var player = await LoadAndEnsurePlayerExists(id);
             if (avatar.Length > 0)
             {
-                var settings = new ResizeSettings
-                {
-                    MaxWidth = 150,
-                    MaxHeight = 150,
-                    Format = "png"
-                };
+                var image = SKBitmap.Decode(avatar.OpenReadStream());
+                var maxWidth = 150;
+                var maxHeight = 150;
+                var format = SKEncodedImageFormat.Png;
 
-                var outputStream = new MemoryStream();
-                ImageBuilder.Current.Build(avatar.OpenReadStream(), outputStream, settings);
+                var ratioX = (double)maxWidth / image.Width;
+                var ratioY = (double)maxHeight / image.Height;
+                var ratio = Math.Min(ratioX, ratioY);
 
+                var newWidth = (int)(image.Width * ratio);
+                var newHeight = (int)(image.Height * ratio);
+
+                var info = new SKImageInfo(newWidth, newHeight);
+                image = image.Resize(info, SKFilterQuality.High);
+
+                using var outputStream = new MemoryStream();
+
+                image.Encode(outputStream, format, 100);
                 player.Image = outputStream.ToArray();
                 await _db.SaveChangesAsync();
             }

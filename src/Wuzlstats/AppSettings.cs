@@ -1,5 +1,4 @@
-﻿using Microsoft.Framework.Configuration;
-
+﻿
 namespace Wuzlstats
 {
     public class AppSettings
@@ -24,10 +23,9 @@ namespace Wuzlstats
         }
 
 
-        private string Get(IConfiguration configuration, string key, string defaultValue)
+        private static string Get(IConfiguration configuration, string key, string defaultValue)
         {
-            string value;
-            return configuration.TryGet(key, out value) ? value : defaultValue;
+            return configuration.GetValue(key, defaultValue);
         }
     }
 }

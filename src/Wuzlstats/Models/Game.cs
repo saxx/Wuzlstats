@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Wuzlstats.Models
+﻿namespace Wuzlstats.Models
 {
     public class Game
     {

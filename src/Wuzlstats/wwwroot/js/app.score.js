@@ -1,5 +1,4 @@
-﻿(function (app, $) {
-
+﻿(function(app, $) {
     function getValueOrFocus(selector) {
         var val = $(selector).val();
         if (val === "") {
@@ -9,7 +8,7 @@
         return val;
     }
 
-    app.displayScoreForTwoPlayers = function () {
+    app.displayScoreForTwoPlayers = function() {
         $('#twoPlayersScore').show();
         $('#fourPlayersScore').hide();
 
@@ -21,7 +20,7 @@
         $('#blueTeamDefense').val('');
     };
 
-    app.displayScoreForFourPlayers = function () {
+    app.displayScoreForFourPlayers = function() {
         $('#twoPlayersScore').hide();
         $('#fourPlayersScore').show();
 
@@ -34,32 +33,33 @@
     function initPlayersDatalist() {
         var datalist = $('#playersDatalist');
 
-        app.apiHub.client.reloadPlayers = function (result) {
+        app.apiHub.on("reloadPlayers", function(result) {
             console.log('Refreshing players datalist ...');
+            debugger;
             datalist.empty();
 
-            $.each(result.players, function (index, val) {
+            $.each(result.players, function(index, val) {
                 datalist.append($("<option></option>").html(val));
             });
-        };
+        });
     }
 
-    app.initScore = function (league) {
+    app.initScore = function(league) {
         initPlayersDatalist(league);
 
-        app.apiHub.client.scorePosted = function () {
+        app.apiHub.on("scorePosted", function() {
             console.log('Score posted.');
-        };
+        });
 
-        $('#twoPlayersButton').change(function () {
+        $('#twoPlayersButton').change(function() {
             app.displayScoreForTwoPlayers();
         });
-        $('#fourPlayersButton').change(function () {
+        $('#fourPlayersButton').change(function() {
             app.displayScoreForFourPlayers();
         });
 
         var submitButton = $('#submitScore');
-        submitButton.click(function () {
+        submitButton.click(function() {
             var viewModel = null;
 
             localStorage.removeItem('lastRedPlayer');
@@ -127,18 +127,20 @@
             if (viewModel) {
                 submitButton.attr('disabled', true).html('<span class="glyphicon glyphicon-hourglass"></span> Submitting ...');
 
-                app.apiHub.server.postScore(league, viewModel).done(function () {
-                    $('.player').val('');
-                    $('.score').val('');
-                    submitButton.attr('disabled', true).html('<span class="glyphicon glyphicon-ok-circle"></span> Saved!');
-                    
-                    setTimeout(function () {
+                app.apiHub.invoke("postScore", league, viewModel)
+                    .then(function() {
+                        $('.player').val('');
+                        $('.score').val('');
+                        submitButton.attr('disabled', true).html('<span class="glyphicon glyphicon-ok-circle"></span> Saved!');
+
+                        setTimeout(function() {
+                            submitButton.attr('disabled', false).html('Submit');
+                        }, 5000);
+                    }).catch(err => {
+                        console.error(err.toString());
                         submitButton.attr('disabled', false).html('Submit');
-                    }, 5000);
-                }).fail(function (errorMessage) {
-                    submitButton.attr('disabled', false).html('Submit');
-                    alert('Post score failed.\n\n' + errorMessage);
-                });
+                        alert('Post score failed.\n\n' + err);
+                    });
             }
         });
     };

@@ -39,6 +39,6 @@
 }
 else
 {
-    <div class="alert alert-warning">There are no leagues yet. You should <a asp-controller="Leagues" asp-action="Create" class="alert-link">create a new one</a>.
+    <div class="alert alert-warning">There are no leagues yet. You should <a  href="@Url.Action("Create", "Leagues")"  class="alert-link">create a new one</a>.
     </div>
 }

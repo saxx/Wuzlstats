@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
 using Wuzlstats.Models;
 
 namespace Wuzlstats.ViewModels.Player
@@ -18,7 +14,6 @@ namespace Wuzlstats.ViewModels.Player
             _settings = settings;
             _db = db;
         }
-
 
         public async Task<IndexViewModel> Fill(Models.Player player)
         {
