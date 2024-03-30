@@ -48,7 +48,6 @@
             }
 
             app.apiHub.invoke("JoinLeague", (league)).then(function() {
-                debugger;
                 console.log('League ' + league + ' joined.');
 
                 if (callback) {

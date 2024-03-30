@@ -35,7 +35,6 @@
 
         app.apiHub.on("reloadPlayers", function(result) {
             console.log('Refreshing players datalist ...');
-            debugger;
             datalist.empty();
 
             $.each(result.players, function(index, val) {

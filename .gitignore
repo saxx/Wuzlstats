@@ -7,3 +7,7 @@ node_modules
 
 *.user
 deploy.cmd/.idea/
+
+**/*.db
+**/*.db-shm
+**/*.db-wal
