@@ -41,7 +41,7 @@ namespace Wuzlstats.Controllers
         public async Task<IActionResult> Avatar(int id, IFormFile avatar)
         {
             var player = await LoadAndEnsurePlayerExists(id);
-            if (avatar.Length > 0)
+            if (avatar != null && avatar.Length > 0)
             {
                 var image = SKBitmap.Decode(avatar.OpenReadStream());
                 var maxWidth = 150;
