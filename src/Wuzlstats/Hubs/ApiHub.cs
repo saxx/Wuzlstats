@@ -1,6 +1,8 @@
 ﻿using Wuzlstats.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.AspNetCore.Mvc;
+using Wuzlstats.ViewModels.Hubs;
 
 namespace Wuzlstats.Hubs
 {
@@ -16,12 +18,12 @@ namespace Wuzlstats.Hubs
             _db = db;
         }
 
-        public async Task JoinLeague(string league)
+        public async Task JoinLeague(string league, [FromServices] LeagueStatisticsViewModel leagueStatisticsViewModel)
         {
             Console.WriteLine($"Joining {league}");
             await Groups.AddToGroupAsync(Context.ConnectionId, league);
             await NotifyCallerToReloadPlayers(league);
-            //await NotifyCallerToReloadStatistics(league);
+            await NotifyCallerToReloadStatistics(league, leagueStatisticsViewModel);
         }
 
 
