@@ -23,7 +23,7 @@ namespace Wuzlstats.Controllers
         [Route("~/League/{league}/Teams")]
         public async Task<IActionResult> Index(string league, string sort, bool recent)
         {
-            var leagueEntity = _db.Leagues.FirstOrDefault(x => x.Name.ToLowerInvariant() == league.ToLowerInvariant());
+            var leagueEntity = _db.Leagues.FirstOrDefault(x => x.Name.ToLower() == league.ToLower());
             if (leagueEntity == null)
             {
                 return RedirectToAction("Index", "Leagues");

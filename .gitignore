@@ -6,4 +6,9 @@ PublishProfiles
 node_modules
 
 *.user
-deploy.cmd
+deploy.cmd/.idea/
+
+**/*.db
+**/*.db-shm
+**/*.db-wal
+/.idea/.idea.Wuzlstats/.idea/encodings.xml

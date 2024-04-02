@@ -1,12 +1,12 @@
-﻿(function (app, $) {
-    app.autoPageReload = function (interval) {
+﻿(function(app, $) {
+    app.autoPageReload = function(interval) {
 
         if (!interval) {
             interval = 1000 * 60 * 15; // 15 mins
         }
 
         var time = new Date().getTime();
-        $(document.body).bind("mousemove keypress", function () {
+        $(document.body).bind("mousemove keypress", function() {
             time = new Date().getTime();
         });
 

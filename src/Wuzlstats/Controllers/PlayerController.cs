@@ -1,13 +1,8 @@
-﻿using System;
-using System.IO;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using ImageSharp;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Player;
-using ImageSharp.Formats;
+using SkiaSharp;
 
 namespace Wuzlstats.Controllers
 {
@@ -46,13 +41,26 @@ namespace Wuzlstats.Controllers
         public async Task<IActionResult> Avatar(int id, IFormFile avatar)
         {
             var player = await LoadAndEnsurePlayerExists(id);
-            if (avatar.Length > 0)
+            if (avatar != null && avatar.Length > 0)
             {
-                var outputStream = new MemoryStream();
-                using (var image = Image.Load(avatar.OpenReadStream()))
-                {
-                    image.Resize(150, 150).Save(outputStream, new PngFormat());
-                }
+                var image = SKBitmap.Decode(avatar.OpenReadStream());
+                var maxWidth = 150;
+                var maxHeight = 150;
+                var format = SKEncodedImageFormat.Png;
+
+                var ratioX = (double)maxWidth / image.Width;
+                var ratioY = (double)maxHeight / image.Height;
+                var ratio = Math.Min(ratioX, ratioY);
+
+                var newWidth = (int)(image.Width * ratio);
+                var newHeight = (int)(image.Height * ratio);
+
+                var info = new SKImageInfo(newWidth, newHeight);
+                image = image.Resize(info, SKFilterQuality.High);
+
+                using var outputStream = new MemoryStream();
+
+                image.Encode(outputStream, format, 100);
                 player.Image = outputStream.ToArray();
                 await _db.SaveChangesAsync();
             }
