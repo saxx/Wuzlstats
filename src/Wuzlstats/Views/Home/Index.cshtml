@@ -1,66 +1,74 @@
-﻿@model Wuzlstats.ViewModels.Home.IndexViewModel
+@model Wuzlstats.ViewModels.Home.IndexViewModel
 
-<div class="alert alert-info" id="loadingAlert">
-    Establishing real-time connection to league. This may take a second or two, please be patient ...
+<div id="loadingAlert" class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 border border-blue-300" role="alert">
+    <div class="ml-3 text-sm">
+        Establishing real-time connection to league. This may take a second or two, please be patient ...
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <div id="scoreBox" class="well">
+<div class="flex flex-wrap -mx-4">
+    <div class="w-full lg:w-1/2 px-4 mb-6 lg:mb-0">
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
             <partial name="_Score" />
-            <div id="leagueMenuBar" class="row" style="display: none;">
-                <div class="col-xs-12">
-                    <div class="btn-group pull-right">
-                        <button id="replayButton" class="btn btn-default btn-sm">Replay</button>
-                        <button id="switchSidesButton" class="btn btn-default btn-sm">Switch sides</button>
-                        <button id="switchPositionsButton" class="btn btn-default btn-sm">Switch positions</button>
-                        <a href="@Url.Action("Games", "Home", new { league = Model.Name })" class="btn btn-default btn-sm">View / delete games</a>
-                    </div>
+            <div id="leagueMenuBar" class="mt-6 hidden">
+                <div class="flex flex-wrap gap-2 justify-end">
+                    <button id="replayButton" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2 transition-colors">Replay</button>
+                    <button id="switchSidesButton" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2 transition-colors">Switch sides</button>
+                    <button id="switchPositionsButton" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2 transition-colors">Switch positions</button>
+                    <a href="@Url.Action("Games", "Home", new { league = Model.Name })" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2 transition-colors inline-block">View / delete games</a>
                 </div>
             </div>
         </div>
-        <div>
-            <h3 class="text-center">League trivia</h3>
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-center text-lg font-semibold mb-4">League trivia</h3>
             <div id="leagueStatistics">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+                <div class="w-full bg-gray-200 rounded-full h-4 animate-pulse">
+                    <div class="bg-blue-600 h-4 rounded-full" style="width: 100%"></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-sm-6">
-                <h3 class="text-center"><a href="@Url.Action("Index", "Players", new { league = Model.Name, sort = "best", recent = true })">The best players</a></h3>
-                <ul id="bestPlayerRanking">
-                    <li class="progress">
-                        <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+    <div class="w-full lg:w-1/2 px-4">
+        <div class="flex flex-wrap -mx-2 mb-6">
+            <div class="w-full sm:w-1/2 px-2 mb-6 sm:mb-0">
+                <h3 class="text-center text-lg font-semibold mb-4">
+                    <a href="@Url.Action("Index", "Players", new { league = Model.Name, sort = "best", recent = true })" class="text-blue-600 hover:underline">The best players</a>
+                </h3>
+                <ul id="bestPlayerRanking" class="space-y-3">
+                    <li class="w-full bg-gray-200 rounded-full h-4 animate-pulse">
+                        <div class="bg-blue-600 h-4 rounded-full" style="width: 100%"></div>
                     </li>
                 </ul>
             </div>
-            <div class="col-sm-6">
-                <h3 class="text-center"><a href="@Url.Action("Index", "Players", new { league = Model.Name, sort = "worst", recent = true })">The worst players</a></h3>
-                <ul id="worstPlayerRanking">
-                    <li class="progress">
-                        <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+            <div class="w-full sm:w-1/2 px-2">
+                <h3 class="text-center text-lg font-semibold mb-4">
+                    <a href="@Url.Action("Index", "Players", new { league = Model.Name, sort = "worst", recent = true })" class="text-blue-600 hover:underline">The worst players</a>
+                </h3>
+                <ul id="worstPlayerRanking" class="space-y-3">
+                    <li class="w-full bg-gray-200 rounded-full h-4 animate-pulse">
+                        <div class="bg-blue-600 h-4 rounded-full" style="width: 100%"></div>
                     </li>
                 </ul>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <h3 class="text-center"><a href="@Url.Action("Index", "Teams", new { league = Model.Name, sort = "best", recent = true })">The best teams</a></h3>
-                <ul id="bestTeamRanking">
-                    <li class="progress">
-                        <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+        <div class="flex flex-wrap -mx-2">
+            <div class="w-full sm:w-1/2 px-2 mb-6 sm:mb-0">
+                <h3 class="text-center text-lg font-semibold mb-4">
+                    <a href="@Url.Action("Index", "Teams", new { league = Model.Name, sort = "best", recent = true })" class="text-blue-600 hover:underline">The best teams</a>
+                </h3>
+                <ul id="bestTeamRanking" class="space-y-3">
+                    <li class="w-full bg-gray-200 rounded-full h-4 animate-pulse">
+                        <div class="bg-blue-600 h-4 rounded-full" style="width: 100%"></div>
                     </li>
                 </ul>
             </div>
-            <div class="col-sm-6">
-                <h3 class="text-center"><a href="@Url.Action("Index", "Teams", new { league = Model.Name, sort = "worst", recent = true })">The worst teams</a></h3>
-                <ul id="worstTeamRanking">
-                    <li class="progress">
-                        <div class="progress-bar progress-bar-striped active" style="width: 100%"></div>
+            <div class="w-full sm:w-1/2 px-2">
+                <h3 class="text-center text-lg font-semibold mb-4">
+                    <a href="@Url.Action("Index", "Teams", new { league = Model.Name, sort = "worst", recent = true })" class="text-blue-600 hover:underline">The worst teams</a>
+                </h3>
+                <ul id="worstTeamRanking" class="space-y-3">
+                    <li class="w-full bg-gray-200 rounded-full h-4 animate-pulse">
+                        <div class="bg-blue-600 h-4 rounded-full" style="width: 100%"></div>
                     </li>
                 </ul>
             </div>
@@ -68,7 +76,6 @@
     </div>
 </div>
 
-@* ReSharper disable once Razor.SectionNotResolved *@
 @section scripts {
     <script>
         app.config.init(unescape('@Url.Action("Index", "Player", new { id = "[id]"})'));
@@ -89,7 +96,8 @@
         app.autoPageReload();
 
         app.connectSignalR('@Model.Name', function() {
-            $('#loadingAlert').alert('close');
+            // Remove loading alert when connected
+            document.getElementById('loadingAlert').remove();
         });
 
         app.registerLeagueMenuBar();

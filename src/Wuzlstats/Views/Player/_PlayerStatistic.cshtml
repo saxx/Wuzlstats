@@ -1,58 +1,62 @@
 ﻿@model Wuzlstats.ViewModels.Player.IndexViewModel.PlayerStatistics
 
-<table class="table">
-    <tr>
-        <th># 1 vs. 1 games:</th>
-        <td class="text-right">@Model.SingleGames</td>
-    </tr>
-    <tr>
-        <th># 2 vs. 2 games:</th>
-        <td class="text-right">@Model.TeamGames</td>
-    </tr>
-    <tr>
-        <th># wins:</th>
-        <td class="text-right">
-            <span class="team-red">@Model.RedWins</span> :
-            <span class="team-blue">@Model.BlueWins</span>
-        </td>
-    </tr>
-    <tr>
-        <th># losses:</th>
-        <td class="text-right">
-            <span class="team-red">@Model.RedLosses</span> :
-            <span class="team-blue">@Model.BlueLosses</span>
-        </td>
-    </tr>
-    <tr>
-        <th>Favorite position:</th>
-        <td class="text-right">@Model.FavoritePosition (@Model.FavoritePositionGames @(Model.FavoritePositionGames == 1 ? "game" : "games"))    </td>
-    </tr>
-    <tr>
-        <th>Favorite teammate:</th>
-        <td class="text-right">@Model.PlayedMostGamesWith (@Model.PlayedMostGamesWithCount @(Model.PlayedMostGamesWithCount == 1 ? "game" : "games"))</td>
-    </tr>
-    <tr>
-        <th>Lousiest opponent:</th>
-        <td class="text-right">@Model.WonMostGamesAgainst (@Model.WonMostGamesAgainstCount @(Model.WonMostGamesAgainstCount == 1 ? "game" : "games"))</td>
-    </tr>
-    <tr>
-        <th>Arch enemy:</th>
-        <td class="text-right">@Model.LostMostGamesAgainst (@Model.LostMostGamesAgainstCount @(Model.LostMostGamesAgainstCount == 1 ? "game" : "games"))</td>
-    </tr>
-    <tr>
-        <th># goals scored:</th>
-        <td class="text-right">@Model.GoalsScored.ToString("N0")</td>
-    </tr>
-    <tr>
-        <th># goals taken:</th>
-        <td class="text-right">@Model.GoalsTaken.ToString("N0")</td>
-    </tr>
-    <tr>
-        <th>First game played:</th>
-        <td class="text-right">@Model.FirstGameDate</td>
-    </tr>
-    <tr>
-        <th>Last game played:</th>
-        <td class="text-right">@Model.LastGameDate</td>
-    </tr>
-</table>
+<div class="relative overflow-x-auto bg-white shadow-sm rounded-lg">
+    <table class="w-full text-sm text-left">
+        <tbody class="divide-y divide-gray-200">
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900"># 1 vs. 1 games:</th>
+                <td class="px-4 py-2 text-right text-gray-700">@Model.SingleGames</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900"># 2 vs. 2 games:</th>
+                <td class="px-4 py-2 text-right text-gray-700">@Model.TeamGames</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900"># wins:</th>
+                <td class="px-4 py-2 text-right text-gray-700">
+                    <span class="team-red-badge">@Model.RedWins</span> :
+                    <span class="team-blue-badge">@Model.BlueWins</span>
+                </td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900"># losses:</th>
+                <td class="px-4 py-2 text-right text-gray-700">
+                    <span class="team-red-badge">@Model.RedLosses</span> :
+                    <span class="team-blue-badge">@Model.BlueLosses</span>
+                </td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900">Favorite position:</th>
+                <td class="px-4 py-2 text-right text-gray-700">@Model.FavoritePosition (@Model.FavoritePositionGames @(Model.FavoritePositionGames == 1 ? "game" : "games"))    </td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900">Favorite teammate:</th>
+                <td class="px-4 py-2 text-right text-gray-700">@Model.PlayedMostGamesWith (@Model.PlayedMostGamesWithCount @(Model.PlayedMostGamesWithCount == 1 ? "game" : "games"))</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900">Lousiest opponent:</th>
+                <td class="px-4 py-2 text-right text-gray-700">@Model.WonMostGamesAgainst (@Model.WonMostGamesAgainstCount @(Model.WonMostGamesAgainstCount == 1 ? "game" : "games"))</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900">Arch enemy:</th>
+                <td class="px-4 py-2 text-right text-gray-700">@Model.LostMostGamesAgainst (@Model.LostMostGamesAgainstCount @(Model.LostMostGamesAgainstCount == 1 ? "game" : "games"))</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900"># goals scored:</th>
+                <td class="px-4 py-2 text-right text-gray-700">@Model.GoalsScored.ToString("N0")</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900"># goals taken:</th>
+                <td class="px-4 py-2 text-right text-gray-700">@Model.GoalsTaken.ToString("N0")</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900">First game played:</th>
+                <td class="px-4 py-2 text-right text-gray-700">@Model.FirstGameDate</td>
+            </tr>
+            <tr class="hover:bg-gray-50">
+                <th class="px-4 py-2 font-medium text-gray-900">Last game played:</th>
+                <td class="px-4 py-2 text-right text-gray-700">@Model.LastGameDate</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

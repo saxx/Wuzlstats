@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Custom team color badges */
+  .team-blue-badge {
+    @apply bg-team-blue px-1.5 py-0.5 rounded text-sm;
+  }
+
+  .team-red-badge {
+    @apply bg-team-red px-1.5 py-0.5 rounded text-sm;
+  }
+
+  /* Custom team input fields */
+  .input-team-blue {
+    @apply bg-team-blue border border-gray-300 rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-colors;
+  }
+
+  .input-team-red {
+    @apply bg-team-red border border-gray-300 rounded-md px-3 py-2 w-full focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-colors;
+  }
+
+  /* Player avatar styles */
+  .avatar-player {
+    @apply w-10 h-10 rounded-full border-2 border-gray-400 object-cover;
+  }
+
+  .avatar-player-lg {
+    @apply w-[150px] h-[150px] rounded-full border-2 border-gray-400 object-cover float-right;
+  }
+
+  /* Score display */
+  .score-display {
+    @apply text-center font-bold px-2 py-1.5 border border-gray-300 rounded-md bg-white w-[30px];
+  }
+
+  .score-display-lg {
+    @apply text-center font-bold text-2xl leading-10 px-2 py-2 border border-gray-300 rounded-md bg-white w-14;
+  }
+}

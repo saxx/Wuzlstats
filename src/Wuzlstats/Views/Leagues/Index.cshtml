@@ -1,44 +1,56 @@
-﻿@model Wuzlstats.ViewModels.Leagues.IndexViewModel
+@model Wuzlstats.ViewModels.Leagues.IndexViewModel
 
-<h1>Choose a league</h1>
+<h1 class="text-2xl font-bold mb-4">Choose a league</h1>
 
-<p>
+<p class="text-gray-600 mb-6">
     Leagues are used to group players and games. Statistics are calculated for each league.
 </p>
 
 @if (Model.Leagues.Any())
 {
-    <table class="table">
-        <tr>
-            <th>League</th>
-            <th class="hidden-xs"># of games (all time)</th>
-            <th class="hidden-xs"># of games (@Model.DaysForStatistics days)</th>
-            <th class="text-right">
-                <a asp-action="Create" class="btn btn-default">Create a new league</a>
-            </th>
-        </tr>
-
-        @foreach (var league in Model.Leagues)
-        {
-            <tr>
-                <td>
-                    @league.Name
-                </td>
-                <td class="hidden-xs">
-                    @league.GamesCountTotal.ToString("N0")
-                </td>
-                <td class="hidden-xs">
-                    @league.GamesCountDays.ToString("N0")
-                </td>
-                <td class="text-right">
-                    <a href="@Url.Action("Index", "Home", new { league = league.Name })" class="btn btn-primary">Switch to this league</a>
-                </td>
-            </tr>
-        }
-    </table>
+    <div class="relative overflow-x-auto bg-white shadow-sm rounded-lg">
+        <table class="w-full text-sm text-left">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
+                <tr>
+                    <th class="px-4 py-3">League</th>
+                    <th class="px-4 py-3 hidden sm:table-cell"># of games (all time)</th>
+                    <th class="px-4 py-3 hidden sm:table-cell"># of games (@Model.DaysForStatistics days)</th>
+                    <th class="px-4 py-3 text-right">
+                        <a asp-action="Create" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2 transition-colors inline-block">
+                            Create a new league
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                @foreach (var league in Model.Leagues)
+                {
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 font-medium text-gray-900">
+                            @league.Name
+                        </td>
+                        <td class="px-4 py-3 text-gray-700 hidden sm:table-cell">
+                            @league.GamesCountTotal.ToString("N0")
+                        </td>
+                        <td class="px-4 py-3 text-gray-700 hidden sm:table-cell">
+                            @league.GamesCountDays.ToString("N0")
+                        </td>
+                        <td class="px-4 py-3 text-right">
+                            <a href="@Url.Action("Index", "Home", new { league = league.Name })" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 transition-colors inline-block">
+                                Switch to this league
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 else
 {
-    <div class="alert alert-warning">There are no leagues yet. You should <a asp-controller="Leagues" asp-action="Create" class="alert-link">create a new one</a>.
+    <div class="flex items-center p-4 mb-4 text-yellow-800 rounded-lg bg-yellow-50 border border-yellow-300" role="alert">
+        <div class="ml-3 text-sm">
+            There are no leagues yet. You should <a asp-controller="Leagues" asp-action="Create" class="font-semibold underline hover:no-underline">create a new one</a>.
+        </div>
     </div>
 }
