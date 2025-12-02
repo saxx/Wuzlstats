@@ -38,4 +38,50 @@
   .score-display-lg {
     @apply text-center font-bold text-2xl leading-10 px-2 py-2 border border-gray-300 rounded-md bg-white w-14;
   }
+
+  /* Compact ranking list items */
+  .ranking-item {
+    @apply flex items-center gap-2 py-1.5 hover:bg-gray-50 rounded transition-colors;
+  }
+
+  .ranking-avatar {
+    @apply w-8 h-8 rounded-full border-2 border-gray-400 flex-shrink-0;
+  }
+
+  .ranking-name {
+    @apply font-medium text-sm text-gray-900 flex-1 truncate;
+  }
+
+  .ranking-score {
+    @apply flex items-center gap-3 text-xs text-gray-600 flex-shrink-0;
+  }
+
+  .ranking-wins {
+    @apply inline-flex items-center gap-1;
+  }
+
+  .ranking-losses {
+    @apply inline-flex items-center gap-1;
+  }
+
+  .ranking-wins .fa-crown {
+    @apply text-yellow-500;
+  }
+
+  .ranking-losses .fa-poop {
+    @apply text-amber-700;
+  }
+
+  /* Team rankings - two avatars side by side */
+  .team-ranking-avatars {
+    @apply flex gap-1 flex-shrink-0;
+  }
+
+  .team-ranking-names {
+    @apply flex flex-col flex-1 min-w-0;
+  }
+
+  .team-ranking-names .ranking-name {
+    @apply leading-tight py-0;
+  }
 }

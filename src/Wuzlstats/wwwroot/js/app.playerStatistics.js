@@ -1,41 +1,41 @@
 ﻿(function(app, $) {
 
     app.renderPlayerRanking = function(element, players) {
-        element = $(element)
-            .addClass('ranking')
-            .addClass('player-ranking')
-            .html('');
+        element = $(element).html('');
 
         $.each(players, function(index, player) {
-            var block = $('<li />');
+            var block = $('<li />').addClass('ranking-item');
 
+            // Avatar
             block.append(
                 $('<a href="' + app.config.getPlayerUrl().replace('[id]', player.id) + '"></a>').append(
                     $('<img />')
                         .attr('src', 'data:image/png;base64,' + player.image)
-                        .addClass('ranking-image')
+                        .attr('alt', player.name)
+                        .addClass('ranking-avatar')
                 )
             );
 
+            // Name
             block.append(
                 $('<div />')
                     .html(player.name)
                     .addClass('ranking-name')
             );
 
-            var scoreBlock = $('<div />')
-                .addClass('ranking-score');
+            // Score (wins/losses)
+            var scoreBlock = $('<div />').addClass('ranking-score');
             scoreBlock.append(
                 $('<span />')
-                    .html(player.wins)
-                    .append('<span class="fa-solid fa-crown" />')
                     .addClass('ranking-wins')
+                    .html(player.wins + ' ')
+                    .append('<i class="fa-solid fa-crown" />')
             );
             scoreBlock.append(
                 $('<span />')
-                    .html(player.losses)
-                    .append('<span class="fa-solid fa-poop" />')
                     .addClass('ranking-losses')
+                    .html(player.losses + ' ')
+                    .append('<i class="fa-solid fa-poop" />')
             );
             block.append(scoreBlock);
 
