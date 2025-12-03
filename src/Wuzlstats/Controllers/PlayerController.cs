@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Wuzlstats.Models;
 using Wuzlstats.ViewModels.Player;
+using Wuzlstats.Services;
 using SkiaSharp;
 
 namespace Wuzlstats.Controllers
@@ -10,12 +11,14 @@ namespace Wuzlstats.Controllers
     {
         private readonly Db _db;
         private readonly AppSettings _settings;
+        private readonly LeagueHelper _leagueHelper;
 
 
-        public PlayerController(Db db, AppSettings settings)
+        public PlayerController(Db db, AppSettings settings, LeagueHelper leagueHelper)
         {
             _settings = settings;
             _db = db;
+            _leagueHelper = leagueHelper;
         }
 
 
@@ -23,7 +26,20 @@ namespace Wuzlstats.Controllers
         {
             var player = await LoadAndEnsurePlayerExists(id);
             var viewModel = await new IndexViewModel(_db, _settings).Fill(player);
-            ViewBag.CurrentLeague = viewModel.League;
+
+            var league = await _db.Leagues.FirstOrDefaultAsync(x => x.Id == player.LeagueId);
+            if (league != null)
+            {
+                ViewBag.CurrentLeague = league.Name;
+                ViewBag.CurrentLeagueColors = _leagueHelper.GenerateCssVariables(league);
+                ViewBag.CurrentLeagueBanner = league.BannerImageUrl;
+                ViewBag.CurrentLeagueDescription = league.Description;
+            }
+            else
+            {
+                ViewBag.CurrentLeague = viewModel.League;
+            }
+
             return View(viewModel);
         }
 
@@ -32,7 +48,20 @@ namespace Wuzlstats.Controllers
         {
             var player = await LoadAndEnsurePlayerExists(id);
             var viewModel = await new AvatarViewModel(_db).Fill(player);
-            ViewBag.CurrentLeague = viewModel.League;
+
+            var league = await _db.Leagues.FirstOrDefaultAsync(x => x.Id == player.LeagueId);
+            if (league != null)
+            {
+                ViewBag.CurrentLeague = league.Name;
+                ViewBag.CurrentLeagueColors = _leagueHelper.GenerateCssVariables(league);
+                ViewBag.CurrentLeagueBanner = league.BannerImageUrl;
+                ViewBag.CurrentLeagueDescription = league.Description;
+            }
+            else
+            {
+                ViewBag.CurrentLeague = viewModel.League;
+            }
+
             return View(viewModel);
         }
 

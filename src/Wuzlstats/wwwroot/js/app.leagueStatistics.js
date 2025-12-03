@@ -25,7 +25,7 @@
         var redSection = $('<div />').addClass('flex items-center gap-2 flex-1 justify-end');
         redSection.append($('<span />').addClass('font-semibold text-gray-900').html(redValue));
         var redBarContainer = $('<div />').addClass('w-24 h-2 bg-gray-200 rounded-full overflow-hidden');
-        var redBar = $('<div />').addClass('h-full bg-red-400 rounded-full').css('width', redPercent + '%');
+        var redBar = $('<div />').addClass('trivia-bar-red').css('width', redPercent + '%');
         redBarContainer.append(redBar);
         redSection.append(redBarContainer);
 
@@ -35,7 +35,7 @@
         // Blue bar and value
         var blueSection = $('<div />').addClass('flex items-center gap-2 flex-1');
         var blueBarContainer = $('<div />').addClass('w-24 h-2 bg-gray-200 rounded-full overflow-hidden');
-        var blueBar = $('<div />').addClass('h-full bg-blue-400 rounded-full').css('width', bluePercent + '%');
+        var blueBar = $('<div />').addClass('trivia-bar-blue').css('width', bluePercent + '%');
         blueBarContainer.append(blueBar);
         blueSection.append(blueBarContainer);
         blueSection.append($('<span />').addClass('font-semibold text-gray-900').html(blueValue));

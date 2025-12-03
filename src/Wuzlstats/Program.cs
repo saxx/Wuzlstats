@@ -2,6 +2,7 @@
 using Wuzlstats;
 using Wuzlstats.Hubs;
 using Wuzlstats.Models;
+using Wuzlstats.Services;
 using Wuzlstats.ViewModels.Hubs;
 using Wuzlstats.ViewModels.Home;
 
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<AppSettings>();
+builder.Services.AddScoped<LeagueHelper>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddSignalR(opts =>
 {

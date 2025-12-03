@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Wuzlstats@(ViewBag.CurrentLeague != null ? " - " + @ViewBag.CurrentLeague : "")</title>
 
+    @if (ViewBag.CurrentLeagueColors != null)
+    {
+        <style>
+            @Html.Raw(ViewBag.CurrentLeagueColors)
+        </style>
+    }
     <link rel="stylesheet" href="~/css/site.css"/>
     <link href="~/css/fontawesome.css" rel="stylesheet" />
     <link href="~/css/brands.css" rel="stylesheet" />
@@ -36,8 +42,23 @@
                 <span class="text-2xl font-semibold text-gray-900">Wuzlstats</span>
                 @if (ViewBag.CurrentLeague != null)
                 {
-                    <span class="hidden sm:inline text-gray-600">
-                        &#8669; @ViewBag.CurrentLeague league
+                    <span class="hidden sm:inline text-gray-600 flex flex-col items-center gap-2">
+                        <!--&#8669;-->
+                        @if (ViewBag.CurrentLeagueBanner != null)
+                        {
+                            <img src="@ViewBag.CurrentLeagueBanner" alt="@ViewBag.CurrentLeague" class="w-6 h-6 rounded object-cover">
+                        }
+                        else 
+                        {
+                        <span>
+                            @ViewBag.CurrentLeague league
+                            @if (ViewBag.CurrentLeagueDescription != null)
+                            {
+                            <span class="text-xs text-gray-500 block">@ViewBag.CurrentLeagueDescription</span>
+                            }
+                        </span>
+
+                        }
                     </span>
                 }
             </a>

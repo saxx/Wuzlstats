@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Wuzlstats.Models;
+using Wuzlstats.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -12,12 +13,12 @@ namespace Wuzlstats.ViewModels.Hubs
     public class LeagueStatisticsViewModel
     {
         private readonly Db _db;
-        private readonly AppSettings _settings;
+        private readonly LeagueHelper _leagueHelper;
         private readonly ILogger _logger;
 
-        public LeagueStatisticsViewModel(Db db, AppSettings settings, ILoggerFactory loggerFactory)
+        public LeagueStatisticsViewModel(Db db, LeagueHelper leagueHelper, ILoggerFactory loggerFactory)
         {
-            _settings = settings;
+            _leagueHelper = leagueHelper;
             _db = db;
             _logger = loggerFactory.CreateLogger(typeof(LeagueStatisticsViewModel));
         }
@@ -29,10 +30,11 @@ namespace Wuzlstats.ViewModels.Hubs
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            daysForStatistics = _settings.DaysForStatistics;
+            var days = _leagueHelper.GetDaysForStatistics(league);
+            daysForStatistics = days;
 
             var gamesQuery = _db.Games.AsNoTracking().Where(x => x.LeagueId == league.Id);
-            var date = DateTime.UtcNow.Date.AddDays(-_settings.DaysForStatistics);
+            var date = DateTime.UtcNow.Date.AddDays(-days);
             gamesQuery = gamesQuery.Where(x => x.Date >= date);
             var allGames = await gamesQuery.ToListAsync();
             _logger.LogTrace($"Loading {allGames.Count} games took {stopwatch.ElapsedMilliseconds}ms.");

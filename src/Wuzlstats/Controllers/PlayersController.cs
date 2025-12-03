@@ -10,12 +10,12 @@ namespace Wuzlstats.Controllers
     public class PlayersController : Controller
     {
         private readonly Db _db;
-        private readonly AppSettings _settings;
+        private readonly LeagueHelper _leagueHelper;
         private readonly PlayersService _statisticsService;
 
-        public PlayersController(Db db, AppSettings settings)
+        public PlayersController(Db db, LeagueHelper leagueHelper)
         {
-            _settings = settings;
+            _leagueHelper = leagueHelper;
             _db = db;
             _statisticsService = new PlayersService(_db);
         }
@@ -29,7 +29,12 @@ namespace Wuzlstats.Controllers
                 return RedirectToAction("Index", "Leagues");
             }
             ViewBag.CurrentLeague = leagueEntity.Name;
-            var players = await _statisticsService.FindPlayersOfLeague(leagueEntity.Id, recent ?_settings.DaysForStatistics : default(int?));
+            ViewBag.CurrentLeagueColors = _leagueHelper.GenerateCssVariables(leagueEntity);
+            ViewBag.CurrentLeagueBanner = leagueEntity.BannerImageUrl;
+            ViewBag.CurrentLeagueDescription = leagueEntity.Description;
+
+            var days = _leagueHelper.GetDaysForStatistics(leagueEntity);
+            var players = await _statisticsService.FindPlayersOfLeague(leagueEntity.Id, recent ? days : default(int?));
 
             switch (sort)
             {
@@ -50,7 +55,7 @@ namespace Wuzlstats.Controllers
             {
                 ActiveFilter = sort,
                 Recent = recent,
-                Days = _settings.DaysForStatistics,
+                Days = days,
                 Players = players
             });
         }
