@@ -32,11 +32,11 @@
 
   /* Score display */
   .score-display {
-    @apply text-center font-bold px-2 py-1.5 border border-gray-300 rounded-md bg-white w-[30px];
+    @apply text-center font-bold px-2 py-1.5 border border-gray-300 rounded-md bg-white w-12 text-gray-900;
   }
 
   .score-display-lg {
-    @apply text-center font-bold text-2xl leading-10 px-2 py-2 border border-gray-300 rounded-md bg-white w-14;
+    @apply text-center font-bold text-2xl leading-10 px-2 py-2 border border-gray-300 rounded-md bg-white w-16 text-gray-900;
   }
 
   /* Compact ranking list items */
