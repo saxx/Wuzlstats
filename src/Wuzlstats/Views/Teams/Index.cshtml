@@ -1,65 +1,75 @@
-﻿@model Wuzlstats.ViewModels.Teams.IndexViewModel
+@model Wuzlstats.ViewModels.Teams.IndexViewModel
 
 @if (Model.Recent)
 {
-    <p class="help-block">
+    <p class="text-sm text-gray-600 mb-4">
         These are the teams of the last @Model.Days days. All of them.<br />This is pretty sweet, but it gets better: There's also
-        <a href="@Url.Action("Index", "Teams", new { sort = Model.ActiveFilter, recent = false })">this very same statistic, but for all of the time</a>. All of it. Holy crap!
+        <a href="@Url.Action("Index", "Teams", new { sort = Model.ActiveFilter, recent = false })" class="text-blue-600 hover:underline">this very same statistic, but for all of the time</a>. All of it. Holy crap!
     </p>
 }
 else
 {
-    <p class="help-block">
+    <p class="text-sm text-gray-600 mb-4">
         These are all the teams. Ever.<br />No one will be forgotten. Shame and fame will last till the very end of days, or at least until a database crash with no backups. <br />
-        There's the same statistic, <a href="@Url.Action("Index", "Teams", new { sort = Model.ActiveFilter, recent = true })">but only for the last @Model.Days days</a>, too.
+        There's the same statistic, <a href="@Url.Action("Index", "Teams", new { sort = Model.ActiveFilter, recent = true })" class="text-blue-600 hover:underline">but only for the last @Model.Days days</a>, too.
     </p>
 }
 
-<div class="input-group">
-    Order By
-    <div class="btn-group">
-        <a href="@Url.Action("Index", "Teams", new { recent = Model.Recent })" class="btn btn-default btn-sm @(string.IsNullOrEmpty(Model.ActiveFilter) ? "active" : "")">Last played</a>
-        <a href="@Url.Action("Index", "Teams", new { sort = "best", recent = Model.Recent })" class="btn btn-default btn-sm @(Model.ActiveFilter == "best" ? "active" : "")">Best</a>
-        <a href="@Url.Action("Index", "Teams", new { sort = "worst", recent = Model.Recent })" class="btn btn-default btn-sm @(Model.ActiveFilter == "worst" ? "active" : "")">Worst</a>
-        <a href="@Url.Action("Index", "Teams", new { sort = "activity", recent = Model.Recent })" class="btn btn-default btn-sm @(Model.ActiveFilter == "activity" ? "active" : "")">Most active</a>
+<div class="flex items-center gap-3 mb-4">
+    <span class="text-sm font-medium text-gray-700">Order By</span>
+    <div class="inline-flex rounded-md shadow-sm" role="group">
+        <a href="@Url.Action("Index", "Teams", new { recent = Model.Recent })" class="px-4 py-2 text-sm font-medium @(string.IsNullOrEmpty(Model.ActiveFilter) ? "text-white bg-blue-700" : "text-gray-900 bg-white hover:bg-gray-100") border border-gray-200 rounded-l-lg focus:z-10 focus:ring-2 focus:ring-blue-700 transition-colors">Last played</a>
+        <a href="@Url.Action("Index", "Teams", new { sort = "best", recent = Model.Recent })" class="px-4 py-2 text-sm font-medium @(Model.ActiveFilter == "best" ? "text-white bg-blue-700" : "text-gray-900 bg-white hover:bg-gray-100") border-t border-b border-gray-200 focus:z-10 focus:ring-2 focus:ring-blue-700 transition-colors">Best</a>
+        <a href="@Url.Action("Index", "Teams", new { sort = "worst", recent = Model.Recent })" class="px-4 py-2 text-sm font-medium @(Model.ActiveFilter == "worst" ? "text-white bg-blue-700" : "text-gray-900 bg-white hover:bg-gray-100") border-t border-b border-gray-200 focus:z-10 focus:ring-2 focus:ring-blue-700 transition-colors">Worst</a>
+        <a href="@Url.Action("Index", "Teams", new { sort = "activity", recent = Model.Recent })" class="px-4 py-2 text-sm font-medium @(Model.ActiveFilter == "activity" ? "text-white bg-blue-700" : "text-gray-900 bg-white hover:bg-gray-100") border border-gray-200 rounded-r-lg focus:z-10 focus:ring-2 focus:ring-blue-700 transition-colors">Most active</a>
     </div>
 </div>
 
-<table class="table table-striped ranking teams">
-    <thead>
-        <tr>
-            <th></th>
-            <th>Team</th>
-            <th>Score</th>
-            <th>Last game</th>
-            <th>Count</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{var rank = 1; }
-        @foreach (var team in Model.Teams)
-        {
+<div class="relative overflow-x-auto bg-white shadow-sm rounded-lg">
+    <table class="w-full text-sm text-left">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
             <tr>
-                <td>
-                    @(rank++)
-                </td>
-                <td class="team">
-                    @Html.Partial("_Player", team.Player1)
-                    @Html.Partial("_Player", team.Player2)
-                </td>
-                <td>
-                    <div class="player-score">
-                        <span class="ranking-wins">@team.Wins<span class="glyphicon glyphicon-thumbs-up"></span></span>
-                        <span class="ranking-losses">@team.Losses<span class="glyphicon glyphicon-thumbs-down"></span></span>
-                    </div>
-                </td>
-                <td>
-                    @team.LastGamePlayedOn.ToString("d")
-                </td>
-                <td>
-                    @team.GamesCount
-                </td>
+                <th class="px-4 py-3"></th>
+                <th class="px-4 py-3">Team</th>
+                <th class="px-4 py-3">Score</th>
+                <th class="px-4 py-3">Last game</th>
+                <th class="px-4 py-3">Count</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+            @{var rank = 1; }
+            @foreach (var team in Model.Teams)
+            {
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-3 text-gray-700">
+                        @(rank++)
+                    </td>
+                    <td class="px-4 py-3">
+                        <div class="flex items-center gap-2">
+                            <partial name="_Player", model="team.Player1" />
+                            <partial name="_Player", model="team.Player2" />
+                        </div>
+                    </td>
+                    <td class="px-4 py-3 text-gray-700">
+                        <div class="flex items-center gap-2">
+                            <span class="inline-flex items-center gap-1">
+                                @team.Wins
+                                <i class="fas fa-thumbs-up text-green-600"></i>
+                            </span>
+                            <span class="inline-flex items-center gap-1">
+                                @team.Losses
+                                <i class="fas fa-thumbs-down text-red-600"></i>
+                            </span>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3 text-gray-700">
+                        @team.LastGamePlayedOn.ToString("d")
+                    </td>
+                    <td class="px-4 py-3 text-gray-700">
+                        @team.GamesCount
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

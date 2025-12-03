@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
 using Wuzlstats.Extensions;
 using Wuzlstats.Models;
+using Wuzlstats.Services;
 using Wuzlstats.ViewModels.Home;
 
 namespace Wuzlstats.Controllers
@@ -17,12 +18,14 @@ namespace Wuzlstats.Controllers
     {
         private readonly Db _db;
         private readonly IServiceProvider _services;
+        private readonly LeagueHelper _leagueHelper;
 
 
-        public HomeController(Db db, IServiceProvider services)
+        public HomeController(Db db, IServiceProvider services, LeagueHelper leagueHelper)
         {
             _db = db;
             _services = services;
+            _leagueHelper = leagueHelper;
         }
 
 
@@ -52,6 +55,9 @@ namespace Wuzlstats.Controllers
             }
 
             ViewBag.CurrentLeague = league.Name;
+            ViewBag.CurrentLeagueColors = _leagueHelper.GenerateCssVariables(league);
+            ViewBag.CurrentLeagueBanner = league.BannerImageUrl;
+            ViewBag.CurrentLeagueDescription = league.Description;
             return View(new IndexViewModel().Fill(league));
         }
 
@@ -66,6 +72,9 @@ namespace Wuzlstats.Controllers
             }
 
             ViewBag.CurrentLeague = leagueEntity.Name;
+            ViewBag.CurrentLeagueColors = _leagueHelper.GenerateCssVariables(leagueEntity);
+            ViewBag.CurrentLeagueBanner = leagueEntity.BannerImageUrl;
+            ViewBag.CurrentLeagueDescription = leagueEntity.Description;
             return View(await _services.GetRequiredService<GamesViewModel>().Fill(leagueEntity));
         }
 

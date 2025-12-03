@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  /* Custom team color badges */
+  .team-blue-badge {
+    background-color: var(--team-blue, #ddeeff);
+    color: var(--team-blue-text, #000000);
+    @apply px-1.5 py-0.5 rounded text-sm;
+  }
+
+  .team-red-badge {
+    background-color: var(--team-red, #ffddee);
+    color: var(--team-red-text, #000000);
+    @apply px-1.5 py-0.5 rounded text-sm;
+  }
+
+  /* Custom team input fields */
+  .input-team-blue {
+    background-color: var(--team-blue, #ddeeff);
+    color: var(--team-blue-text, #000000);
+    @apply border border-gray-300 rounded-md px-3 py-2 w-full focus:ring-2 focus:outline-none transition-colors;
+  }
+
+  .input-team-blue:focus {
+    border-color: var(--team-blue-focus, #88bbff);
+    --tw-ring-color: var(--team-blue-focus, #88bbff);
+  }
+
+  .input-team-red {
+    background-color: var(--team-red, #ffddee);
+    color: var(--team-red-text, #000000);
+    @apply border border-gray-300 rounded-md px-3 py-2 w-full focus:ring-2 focus:outline-none transition-colors;
+  }
+
+  .input-team-red:focus {
+    border-color: var(--team-red-focus, #ff88bb);
+    --tw-ring-color: var(--team-red-focus, #ff88bb);
+  }
+
+  /* Player avatar styles */
+  .avatar-player {
+    @apply w-10 h-10 rounded-full border-2 border-gray-400 object-cover;
+  }
+
+  .avatar-player-lg {
+    @apply w-[150px] h-[150px] rounded-full border-2 border-gray-400 object-cover float-right;
+  }
+
+  /* Score display */
+  .score-display {
+    @apply text-center font-bold px-2 py-1.5 border border-gray-300 rounded-md bg-white w-12;
+  }
+
+  .score-display.team-blue {
+    background-color: var(--team-blue, #ddeeff);
+    color: var(--team-blue-text, #000000);
+  }
+
+  .score-display.team-blue:focus {
+    border-color: var(--team-blue-focus, #88bbff);
+    --tw-ring-color: var(--team-blue-focus, #88bbff);
+  }
+
+  .score-display.team-red {
+    background-color: var(--team-red, #ffddee);
+    color: var(--team-red-text, #000000);
+  }
+
+  .score-display.team-red:focus {
+    border-color: var(--team-red-focus, #ff88bb);
+    --tw-ring-color: var(--team-red-focus, #ff88bb);
+  }
+
+  .score-display-lg {
+    @apply text-center font-bold text-2xl leading-10 px-2 py-2 border border-gray-300 rounded-md bg-white w-16;
+  }
+
+  .score-display-lg.team-blue {
+    background-color: var(--team-blue, #ddeeff);
+    color: var(--team-blue-text, #000000);
+  }
+
+  .score-display-lg.team-blue:focus {
+    border-color: var(--team-blue-focus, #88bbff);
+    --tw-ring-color: var(--team-blue-focus, #88bbff);
+  }
+
+  .score-display-lg.team-red {
+    background-color: var(--team-red, #ffddee);
+    color: var(--team-red-text, #000000);
+  }
+
+  .score-display-lg.team-red:focus {
+    border-color: var(--team-red-focus, #ff88bb);
+    --tw-ring-color: var(--team-red-focus, #ff88bb);
+  }
+
+  /* Compact ranking list items */
+  .ranking-item {
+    @apply flex items-center gap-2 py-1.5 hover:bg-gray-50 rounded transition-colors;
+  }
+
+  .ranking-avatar {
+    @apply w-8 h-8 rounded-full border-2 border-gray-400 flex-shrink-0;
+  }
+
+  .ranking-name {
+    @apply font-medium text-sm text-gray-900 flex-1 truncate;
+  }
+
+  .ranking-score {
+    @apply flex items-center gap-3 text-xs text-gray-600 flex-shrink-0;
+  }
+
+  .ranking-wins {
+    @apply inline-flex items-center gap-1;
+  }
+
+  .ranking-losses {
+    @apply inline-flex items-center gap-1;
+  }
+
+  .ranking-wins .fa-crown {
+    @apply text-yellow-500;
+  }
+
+  .ranking-losses .fa-poop {
+    @apply text-amber-700;
+  }
+
+  /* Team rankings - two avatars side by side */
+  .team-ranking-avatars {
+    @apply flex gap-1 flex-shrink-0;
+  }
+
+  .team-ranking-names {
+    @apply flex flex-col flex-1 min-w-0;
+  }
+
+  .team-ranking-names .ranking-name {
+    @apply leading-tight py-0;
+  }
+
+  /* League trivia comparison bars */
+  .trivia-bar-red {
+    background-color: var(--team-red-focus, #ff88bb);
+    @apply h-full rounded-full;
+  }
+
+  .trivia-bar-blue {
+    background-color: var(--team-blue-focus, #88bbff);
+    @apply h-full rounded-full;
+  }
+}

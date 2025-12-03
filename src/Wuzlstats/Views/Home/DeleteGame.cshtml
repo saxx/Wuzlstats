@@ -1,36 +1,44 @@
-﻿@model Wuzlstats.ViewModels.Home.DeleteGameViewModel
+@model Wuzlstats.ViewModels.Home.DeleteGameViewModel
 
 <form asp-action="DeleteGameConfirmed">
-    <div class="form">
-        <h2>Do you really want to delete the game?</h2>
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <table class="table">
-                    <tr>
-                        <th>Date</th>
-                        <td class="text-right">@Model.PlayedOn</td>
-                    </tr>
-                    <tr>
-                        <th>Players</th>
-                        <td class="text-right">
-                            <span class="team-red">@Model.RedPlayers</span> :
-                            <span class="team-blue">@Model.BluePlayers</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Score</th>
-                        <td class="text-right">
-                            <span class="team-red">@Model.RedScore</span> :
-                            <span class="team-blue">@Model.BlueScore</span>
-                        </td>
-                    </tr>
-                </table>
+    <div class="space-y-6">
+        <h2 class="text-xl font-semibold">Do you really want to delete the game?</h2>
+        <div class="flex flex-wrap -mx-4">
+            <div class="w-full md:w-1/2 px-4 mb-6 md:mb-0">
+                <div class="relative overflow-x-auto bg-white shadow-sm rounded-lg">
+                    <table class="w-full text-sm text-left">
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <th class="px-4 py-2 font-medium text-gray-900">Date</th>
+                                <td class="px-4 py-2 text-right text-gray-700">@Model.PlayedOn</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <th class="px-4 py-2 font-medium text-gray-900">Players</th>
+                                <td class="px-4 py-2 text-right text-gray-700">
+                                    <span class="team-red-badge">@Model.RedPlayers</span> :
+                                    <span class="team-blue-badge">@Model.BluePlayers</span>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <th class="px-4 py-2 font-medium text-gray-900">Score</th>
+                                <td class="px-4 py-2 text-right text-gray-700">
+                                    <span class="team-red-badge">@Model.RedScore</span> :
+                                    <span class="team-blue-badge">@Model.BlueScore</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <p style="text-align: center;">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                    <a href="@Url.Action("Games")" class="btn btn-default">Back</a>
-                </p>
+            <div class="w-full md:w-1/2 px-4">
+                <div class="flex flex-col items-center justify-center gap-3 h-full">
+                    <button type="submit" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 transition-colors w-full md:w-auto">
+                        Delete
+                    </button>
+                    <a href="@Url.Action("Games")" class="text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 transition-colors w-full md:w-auto text-center">
+                        Back
+                    </a>
+                </div>
             </div>
         </div>
     </div>

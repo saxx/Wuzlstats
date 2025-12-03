@@ -1,0 +1,17 @@
+{
+  "name": "wuzlstats",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/Wuzlstats/Styles/input.css -o ./src/Wuzlstats/wwwroot/css/site.css --minify",
+    "watch:css": "tailwindcss -i ./src/Wuzlstats/Styles/input.css -o ./src/Wuzlstats/wwwroot/css/site.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32"
+  },
+  "dependencies": {
+    "flowbite": "^2.2.0"
+  }
+}

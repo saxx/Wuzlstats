@@ -1,52 +1,57 @@
 ﻿(function(app, $) {
     app.renderTeamRanking = function(element, teams) {
-        element = $(element)
-            .addClass('ranking')
-            .addClass('team-ranking')
-            .html('');
+        element = $(element).html('');
 
         $.each(teams, function(index, team) {
-            var block = $('<li />');
+            var block = $('<li />').addClass('ranking-item');
 
-            block.append(
+            // Avatars (side by side)
+            var avatarsContainer = $('<div />').addClass('team-ranking-avatars');
+            avatarsContainer.append(
                 $('<a href="' + app.config.getPlayerUrl().replace('[id]', team.player1.id) + '"></a>').append(
                     $('<img />')
                         .attr('src', 'data:image/png;base64,' + team.player1.image)
-                        .addClass('ranking-image')
+                        .attr('alt', team.player1.name)
+                        .addClass('ranking-avatar')
                 )
             );
-            block.append(
+            avatarsContainer.append(
                 $('<a href="' + app.config.getPlayerUrl().replace('[id]', team.player2.id) + '"></a>').append(
                     $('<img />')
                         .attr('src', 'data:image/png;base64,' + team.player2.image)
-                        .addClass('ranking-image')
+                        .attr('alt', team.player2.name)
+                        .addClass('ranking-avatar')
                 )
             );
+            block.append(avatarsContainer);
 
-            block.append(
+            // Names (stacked)
+            var namesContainer = $('<div />').addClass('team-ranking-names');
+            namesContainer.append(
                 $('<div />')
                     .html(team.player1.name)
                     .addClass('ranking-name')
             );
-            block.append(
+            namesContainer.append(
                 $('<div />')
                     .html(team.player2.name)
                     .addClass('ranking-name')
             );
+            block.append(namesContainer);
 
-            var scoreBlock = $('<div />')
-                .addClass('ranking-score');
+            // Score (wins/losses)
+            var scoreBlock = $('<div />').addClass('ranking-score');
             scoreBlock.append(
                 $('<span />')
-                    .html(team.wins)
-                    .append('<span class="fa-solid fa-crown" />')
                     .addClass('ranking-wins')
+                    .html(team.wins + ' ')
+                    .append('<i class="fa-solid fa-crown" />')
             );
             scoreBlock.append(
                 $('<span />')
-                    .html(team.losses)
-                    .append('<span class="fa-solid fa-poop" />')
                     .addClass('ranking-losses')
+                    .html(team.losses + ' ')
+                    .append('<i class="fa-solid fa-poop" />')
             );
             block.append(scoreBlock);
 

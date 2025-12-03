@@ -1,40 +1,51 @@
-﻿@model Wuzlstats.ViewModels.Home.GamesViewModel
+@model Wuzlstats.ViewModels.Home.GamesViewModel
 
-<p>
+<p class="text-gray-600 mb-6">
     You may delete any game in this league. Please be careful and only delete erroneous games.
     Since all the data is open and available to everyone, you can do a lot of harm. With great power comes great responsibility!
 </p>
 
 @if (Model.Games.Any())
 {
-    <table class="table">
-        <tr>
-            <th>Date</th>
-            <th>Players</th>
-            <th>Score</th>
-            <th></th>
-        </tr>
-
-        @foreach (var game in Model.Games)
-        {
-            <tr>
-                <td>
-                    @game.Date UTC
-                </td>
-                <td>
-                    <span class="team-red">@game.RedPlayers</span> : <span class="team-blue">@game.BluePlayers</span>
-                </td>
-                <td>
-                    <span class="team-red">@game.RedScore</span> : <span class="team-blue">@game.BlueScore</span>
-                </td>
-                <td>
-                    <a href="@Url.Action("DeleteGame", "Home", new { league = Model.League, game = game.Id })" class="btn btn-danger btn-sm glyphicon glyphicon-remove"></a>
-                </td>
-            </tr>
-        }
-    </table>
+    <div class="relative overflow-x-auto bg-white shadow-sm rounded-lg">
+        <table class="w-full text-sm text-left">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
+                <tr>
+                    <th class="px-4 py-3">Date</th>
+                    <th class="px-4 py-3">Players</th>
+                    <th class="px-4 py-3">Score</th>
+                    <th class="px-4 py-3"></th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                @foreach (var game in Model.Games)
+                {
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 text-gray-700">
+                            @game.Date UTC
+                        </td>
+                        <td class="px-4 py-3">
+                            <span class="team-red-badge">@game.RedPlayers</span> : <span class="team-blue-badge">@game.BluePlayers</span>
+                        </td>
+                        <td class="px-4 py-3">
+                            <span class="team-red-badge">@game.RedScore</span> : <span class="team-blue-badge">@game.BlueScore</span>
+                        </td>
+                        <td class="px-4 py-3">
+                            <a href="@Url.Action("DeleteGame", "Home", new { league = Model.League, game = game.Id })" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm p-2 inline-flex items-center transition-colors" title="Delete game">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 else
 {
-    <div class="alert alert-warning">There are no games associated with this league. What a pity, you definitly should wuzl more.</div>
+    <div class="flex items-center p-4 mb-4 text-yellow-800 rounded-lg bg-yellow-50 border border-yellow-300" role="alert">
+        <div class="ml-3 text-sm">
+            There are no games associated with this league. What a pity, you definitly should wuzl more.
+        </div>
+    </div>
 }

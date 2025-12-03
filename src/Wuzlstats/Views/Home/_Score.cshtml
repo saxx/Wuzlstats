@@ -1,53 +1,89 @@
-﻿<div class="row">
-    <div class="col-sm-6">
-        <h3 class="hidden-xs">Add score</h3>
+@*Score entry form with 1v1 and 2v2 modes*@
+<div class="flex flex-wrap items-center justify-between mb-4">
+    <h3 class="hidden sm:block text-lg font-semibold">Add score</h3>
+    <div class="inline-flex rounded-md shadow-sm ml-auto" role="group">
+        <button type="button" id="twoPlayersButton" class="px-4 py-2 text-sm font-medium text-white bg-blue-700 border border-gray-200 rounded-l-lg focus:z-10 focus:ring-2 focus:ring-blue-700 transition-colors">
+            1 vs. 1
+        </button>
+        <button type="button" id="fourPlayersButton" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 rounded-r-lg focus:z-10 focus:ring-2 focus:ring-blue-700 transition-colors">
+            2 vs. 2
+        </button>
     </div>
-    <div class="col-sm-6">
-        <div class="btn-group pull-right" data-toggle="buttons">
-            <label class="btn btn-default btn-sm active">
-                <input type="radio" name="options" id="twoPlayersButton" autocomplete="off" checked>1 vs. 1
-            </label>
-            <label class="btn btn-default btn-sm">
-                <input type="radio" name="options" id="fourPlayersButton" autocomplete="off">2 vs. 2
-            </label>
+</div>
+
+@* 1v1 Score Entry *@
+<div class="flex flex-col gap-4 mb-6" id="twoPlayersScore">
+    <div class="flex items-center gap-2">
+        @* Red player *@
+        <div class="flex-1">
+            <input class="input-team-red" id="redPlayer" placeholder="Red player" list="playersDatalist">
+        </div>
+
+        @* Score display *@
+        <div class="flex items-center gap-1">
+            <input class="score-display team-red" type="number" min="0" max="10" id="redPlayerScore">
+            <span class="text-xl font-bold">:</span>
+            <input class="score-display team-blue" type="number" min="0" max="10" id="bluePlayerScore">
+        </div>
+
+        @* Blue player *@
+        <div class="flex-1">
+            <input class="input-team-blue" id="bluePlayer" placeholder="Blue player" list="playersDatalist">
         </div>
     </div>
 </div>
 
-<div class="row score-box player-score-box" id="twoPlayersScore">
-    <div class="col-xs-4">
-        <input class="form-control player team-red" id="redPlayer" placeholder="Red player" list="playersDatalist">
-    </div>
-    <div class="col-xs-4">
-        <input class="form-control score team-red" id="redPlayerScore">
-        <input class="form-control score team-blue pull-right" id="bluePlayerScore">
-        <span>:</span>
-    </div>
-    <div class="col-xs-4">
-        <input class="form-control player team-blue" id="bluePlayer" placeholder="Blue player" list="playersDatalist">
+@* 2v2 Score Entry *@
+<div class="flex flex-col gap-4 mb-6 hidden" id="fourPlayersScore">
+    <div class="flex items-center gap-2">
+        @* Red team *@
+        <div class="flex-1 space-y-2">
+            <input class="input-team-red" id="redTeamOffense" placeholder="Red offense player" list="playersDatalist">
+            <input class="input-team-red" id="redTeamDefense" placeholder="Red defense player" list="playersDatalist">
+        </div>
+
+        @* Score display *@
+        <div class="flex items-center gap-1 self-center">
+            <input class="score-display-lg team-red" type="number" min="0" max="10" id="redTeamScore">
+            <span class="text-2xl font-bold">:</span>
+            <input class="score-display-lg team-blue" type="number" min="0" max="10" id="blueTeamScore">
+        </div>
+
+        @* Blue team *@
+        <div class="flex-1 space-y-2">
+            <input class="input-team-blue" id="blueTeamOffense" placeholder="Blue offense player" list="playersDatalist">
+            <input class="input-team-blue" id="blueTeamDefense" placeholder="Blue defense player" list="playersDatalist">
+        </div>
     </div>
 </div>
 
-<div class="row score-box team-score-box" id="fourPlayersScore" style="display: none;">
-    <div class="col-xs-4">
-        <input class="form-control player team-red" id="redTeamOffense" placeholder="Red offense player" list="playersDatalist">
-        <input class="form-control player team-red" id="redTeamDefense" placeholder="Red defense player" list="playersDatalist">
-    </div>
-    <div class="col-xs-4">
-        <input class="form-control score team-red" id="redTeamScore">
-        <input class="form-control score team-blue pull-right" id="blueTeamScore">
-        <span>:</span>
-    </div>
-    <div class="col-xs-4">
-        <input class="form-control player team-blue" id="blueTeamOffense" placeholder="Blue offense player" list="playersDatalist">
-        <input class="form-control player team-blue" id="blueTeamDefense" placeholder="Blue defense player" list="playersDatalist">
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-xs-12 text-center">
-        <button class="btn btn-default btn-lg" id="submitScore">Submit</button>
-    </div>
+@* Submit Button *@
+<div class="text-center mb-4">
+    <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-base px-8 py-3 transition-colors" id="submitScore">
+        Submit
+    </button>
 </div>
 
 <datalist id="playersDatalist"></datalist>
+
+@* Toggle functionality *@
+<script>
+    // Add toggle functionality for 1v1/2v2 modes
+    document.getElementById('twoPlayersButton').addEventListener('click', function() {
+        document.getElementById('twoPlayersScore').classList.remove('hidden');
+        document.getElementById('fourPlayersScore').classList.add('hidden');
+        this.classList.remove('bg-white', 'hover:bg-gray-100', 'text-gray-900');
+        this.classList.add('bg-blue-700', 'text-white');
+        document.getElementById('fourPlayersButton').classList.remove('bg-blue-700', 'text-white');
+        document.getElementById('fourPlayersButton').classList.add('bg-white', 'hover:bg-gray-100', 'text-gray-900');
+    });
+
+    document.getElementById('fourPlayersButton').addEventListener('click', function() {
+        document.getElementById('fourPlayersScore').classList.remove('hidden');
+        document.getElementById('twoPlayersScore').classList.add('hidden');
+        this.classList.remove('bg-white', 'hover:bg-gray-100', 'text-gray-900');
+        this.classList.add('bg-blue-700', 'text-white');
+        document.getElementById('twoPlayersButton').classList.remove('bg-blue-700', 'text-white');
+        document.getElementById('twoPlayersButton').classList.add('bg-white', 'hover:bg-gray-100', 'text-gray-900');
+    });
+</script>
